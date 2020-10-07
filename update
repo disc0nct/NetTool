@@ -69,7 +69,7 @@ if [ $? -eq 0 ]; then
 	sleep 1
 	echo -e $yellow"Applying Execution Permissions to NetTool..."
 	sleep 1
-	chmod +x nettool >/dev/null 2>&1
+	chmod +x netTool >/dev/null 2>&1
 	chmod +x update >/dev/null 2>&1
 	echo -e "executing chmod +x nettool..."
 	sleep 0.5
