@@ -321,10 +321,12 @@ do
     echo -e ""$orange""interafce:$nc" $interafce | "$orange""gateway: $nc"$gateway | "$orange""ip:$nc" $ip"
     
     echo""
-    echo -e "$orange""1)$nc""$green""Scan for hosts               $nc""$orange""2)$nc""$green""Kill internet connection$nc"
-    echo -e "$orange""3)$nc""$green""Scan for hosts(Nmap scan)    $nc""$orange""4)$nc""$green""Exit$nc"
-    echo -e
-    
+    echo -e "$orange""1)$nc""$green""Scan for hosts$nc"
+    echo -e "$orange""2)$nc""$green""Kill internet connection$nc"
+    echo -e "$orange""3)$nc""$green""Scan for hosts(Nmap scan)$nc"
+    echo -e "$yellow""4)$nc""$yellow""Update$nc"
+    echo -e "$lightred""5)$nc""$lightred""Exit$nc"
+    echo ""
     echo -e -n "$yellow""Select you option : $nc"
     read option
     echo ""
@@ -485,6 +487,9 @@ do
             esac
         ;;
         4)
+        bash update
+        ;;
+        5)
             echo -e "$red""Bye bye :)$nc"
             sleep 1
             clear
