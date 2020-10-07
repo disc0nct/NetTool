@@ -78,8 +78,6 @@ if [ $? -eq 0 ]; then
 	sleep 1
 	echo -e $blue"DONE"
 	
-	
-	
 else   
     echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
     echo -e "$yellow""Please make sure you are connected to internet!" "$nc"
