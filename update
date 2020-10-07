@@ -71,7 +71,7 @@ if [ $? -eq 0 ]; then
 	sleep 1
 	chmod +x netTool >/dev/null 2>&1
 	chmod +x update >/dev/null 2>&1
-	echo -e "executing chmod +x nettool..."
+	echo -e "executing chmod +x netTool..."
 	sleep 0.5
 	echo -e "executing +x update..."
 	sleep 0.5
