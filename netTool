@@ -490,11 +490,10 @@ do
         bash update
         ;;
         5)
-            echo -e "$red""Bye bye :)$nc"
+            echo -e "$lightred""Bye bye :)$nc"
             sleep 1
             clear
-            exit 1
-            
+            exit 1 
         ;;
     esac
 done
