@@ -45,12 +45,27 @@ if [ $? -eq 0 ]; then
     sleep 3
     clear
     sleep 0.5
+    while true; do
+    echo -e $blue"Updating NetTool from Github"
+    sleep 0.1
+    clear
+    echo -e $blue"Updating NetTool from Github."
+    sleep 0.1
+    clear
+    echo -e $blue"Updating NetTool from Github.."
+    sleep 0.1
+    clear
     echo -e $blue"Updating NetTool from Github..."
+    sleep 0.1
+    clear 
+    done &
+	trap 'kill $!' SIGTERM SIGKILL
     sleep 1
 	git reset HEAD --hard >/dev/null 2>&1
 	git pull origin master >/dev/null 2>&1
 	sleep 1
 	echo -e $green"Update success!" 
+	kill $!
 	sleep 1
 	echo -e $yellow"Applying Execution Permissions to NetTool..."
 	sleep 1
@@ -58,10 +73,11 @@ if [ $? -eq 0 ]; then
 	chmod +x update >/dev/null 2>&1
 	echo -e "executing chmod +x nettool..."
 	sleep 0.5
-	echo -e "chmod +x update..."
+	echo -e "executing +x update..."
 	sleep 0.5
 	sleep 1
 	echo -e $blue"DONE"
+	
 	
 	
 else   
