@@ -51,6 +51,10 @@ sleep 0.5
 	 echo "DONE"
 	 sleep 0.5
 	 echo "Now you can run"" 'netTool' ""from anywhere in the Terminal "
+	 chmod +x update
+	 chmod install 
+	 chmod netTool
+	 chmod +x /usr/bin/netTool
 	 sleep 2
 
  #echo "Do you want to run it? (Y/n)"
