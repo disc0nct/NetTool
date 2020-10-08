@@ -244,7 +244,7 @@ sleep 1
 
 if [ -f "/usr/sbin/netdiscover" ]; then
     echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$green[✓] installed$nc"
-    sleep 0.5
+    sleep 0.2
 else
     echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
     echo -e "$orange""Downloading & Installing netdiscover...$nc"
@@ -258,7 +258,7 @@ fi
 
 if [[ -f "/usr/bin/nmap" ]]; then
     echo -e "$white""nmap$nc""$yellow ==========>$nc" "$green[✓] installed$nc"
-    sleep 0.5
+    sleep 0.2
 else
     echo -e "$white""nmap$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
     echo -e "$orange""Downloading & Installing nmap...$nc"
@@ -271,7 +271,7 @@ fi
 
 if [[ -f "/usr/sbin/arpspoof" ]]; then
     echo -e "$white""arpspoof$nc""$yellow ======>$nc" "$green[✓] installed$nc"
-    sleep 0.5
+    sleep 0.2
 else
     echo -e "$white""arpspoof$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
     echo -e "$orange""Downloading & Installing arpspoof...$nc"
@@ -286,7 +286,7 @@ fi
 
 if [[ -f "/usr/sbin/arp-scan" ]]; then
     echo -e "$white""arp-scan$nc""$yellow ======>$nc" "$green[✓] installed$nc"
-    sleep 0.5
+    sleep 0.2
 else
     echo -e "$white""arp-scan$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
     echo -e "$orange""Downloading & Installing arp-scan...$nc"
@@ -482,20 +482,18 @@ do
                     sleep 4
                     echo -e "$blue""Going back to Menu...$nc"
                     sleep 1
-
                 fi
                 ;;
-                
             esac
         ;;
         4)
-        path=$(pwd) 
-        update_path= $(find  */netTool/update) >/dev/null 2>&1
-        bash $path/$update_path >/dev/null 2>&1
+        cd $HOME >/dev/null 2>&1
+        update_path=$(find $HOME/ -name "update"  | grep /netTool/update)
+        bash $update_path
         ;;
         5)
             echo -e "$lightred""Bye bye :)$nc"
-            sleep 1
+            sleep 0.5
             clear
             exit 1 
         ;;
