@@ -1,5 +1,5 @@
 #!/bin/bash
-#Colors
+#Colors_BEGIN
 
 clear
 red='\e[0;31m'
@@ -18,6 +18,8 @@ lightpurple='\e[1;35m'
 lightcyan='\e[1;36m'
 white='\e[1;37m'
 nc="\e[0m"
+
+#Colors_END
 #: <<'END_COMMENT'
 nc="\e[0m"
 #ROOT PRIVILEGIES
