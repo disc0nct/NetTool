@@ -1,5 +1,5 @@
-!#/bin/bash
-#Colors
+#!/bin/bash
+#Colors_BEGIN
 
 clear
 red='\e[0;31m'
@@ -18,6 +18,8 @@ lightpurple='\e[1;35m'
 lightcyan='\e[1;36m'
 white='\e[1;37m'
 nc="\e[0m"
+
+#Colors_END
 
 #checking for internet
 
@@ -71,10 +73,13 @@ if [ $? -eq 0 ]; then
 	sleep 1
 	chmod +x netTool >/dev/null 2>&1
 	chmod +x update >/dev/null 2>&1
+    chmod +x install >/dev/null 2>&1
 	echo -e "executing chmod +x netTool..."
 	sleep 0.5
 	echo -e "executing +x update..."
 	sleep 0.5
+    echo -e "executing +x install..."
+    sleep 0.5
 	sleep 1
 	echo -e $blue"DONE"
     sleep 2
@@ -85,3 +90,4 @@ else
 	kill $!
     exit 1
 fi
+t
