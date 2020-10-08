@@ -489,7 +489,9 @@ do
             esac
         ;;
         4)
-        bash update
+        path=$(pwd) 
+        update_path= $(find  */netTool/update) >/dev/null 2>&1
+        bash $path/$update_path >/dev/null 2>&1
         ;;
         5)
             echo -e "$lightred""Bye bye :)$nc"
