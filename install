@@ -61,15 +61,13 @@ sleep 0.5
  read -p "Do you want to run it? [Y/n] " answ2
 
  if [[ "$answ2" = "y" ]] || [[ "$answ2" = "Y" ]]  ; then
- 	./netTool
+ 	bash netTool
  else
 
  	echo "Aboarding..."
 		exit 1
 
  fi
-
-	
 	else
 		echo "Aboarding..."
 		exit 1
