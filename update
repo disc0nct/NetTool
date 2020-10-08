@@ -61,33 +61,37 @@ if [ $? -eq 0 ]; then
     sleep 0.1
     clear 
     done &
-	trap 'kill $!' SIGTERM SIGKILL
+    trap 'kill $!' SIGTERM SIGKILL
     sleep 1
-	git reset HEAD --hard >/dev/null 2>&1
-	git pull origin master >/dev/null 2>&1
-	sleep 1
-	echo -e $green"Update success!" 
-	kill $!
-	sleep 1
-	echo -e $yellow"Applying Execution Permissions to NetTool..."
-	sleep 1
-	chmod +x netTool >/dev/null 2>&1
-	chmod +x update >/dev/null 2>&1
+    git reset HEAD --hard >/dev/null 2>&1
+    git pull origin master >/dev/null 2>&1
+    rm /usr/bin/netTool
+    cp netTool /usr/bin
+    sleep 1
+    echo -e $green"Update success!" 
+    kill $!
+    sleep 1
+    echo -e $yellow"Applying Execution Permissions to NetTool..."
+    sleep 1
+    chmod +x netTool >/dev/null 2>&1
+    chmod +x /usr/bin/netTool 2>&1
+    chmod +x update >/dev/null 2>&1
     chmod +x install >/dev/null 2>&1
-	echo -e "executing chmod +x netTool..."
-	sleep 0.5
-	echo -e "executing +x update..."
-	sleep 0.5
+
+    echo -e "executing chmod +x netTool..."
+    sleep 0.5
+    echo -e "executing +x update..."
+    sleep 0.5
     echo -e "executing +x install..."
     sleep 0.5
-	sleep 1
-	echo -e $blue"DONE"
+    sleep 1
+    echo -e $blue"DONE"
     sleep 2
-	
+    
 else   
     echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
     echo -e "$yellow""Please make sure you are connected to internet!" "$nc"
-	kill $!
+    kill $!
     exit 1
 fi
 t
