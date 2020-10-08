@@ -1,0 +1,49 @@
+#!/bin/bash
+#echo "Do you want to install it? (Y/n)" 
+read -p "Do you want to install it? [Y/n] " answ1
+clear
+sleep 0.5
+if  [ "$answ1" = "y" ] || [ "$answ1" = "Y" ]; then
+while true;
+	do
+	echo "copying file to /usr/bin"
+	sleep 0.1
+	clear
+	echo "copying file to /usr/bin."
+	sleep 0.1
+	clear
+	echo "copying file to /usr/bin.."
+	sleep 0.1
+	clear
+	echo "copying file to /usr/bin..."
+	sleep 0.1
+	clear
+done &
+
+trap 'kill $!' SIGTERM SIGKILL
+sleep 1
+cp netTool /usr/bin
+sleep 0.5
+ kill $!
+	 echo "DONE"
+	 sleep 0.5
+	 echo "Now you can run"" 'netTool' ""from anywhere in the Terminal "
+	 sleep 2
+
+ #echo "Do you want to run it? (Y/n)"
+ read -p "Do you want to run it? [Y/n] " answ2
+
+ if [[ "$answ2" = "y" ]] || [[ "$answ2" = "Y" ]]  ; then
+ 	./netTool
+ else
+
+ 	echo "Aboarding..."
+		exit 1
+
+ fi
+
+	
+	else
+		echo "Aboarding..."
+		exit 1
+fi
