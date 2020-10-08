@@ -45,8 +45,7 @@ done &
 
 trap 'kill $!' SIGTERM SIGKILL
 sleep 1
-cp netTool.sh /usr/bin
-mv /usr/bin/netTool.sh /usr/bin/netTool
+cp netTool /usr/bin
 sleep 0.5
  kill $!
 	 echo "DONE"
@@ -54,7 +53,7 @@ sleep 0.5
 	 echo "Now you can run"" 'netTool' ""from anywhere in the Terminal "
 	 chmod +x update
 	 chmod +x install 
-	 chmod +x netTool.sh
+	 chmod +x netTool
 	 chmod +x /usr/bin/netTool
 	 sleep 2
 
