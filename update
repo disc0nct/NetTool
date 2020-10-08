@@ -74,7 +74,7 @@ if [ $? -eq 0 ]; then
     echo -e $yellow"Applying Execution Permissions to NetTool..."
     sleep 1
     chmod +x netTool >/dev/null 2>&1
-    chmod +x /usr/bin/netTool 2>&1
+    chmod +x /usr/bin/netTool 2>&1a
     chmod +x update >/dev/null 2>&1
     chmod +x install >/dev/null 2>&1
 
@@ -94,4 +94,3 @@ else
     kill $!
     exit 1
 fi
-t
