@@ -5,6 +5,8 @@
 **NetTool** is a tool to look over your Network.
 
 # Installation 
+ 
+1. sudo -i **(grant root access)**
 
 1. git clone https://github.com/disc0nct/NetTool.git
  
