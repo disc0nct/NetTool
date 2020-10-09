@@ -410,6 +410,7 @@ do
                 fi
                 ;;
             esac
+        ;;
         3)
             echo -e "$orange""1-$nc""$green""kill connection for 1 target$nc"
             echo -e "$orange""2-$nc""$green""kill connection for muliple targets$nc"
