@@ -488,7 +488,7 @@ do
         ;;
         4)
         cd $HOME >/dev/null 2>&1
-        update_path=$(find $HOME/ -name "update"  | grep /netTool/update)
+        update_path=$(find $HOME/ -name "update"  | grep /NetTool/update)
         bash $update_path
         ;;
         5)
