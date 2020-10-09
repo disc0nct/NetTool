@@ -1,5 +1,4 @@
-# NetTool v1.0 - Automated Network Tool
-
+# NetTool - Automated Network Tool
 
 # Discription
 
@@ -22,3 +21,6 @@
 ![GitHub Logo](https://i.imgur.com/mnKaRYH.png)
 
 **Video:** https://youtu.be/sOFT6_FurJU
+
+# Version 
+**v1.0**
