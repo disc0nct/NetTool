@@ -23,4 +23,4 @@
 **Video:** https://youtu.be/sOFT6_FurJU
 
 # Version 
-**v1.0**
+* **v1.0**
