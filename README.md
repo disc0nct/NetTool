@@ -11,6 +11,8 @@
 1. cd NetTool
  
 1. chmod +x install
+
+1. ./install
  
 # Usage
 
