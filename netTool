@@ -483,9 +483,8 @@ do
                     pkill arpspoof
                     echo -e "$blue""Going back to Menu...$nc"
                     sleep 1
+                    ;;
             esac
-        ;;
-        
         ;;
         4)
         cd $HOME >/dev/null 2>&1
