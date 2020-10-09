@@ -76,16 +76,14 @@ if [ $? -eq 0 ]; then
     kill $!
     sleep 0.5
     echo -e $yellow"Applying Execution Permissions to netTool..."
-    sleep 1
+    sleep 0.5
     chmod +x netTool >/dev/null 2>&1
     chmod +x /usr/bin/netTool 2>&1
     chmod +x update >/dev/null 2>&1
     chmod +x install >/dev/null 2>&1
     sleep 0.5
-    sleep 1
     echo -e $blue"DONE"
     sleep 2
-    
 else   
     echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
     echo -e "$yellow""Please make sure you are connected to internet!" "$nc"
