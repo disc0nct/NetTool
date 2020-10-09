@@ -1,4 +1,4 @@
-# **NetTool**v1.0 **- Automated Network Tool**
+# NetTool v1.0 - Automated Network Tool
 
 
 # Discription
