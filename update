@@ -83,6 +83,7 @@ if [ $? -eq 0 ]; then
     chmod +x install >/dev/null 2>&1
     sleep 0.5
     echo -e $blue"DONE"
+    kill $!
     sleep 1
     read -p "Rerun netTool? [Y/n] " anssw
     if  [ "$anssw" = "y" ] || [ "$answ1" = "Y" ]; then
