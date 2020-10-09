@@ -17,4 +17,4 @@ NetTool is a **tool**
 - Just run it from the Terminal by typing ' netTool '.
 
 # Preview 
-![screenshot _2020-10-09 17-06-10.png]
+![GitHub Logo](https://i.imgur.com/mnKaRYH.png)
