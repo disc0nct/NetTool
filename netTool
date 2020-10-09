@@ -343,7 +343,74 @@ do
             read input
             sleep 0.5
         ;;
-        2)
+        3)
+            echo -e " [+] Nmap scan [+] "
+            echo ""
+            echo -e "$orange""1-$nc""$green""Simple scan $nc"
+            echo -e "$orange""2-$nc""$green""Advanced scan $nc" "$blue""(Slow scan but detailed)$nc"
+            echo -e -n "$yellow""Select your scan mode : $nc"
+            read opt2
+            case $opt2 in
+                1)
+                    echo -e -n "$yellow""Type your network subnet $nc""$blue""(ex:192.168.1.0/24): $nc"
+                    read range
+                    
+
+                    wget -q --spider https://www.google.com
+
+                if [ $? -eq 0 ]; then
+                    echo -e "\e[1;34mScanning...\e[0m"
+                    sleep 1
+                    nohup nmap -oN simplescan.txt -sP $range </dev/null &>/dev/null
+                    sed '1d;$d' simplescan.txt
+                    rm simplescan.txt
+                    echo -e "\e[1;34mYour scan completed!\e[0m"
+                    sleep 2
+                    echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
+                    read input
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+                else
+                    sleep 1
+                    echo -e "$red""connection lost!$nc"
+                    sleep 0.5
+                    echo -e "$lightcyan""Please fix your internet connection and try again.$nc"
+                    sleep 4
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+
+                fi
+
+                ;;
+                2)
+                    wget -q --spider https://www.google.com
+
+                if [ $? -eq 0 ]; then
+                    echo -e -n "$yellow""Type your network subnet $nc""$blue""(ex:192.168.1.0/24): $nc"
+                    read range
+                    echo -e "\e[1;34mScanning...\e[0m"
+                    sleep 1
+                    nohup nmap -oN advcan.txt -A $range </dev/null &>/dev/null
+                    sed '1d;$d' advcan.txt
+                    rm advcan.txt
+                    echo -e "\e[1;34mYour scan completed!\e[0m"
+                    sleep 2
+                    echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
+                    read input
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+                else
+                    sleep 1
+                    echo -e "$red""connection lost!$nc"
+                    sleep 0.5
+                    echo -e "$lightcyan""Please fix your internet connection and try again.$nc"
+                    sleep 4
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+                fi
+                ;;
+            esac
+        3)
             echo -e "$orange""1-$nc""$green""kill connection for 1 target$nc"
             echo -e "$orange""2-$nc""$green""kill connection for muliple targets$nc"
             echo -e -n "$orange""Select your option : $nc"
@@ -418,73 +485,7 @@ do
                     sleep 1
             esac
         ;;
-        3)
-            echo -e " [+] Nmap scan [+] "
-            echo ""
-            echo -e "$orange""1-$nc""$green""Simple scan $nc"
-            echo -e "$orange""2-$nc""$green""Advanced scan $nc" "$blue""(Slow scan but detailed)$nc"
-            echo -e -n "$yellow""Select your scan mode : $nc"
-            read opt2
-            case $opt2 in
-                1)
-                    echo -e -n "$yellow""Type your network subnet $nc""$blue""(ex:192.168.1.0/24): $nc"
-                    read range
-                    
-
-                    wget -q --spider https://www.google.com
-
-                if [ $? -eq 0 ]; then
-                    echo -e "\e[1;34mScanning...\e[0m"
-                    sleep 1
-                    nohup nmap -oN simplescan.txt -sP $range </dev/null &>/dev/null
-                    sed '1d;$d' simplescan.txt
-                    rm simplescan.txt
-                    echo -e "\e[1;34mYour scan completed!\e[0m"
-                    sleep 2
-                    echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
-                    read input
-                    echo -e "$blue""Going back to Menu...$nc"
-                    sleep 1
-                else
-                    sleep 1
-                    echo -e "$red""connection lost!$nc"
-                    sleep 0.5
-                    echo -e "$lightcyan""Please fix your internet connection and try again.$nc"
-                    sleep 4
-                    echo -e "$blue""Going back to Menu...$nc"
-                    sleep 1
-
-                fi
-
-                ;;
-                2)
-                    wget -q --spider https://www.google.com
-
-                if [ $? -eq 0 ]; then
-                    echo -e -n "$yellow""Type your network subnet $nc""$blue""(ex:192.168.1.0/24): $nc"
-                    read range
-                    echo -e "\e[1;34mScanning...\e[0m"
-                    sleep 1
-                    nohup nmap -oN advcan.txt -A $range </dev/null &>/dev/null
-                    sed '1d;$d' advcan.txt
-                    rm advcan.txt
-                    echo -e "\e[1;34mYour scan completed!\e[0m"
-                    sleep 2
-                    echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
-                    read input
-                    echo -e "$blue""Going back to Menu...$nc"
-                    sleep 1
-                else
-                    sleep 1
-                    echo -e "$red""connection lost!$nc"
-                    sleep 0.5
-                    echo -e "$lightcyan""Please fix your internet connection and try again.$nc"
-                    sleep 4
-                    echo -e "$blue""Going back to Menu...$nc"
-                    sleep 1
-                fi
-                ;;
-            esac
+        
         ;;
         4)
         cd $HOME >/dev/null 2>&1
