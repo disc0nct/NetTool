@@ -84,7 +84,6 @@ if [ $? -eq 0 ]; then
     sleep 0.5
     echo -e $blue"DONE"
     sleep 2
-    netTool
 else   
     echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
     echo -e "$yellow""Please make sure you are connected to internet!" "$nc"
