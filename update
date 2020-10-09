@@ -83,15 +83,15 @@ if [ $? -eq 0 ]; then
     chmod +x install >/dev/null 2>&1
     sleep 0.5
     echo -e $blue"DONE"
-    kill $!
-    sleep 1
+    sleep 2
     read -p "Rerun netTool? [Y/n] " anssw
-    if  [ "$anssw" = "y" ] || [ "$answ1" = "Y" ]; then
+    if  [ "$anssw" = "y" ] || [ "$anssw" = "Y" ]; then
     sleep 0.5
     netTool
     else
     echo "Aboarding..."
     exit 1
+    fi
     
 else   
     echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
