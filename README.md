@@ -2,7 +2,7 @@
 
 # Discription
 
-**NetTool** is a tool to look over your Network
+**NetTool** is a tool to look over your Network.
 
 # Installation 
 
