@@ -63,10 +63,12 @@ if [ $? -eq 0 ]; then
     done &
     trap 'kill $!' SIGTERM SIGKILL
     sleep 1
+    netTool_path=$(find $HOME/ -name "netTool" | grep /netTool/netTool )
+    NetTool_path=$(find $HOME/ -name "NetTool" | grep /NetTool )
+    cd $NetTool_path
     git reset HEAD --hard >/dev/null 2>&1
     git pull origin master >/dev/null 2>&1
     rm /usr/bin/netTool
-    netTool_path=$(find $HOME/ -name "netTool" | grep /netTool/netTool )
     cp $netTool_path /usr/bin
     sleep 1
     echo -e $green"Update success!" 
