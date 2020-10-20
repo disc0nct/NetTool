@@ -24,7 +24,5 @@
 
 ![GitHub Logo](https://i.imgur.com/mnKaRYH.png)
 
-**Video:** https://youtu.be/sOFT6_FurJU
-
 # Version 
 * **v1.0**
