@@ -550,7 +550,7 @@ if [ $? -eq 0 ]; then
     chmod +x install >/dev/null 2>&1
     sleep 0.5
     echo -e $blue"DONE"
-    sleep 0.5
+    sleep 2
     
 else   
     echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
