@@ -22,9 +22,14 @@ nc="\e[0m"
 
 #Colors_END
 
-#echo "Do you want to install it? (Y/n)" 
-read -p "Do you want to install it? [Y/n] " answ1
-clear
+#ROOT PRIVILEGIES
+if [[ $EUID -ne 0 ]]; then
+    echo -e "$red You don't have Root privilegies, execute the script as root.$nc"
+    exit 1
+fi
+
+echo -e "$blue""Do you want to install it? (Y/n)$nc" 
+read answ1
 sleep 0.5
 if  [ "$answ1" = "y" ] || [ "$answ1" = "Y" ]; then
 while true;
@@ -64,11 +69,11 @@ sleep 0.5
  	netTool
  else
 
- 	echo "Aboarding..."
+ 	echo -e "$red""Aboarding...$nc"
 		exit 1
 
  fi
 	else
-		echo "Aboarding..."
+		echo -e "$red""Aboarding...$nc"
 		exit 1
 fi
