@@ -488,9 +488,75 @@ do
             esac
         ;;
         4)
-        cd $HOME >/dev/null 2>&1
-        update_path=$(find $HOME/ -name "update"  | grep /NetTool/update)
-        bash $update_path
+        #checking for internet
+while true; do
+echo -e "$yellow""Checking for internet connection$nc"
+sleep 0.1
+clear
+echo -e "$yellow""Checking for internet connection.$nc"
+sleep 0.1
+clear
+echo -e "$yellow""Checking for internet connection..$nc"
+sleep 0.1
+clear
+echo -e "$yellow""Checking for internet connection...$nc"
+sleep 0.1
+clear
+
+done & 
+trap 'kill $!' SIGTERM SIGKILL
+sleep 2
+wget -q --spider https://www.google.com
+if [ $? -eq 0 ]; then
+    echo -e "$green""Connected to internet$nc [$green✓$nc]"
+    kill $!
+    sleep 3
+    clear
+    sleep 0.5
+# Updating netTool
+    while true; do
+    echo -e $blue"Updating NetTool from Github"
+    sleep 0.1
+    clear
+    echo -e $blue"Updating NetTool from Github."
+    sleep 0.1
+    clear
+    echo -e $blue"Updating NetTool from Github.."
+    sleep 0.1
+    clear
+    echo -e $blue"Updating NetTool from Github..."
+    sleep 0.1
+    clear 
+    done &
+    trap 'kill $!' SIGTERM SIGKILL
+    sleep 1
+    netTool_path=$(find $HOME/ -name "netTool" | grep /NetTool/netTool)
+    NetTool_path=$(find $HOME/ -name "NetTool" | grep /NetTool)
+    cd >/dev/null 2>&1
+    cd $NetTool_path >/dev/null 2>&1
+    git reset HEAD --hard >/dev/null 2>&1
+    git pull origin master >/dev/null 2>&1
+    rm /usr/bin/netTool
+    cp $netTool_path /usr/bin
+    sleep 1
+    echo -e $green"Update success!" 
+    kill $!
+    sleep 0.5
+    echo -e $yellow"Applying Execution Permissions to netTool..."
+    sleep 0.5
+    chmod +x netTool >/dev/null 2>&1
+    chmod +x /usr/bin/netTool 2>&1
+    chmod +x update >/dev/null 2>&1
+    chmod +x install >/dev/null 2>&1
+    sleep 0.5
+    echo -e $blue"DONE"
+    
+else   
+    echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
+    echo -e "$yellow""Please make sure you are connected to internet!" "$nc"
+    kill $!
+    exit 1
+fi
         ;;
         5)
             echo -e "$lightred""Bye bye :)$nc"
