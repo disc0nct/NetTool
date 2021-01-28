@@ -551,6 +551,9 @@ if [ $? -eq 0 ]; then
     sleep 0.5
     echo -e $blue"DONE"
     sleep 2
+    echo -e $lightred"please run 'netTool' again"
+    sleep 1.5
+    exit 1
     
 else   
     echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
