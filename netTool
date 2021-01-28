@@ -41,7 +41,7 @@ clear
 sleep 0.5
 echo -e "               \e[1;31m [+][+][+]--NetTool--[+][+][+] \e[0m         "
 echo""
-echo -e "              \e[0;34mVersion : 1.0\e[0m         "
+echo -e "              \e[0;34mVersion : 1.5\e[0m         "
 echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
 echo -e "              \e[0;34mEmail   : Montasilinigamer@gmail.com\e[0m         "
 
