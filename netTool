@@ -550,10 +550,10 @@ if [ $? -eq 0 ]; then
     chmod +x install >/dev/null 2>&1
     sleep 0.5
     echo -e $blue"DONE"
-    sleep 2
-    echo -e $lightred"please run 'netTool' again"
     sleep 1.5
-    exit 1
+    echo -e $lightred"Please run 'netTool' again!"
+    sleep 2
+    exit 
     
 else   
     echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
