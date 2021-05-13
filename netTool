@@ -336,7 +336,7 @@ do
         1)
             echo -e "\e[1;34mScanning...\e[0m"
             sleep 2
-            arp-scan --localnet
+            arp-scan --localnet -x 
             echo -e "\e[1;34mYour scan completed!\e[0m"
             sleep 2
             echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
