@@ -336,7 +336,7 @@ do
         1)
             echo -e "\e[1;34mScanning...\e[0m"
             sleep 2
-            echo -e "$orange"Hosts           MAC	                Vendor$nc" 	
+            echo -e "$orange""Hosts           MAC	                Vendor$nc" 	
             arp-scan --localnet -x 
             echo -e "\e[1;34mYour scan completed!\e[0m"
             sleep 2
