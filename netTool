@@ -437,6 +437,7 @@ do
                     clear
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 2
+		    echo -e "$orange""Hosts           MAC	                Vendor$nc"	
                     arp-scan --localnet -x 
                     echo -e -n "$yellow""Type your target machine : $nc"
                     read target
@@ -468,6 +469,7 @@ do
                     clear
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 2
+		    echo -e "$orange""Hosts           MAC	                Vendor$nc"
                     arp-scan --localnet -x 
                     
                     echo -e -n "$yellow""How many target(s)? $nc"
