@@ -1,7 +1,4 @@
 # NetTool - Automated Network Tool
-
-# Discription
-
 **NetTool** is a tool to look over your Network.
 
 # Installation 
