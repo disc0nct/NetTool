@@ -18,7 +18,7 @@
  
 # Usage
 
-- Just run it from the Terminal by typing ' netTool '.
+- Just run it from the Terminal by typing 'sudo netTool'.
 
 # Preview 
 
