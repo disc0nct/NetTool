@@ -28,22 +28,169 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+#BEGIN-CHECKING FOR INTERNET CONNECTION
+while true;
+	do
+echo -e "$orange""Checking Internet connection""$nc"
+sleep 0.1
+clear
+echo -e "$orange""Checking Internet connection.""$nc"
+sleep 0.1
+clear
+echo -e "$orange""Checking Internet connection..""$nc"
+sleep 0.1
+clear
+echo -e "$orange""Checking Internet connection...""$nc"
+sleep 0.1
+clear
+done &
+trap 'kill $!' SIGTERM SIGKILL
+wget -q --spider https://www.google.com
+if [ $? -eq 0 ]; then
+    echo -e "Connected to internet [$green✓$nc]$nc"
+    kill $!
+    sleep 1
+else
+    echo -e "No internet connection [$red✗$nc] $nc "
+    echo -e "$orange""Please make sure you are connected to internet!" "$nc"
+    sleep 2
+    exit 1
+fi
+#END-CHECKING FOR INTERNET CONNECTION
+
+#BEGIN-CHECKING FOR REQUIRED TOOLS
+if  pgrep -x "apt" >/dev/null || pgrep -x "dpkg" >/dev/null ;then 
+    
+    echo -e "$red""Another installation is running! Please wait or kill the proccess.$nc"
+    echo -e "$blue""The following proccess can cancel the installation$nc"
+    pgrep apt 
+    pgrep dpkg 
+    echo -e -n "$yellow""Do you want to kill the proccess? (Y/n) "
+    read answ
+    case $answ in
+        y | Y)  
+		pkill apt
+        pkill dpkg
+        sleep 1
+        ;;
+        n | N) 
+		    exit 1 
+		    ;;        
+        *)
+            exit 1 
+		    ;;
+esac 
+fi
+clear
+sleep 0.5
+echo -e "$orange""Checking for required tools...$nc"
+echo ""
+sleep 0.5
+
+if [[ -f "/usr/sbin/ifconfig" ]]; then
+    echo -e "$white""net-tools$nc""$yellow =====>$nc""$green [✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""net-tools$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing net-tools...$nc"
+    sleep 1
+    xterm -e "apt install net-tools -y"
+    if [[ -f "/usr/sbin/ifconfig" ]]; then
+        echo -e "$white""net-tools" "$green""successfuly installed ✓$nc"
+        sleep 1
+    fi
+fi
+
+if [[ -f "/usr/sbin/airmon-ng" ]]; then
+    echo -e "$white""airmon-ng$nc""$yellow =====>$nc""$green [✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""airmon-ng$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing airmon-ng...$nc"
+    sleep 1
+    xterm -e "apt install aircrack-ng -y"
+    if [[ -f "/usr/sbin/airmon-ng" ]]; then
+        echo -e "$white""airmon-ng" "$green""successfuly installed ✓$nc"
+        sleep 1
+    fi
+fi
+
+
+if [[ -f "/usr/sbin/netdiscover" ]]; then
+    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing netdiscover...$nc"
+    sleep 1
+    xterm -e "apt install netdiscover -y"
+    if [[ -f "/usr/sbin/netdiscover" ]]; then
+        echo -e "$white""netdiscover" "$green""successfuly installed ✓$nc"
+        sleep 1
+    fi
+fi
+
+if [[ -f "/usr/bin/nmap" ]]; then
+    echo -e "$white""nmap$nc""$yellow ==========>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""nmap$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing nmap...$nc"
+    sleep 1
+    xterm -e "apt install nmap -y"
+    if [[ -f "/usr/bin/nmap" ]]; then
+        echo -e "$white""nmap" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+if [[ -f "/usr/sbin/arpspoof" ]]; then
+    echo -e "$white""arpspoof$nc""$yellow ======>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""arpspoof$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing arpspoof...$nc"
+    sleep 1
+    
+    xterm -e "apt install dsniff -y"
+    if [ -f "/usr/sbin/arpspoof" ]; then
+        echo -e "$white""arpspoof" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+
+if [[ -f "/usr/sbin/arp-scan" ]]; then
+    echo -e "$white""arp-scan$nc""$yellow ======>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""arp-scan$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing arp-scan...$nc"
+    sleep 1
+    
+    xterm -e "apt install arp-scan -y" 
+    if [ -f "/usr/sbin/arp-scan" ]; then
+        echo -e "$white""arp-scan" "$green""successfuly installed ✓$nc"
+    fi
+fi
+sleep 0.5
+echo ""
+echo -e "$lightgreen""All tools have been checked! [✓]$nc"
 echo -e "$blue""Do you want to install it? (Y/n)$nc" 
 read answ1
 sleep 0.5
 if  [ "$answ1" = "y" ] || [ "$answ1" = "Y" ]; then
 while true;
 	do
-	echo "copying file to /usr/bin"
+    clear
+    echo -e $lightblue"copying file to /usr/bin"
 	sleep 0.1
 	clear
-	echo "copying file to /usr/bin."
+	echo -e $lightblue"copying file to /usr/bin."
 	sleep 0.1
 	clear
-	echo "copying file to /usr/bin.."
+	echo -e $lightblue"copying file to /usr/bin.."
 	sleep 0.1
 	clear
-	echo "copying file to /usr/bin..."
+	echo -e $lightblue"copying file to /usr/bin..."
 	sleep 0.1
 	clear
 done &
@@ -53,27 +200,27 @@ sleep 1
 cp netTool /usr/bin
 sleep 0.5
  kill $!
-	 echo "DONE"
+	 echo -e $yellow"DONE"$nc
 	 sleep 0.5
-	 echo "Now you can run"" 'netTool' ""from anywhere in the Terminal "
+	 echo -e $yellow"Now you can run "$red'netTool'$nc $yellow"from anywhere in the Terminal "$nc
 	 chmod +x update
 	 chmod +x install 
 	 chmod +x netTool
 	 chmod +x /usr/bin/netTool
 	 sleep 2
-
- #echo "Do you want to run it? (Y/n)"
- read -p "Do you want to run it? [Y/n] " answ2
-
- if [[ "$answ2" = "y" ]] || [[ "$answ2" = "Y" ]]  ; then
- 	netTool
- else
-
- 	echo -e "$red""Aboarding...$nc"
-		exit 1
-
- fi
-	else
-		echo -e "$red""Aboarding...$nc"
-		exit 1
+else
+	echo -e "$red""Aboarding...$nc"
+	exit 1
 fi
+ #echo "Do you want to run it? (Y/n)"
+ echo -e  "$orange""Do you want to run it? [Y/n] $nc" 
+ read answ2
+
+        if [[ "$answ2" = "y" ]] || [[ "$answ2" = "Y" ]]  ; then
+ 	        sudo netTool
+        else
+
+ 	    echo -e "$red""Aboarding...$nc"
+		exit 1
+
+        fi
