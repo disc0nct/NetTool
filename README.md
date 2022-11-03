@@ -3,15 +3,13 @@
 
 # Installation 
  
-1. sudo -i **(grant root access)**
-
 1. git clone https://github.com/disc0nct/NetTool.git
  
 1. cd NetTool
  
-1. chmod +x install
+1. sudo chmod a+x install
 
-1. ./install
+1. sudo ./install
  
 # Usage
 
@@ -19,7 +17,10 @@
 
 # Preview 
 
-![GitHub Logo](https://i.imgur.com/mnKaRYH.png)
+![GitHub Logo](https://imgur.com/E7VTWxp.png)
 
 # Version 
+* **v2.0** 
+- Added ability to kick clients from your network.
+- Added ability to kill connection for all clients except you with whitelisting some.
 * **v1.0**
