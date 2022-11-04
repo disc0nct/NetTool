@@ -255,7 +255,7 @@ do
                     kill $!
                     sleep 0.2
                     clear
-                    echo -e "$red""Internet Will Be Killed for the following devices! $nc"
+                    echo -e "$red""Internet Will Be Killed for the following IP(s)! $nc"
                     echo ""
                     sed -i '1d' scan.txt </dev/null &>/dev/null
                     grep -v "$ip" scan.txt > temp && mv temp scan.txt  
@@ -678,7 +678,7 @@ do
                 cd >/dev/null 2>&1
                 cd $NetTool_path >/dev/null 2>&1
                 git reset HEAD --hard >/dev/null 2>&1
-                git pull origin master >/dev/null 2>&1
+                git pull origin main >/dev/null 2>&1
                 rm /usr/bin/netTool
                 cp $netTool_path /usr/bin
                 sleep 1
