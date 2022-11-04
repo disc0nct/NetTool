@@ -22,6 +22,8 @@ nc="\e[0m"
 
 #Colors_END
 
+Distro_Name=$(cat /etc/os-release | awk -F= '/^ID=/{print $2}')
+
 #ROOT PRIVILEGIES
 if [[ $EUID -ne 0 ]]; then
     echo -e "$red You don't have Root privilegies, execute the script as root.$nc"
@@ -81,12 +83,13 @@ if  pgrep -x "apt" >/dev/null || pgrep -x "dpkg" >/dev/null ;then
 		    ;;
 esac 
 fi
-clear
+
+if [ $Distro_Name = "kali" ]; then
+echo "Kali Linux Detected!"
 sleep 0.5
 echo -e "$orange""Checking for required tools...$nc"
 echo ""
 sleep 0.5
-
 if [[ -f "/usr/sbin/ifconfig" ]]; then
     echo -e "$white""net-tools$nc""$yellow =====>$nc""$green [✓] installed$nc"
     sleep 0.5
@@ -170,6 +173,106 @@ else
     if [ -f "/usr/sbin/arp-scan" ]; then
         echo -e "$white""arp-scan" "$green""successfuly installed ✓$nc"
     fi
+fi
+else 
+if [ $Distro_Name = "ubuntu" ]; then
+
+echo "Ubuntu Detected!"
+sleep 0.5
+echo "installing system base tools..."
+nohup sudo apt install xterm -y </dev/null &>/dev/null
+nohup sudo apt install git -y </dev/null &>/dev/null
+echo "done"
+echo -e "$orange""Checking for required tools...$nc"
+echo ""
+sleep 0.5
+if [[ -f "/usr/sbin/ifconfig" ]]; then
+    echo -e "$white""net-tools$nc""$yellow =====>$nc""$green [✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""net-tools$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing net-tools...$nc"
+    sleep 1
+    xterm -e "apt install net-tools -y"
+    if [[ -f "/usr/sbin/ifconfig" ]]; then
+        echo -e "$white""net-tools" "$green""successfuly installed ✓$nc"
+        sleep 1
+    fi
+fi
+
+if [[ -f "/usr/sbin/airmon-ng" ]]; then
+    echo -e "$white""airmon-ng$nc""$yellow =====>$nc""$green [✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""airmon-ng$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing airmon-ng...$nc"
+    sleep 1
+    xterm -e "apt install aircrack-ng -y"
+    if [[ -f "/usr/sbin/airmon-ng" ]]; then
+        echo -e "$white""airmon-ng" "$green""successfuly installed ✓$nc"
+        sleep 1
+    fi
+fi
+
+
+if [[ -f "/usr/sbin/netdiscover" ]]; then
+    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""netdiscover$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing netdiscover...$nc"
+    sleep 1
+    xterm -e "apt install netdiscover -y"
+    if [[ -f "/usr/sbin/netdiscover" ]]; then
+        echo -e "$white""netdiscover" "$green""successfuly installed ✓$nc"
+        sleep 1
+    fi
+fi
+
+if [[ -f "/usr/bin/nmap" ]]; then
+    echo -e "$white""nmap$nc""$yellow ==========>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""nmap$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing nmap...$nc"
+    sleep 1
+    xterm -e "apt install nmap -y"
+    if [[ -f "/usr/bin/nmap" ]]; then
+        echo -e "$white""nmap" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+if [[ -f "/usr/sbin/arpspoof" ]]; then
+    echo -e "$white""arpspoof$nc""$yellow ======>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""arpspoof$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing arpspoof...$nc"
+    sleep 1
+    
+    xterm -e "apt install dsniff -y"
+    if [ -f "/usr/sbin/arpspoof" ]; then
+        echo -e "$white""arpspoof" "$green""successfuly installed ✓$nc"
+    fi
+fi
+
+
+if [[ -f "/usr/sbin/arp-scan" ]]; then
+    echo -e "$white""arp-scan$nc""$yellow ======>$nc" "$green[✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""arp-scan$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing arp-scan...$nc"
+    sleep 1
+    
+    xterm -e "apt install arp-scan -y" 
+    if [ -f "/usr/sbin/arp-scan" ]; then
+        echo -e "$white""arp-scan" "$green""successfuly installed ✓$nc"
+    fi
+fi
+   
+fi
+
 fi
 sleep 0.5
 echo ""
