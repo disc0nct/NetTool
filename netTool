@@ -59,7 +59,7 @@ do
     interface=$(route | grep '^default' | grep -o '[^ ]*$')
     ip=$(ifconfig $interface | grep -w inet | cut -d" " -f10)
     gateway=$(ip route show default | awk '/default/ {print $3}')
-    net_range=$(ip a l $interface | awk '/inet.*brd/ {split($2,add,"/");split(add[1],ip,".");if(add[2]<=24){ip[4]=0} if(add[2]<=16){ip[3]=0} if(add[2]<=8){ip[2]=0} print ip[1]"."ip[2]"."ip[3]"."ip[4]"/"add[2];}')
+    net_range=$(ip a l $interface | awk '/:/{found=1} found && /inet/ && !count{match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\/[0-9]+/);val=substr($2,RSTART,RLENGTH);sub(/[0-9]+\//,"0/",$2);print substr($2,RSTART,RLENGTH);count=1}')
     echo -e ""$orange""Interface:$nc" $interface | "$orange""Gateway:$nc" $gateway"
     echo "------------------------------------------------"
     echo -e ""$orange""IP:$nc" $ip | "$orange""Network Range:$nc" $net_range"
