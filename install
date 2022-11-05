@@ -104,15 +104,15 @@ else
     fi
 fi
 
-if [[ -f "/usr/sbin/wash" ]]; then
+if [[ -f "/usr/bin/wash" ]]; then
     echo -e "$white""wash$nc""$yellow =====>$nc""$green [✓] installed$nc"
     sleep 0.5
 else
     echo -e "$white""wash$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
     echo -e "$orange""Downloading & Installing wash...$nc"
     sleep 1
-    xterm -e "apt install wash -y"
-    if [[ -f "/usr/sbin/airmon-ng" ]]; then
+    xterm -e "apt install reaver -y"
+    if [[ -f "/usr/bin/wash" ]]; then
         echo -e "$white""wash" "$green""successfuly installed ✓$nc"
         sleep 1
     fi
@@ -216,15 +216,15 @@ else
     fi
 fi
 
-if [[ -f "/usr/sbin/wash" ]]; then
+if [[ -f "/usr/bin/wash" ]]; then
     echo -e "$white""wash$nc""$yellow =====>$nc""$green [✓] installed$nc"
     sleep 0.5
 else
     echo -e "$white""wash$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
     echo -e "$orange""Downloading & Installing wash...$nc"
     sleep 1
-    xterm -e "apt install wash -y"
-    if [[ -f "/usr/sbin/airmon-ng" ]]; then
+    xterm -e "apt install reaver -y"
+    if [[ -f "/usr/bin/wash" ]]; then
         echo -e "$white""wash" "$green""successfuly installed ✓$nc"
         sleep 1
     fi
