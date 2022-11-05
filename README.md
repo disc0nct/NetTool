@@ -2,6 +2,8 @@
 **A tool to look over your network and do other things 😈.**
 
 # Installation 
+
+ ❗ Only Tested on **Kali** and **Ubuntu** ❗
  
 1. git clone https://github.com/disc0nct/NetTool.git
  
