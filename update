@@ -21,7 +21,7 @@ nc="\e[0m"
 
 #Colors_END
 
-#Checking for root privilege
+#Checking for root privileges
 if [[ $EUID -ne 0 ]]; then
     echo -e "$red You don't have Root privilegies, execute the script as root.$nc"
     exit 1
