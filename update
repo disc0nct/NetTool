@@ -21,7 +21,13 @@ nc="\e[0m"
 
 #Colors_END
 
-#checking for internet
+#Checking for root privilege
+if [[ $EUID -ne 0 ]]; then
+    echo -e "$red You don't have Root privilegies, execute the script as root.$nc"
+    exit 1
+fi
+
+#Checking for internet
 while true; do
 echo -e "$yellow""Checking for internet connection$nc"
 sleep 0.1
