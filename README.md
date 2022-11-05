@@ -27,7 +27,7 @@ Demo : https://youtu.be/yJ464wwXQE4
  **Changelog:**
  
  - Added ability to kick clients from your network.
- - Added ability to kill connection for all clients except you with whitelisting some.
+ - Added ability to kill connection for all clients except you with whitelisting one client.
  
 **v1.0**
  - first release (nothing to mention).
