@@ -354,8 +354,9 @@ do
             echo ""
                         echo -e "$orange""1-$nc""$green"" Kick One Device (Aireplay-ng)$nc"
                         echo -e "$orange""2-$nc""$green"" Kick Muliple Devices (Aireplay-ng)$nc"
-                        echo -e "$orange""3-$nc""$green"" Kick All Except You (mdk4)$nc"
-                        echo -e "$orange""0-$nc""$yellow"" Go back...$nc"
+                        #echo -e "$orange""3-$nc""$green"" Kick All Except You (mdk4)$nc"
+			echo ""
+                        echo -e "$orange""0-$nc""$orange"" Go back...$nc"
                         echo ""
                         echo -e -n "$yellow""Select your option : $nc"
                         read opt    
