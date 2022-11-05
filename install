@@ -216,6 +216,20 @@ else
     fi
 fi
 
+if [[ -f "/usr/sbin/wash" ]]; then
+    echo -e "$white""wash$nc""$yellow =====>$nc""$green [✓] installed$nc"
+    sleep 0.5
+else
+    echo -e "$white""wash$nc""$yellow ===>$nc" "$red[✗] Not installed$nc"
+    echo -e "$orange""Downloading & Installing wash...$nc"
+    sleep 1
+    xterm -e "apt install wash -y"
+    if [[ -f "/usr/sbin/airmon-ng" ]]; then
+        echo -e "$white""wash" "$green""successfuly installed ✓$nc"
+        sleep 1
+    fi
+fi
+
 if [[ -f "/usr/sbin/airmon-ng" ]]; then
     echo -e "$white""airmon-ng$nc""$yellow =====>$nc""$green [✓] installed$nc"
     sleep 0.5
