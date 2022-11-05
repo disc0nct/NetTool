@@ -818,9 +818,9 @@ do
                 NetTool_path=$(find $HOME/ -name "NetTool" | grep /NetTool)
                 cd >/dev/null 2>&1
                 cd $NetTool_path >/dev/null 2>&1
+                rm /usr/bin/netTool
                 git reset HEAD --hard >/dev/null 2>&1
                 git pull origin main >/dev/null 2>&1
-                rm /usr/bin/netTool
                 cp $netTool_path /usr/bin
                 sleep 1
                 echo -e $green"Update success!" 
@@ -828,10 +828,10 @@ do
                 sleep 0.5
                 echo -e $yellow"Applying Execution Permissions to netTool..."
                 sleep 0.5
-                chmod +x netTool >/dev/null 2>&1
-                chmod +x /usr/bin/netTool 2>&1
-                chmod +x update >/dev/null 2>&1
-                chmod +x install >/dev/null 2>&1
+                chmod a+x $NetTool_path >/dev/null 2>&1
+                chmod a+x /usr/bin/netTool 2>&1
+                chmod a+x update >/dev/null 2>&1
+                chmod a+x install >/dev/null 2>&1
                 sleep 0.5
                 echo -e $blue"DONE"
                 sleep 1.5
