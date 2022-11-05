@@ -1,3 +1,4 @@
+
 # NetTool - Automated Network Tool
 **A tool to look over your network and do other things 😈.**
 
@@ -5,17 +6,16 @@
 
  ❗ Only Tested on **Kali** and **Ubuntu** ❗
  
-1. git clone https://github.com/disc0nct/NetTool.git
+1. `git clone https://github.com/disc0nct/NetTool.git`
  
-1. cd NetTool
+2. `cd NetTool`
  
-1. sudo chmod a+x install
+3. `sudo chmod a+x install`
 
-1. sudo ./install
- 
+4. `sudo ./install`
 # Usage
 
-- Just run it from the Terminal by typing 'sudo netTool'.
+Just run it from the Terminal by typing : " `sudo netTool` ".
 
 # Preview 
 
@@ -25,9 +25,7 @@ Demo : https://youtu.be/yJ464wwXQE4
 
 # Version 
 **v2.0** 
-
  **Changelog:**
- 
  - Added ability to kick clients from your network.
  - Added ability to kill connection for all clients except you with whitelisting one client.
  
