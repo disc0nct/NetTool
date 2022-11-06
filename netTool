@@ -1,6 +1,6 @@
 #!/bin/bash
 #Colors_BEGIN
-
+echo "HELLLLLLO!"
 clear
 red='\e[0;31m'
 green='\e[1;32m'
