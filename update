@@ -21,13 +21,7 @@ nc="\e[0m"
 
 #Colors_END
 
-#Checking for root privileges
-if [[ $EUID -ne 0 ]]; then
-    echo -e "$red You don't have Root privilegies, execute the script as root.$nc"
-    exit 1
-fi
-
-#Checking for internet
+#checking for internet
 while true; do
 echo -e "$yellow""Checking for internet connection$nc"
 sleep 0.1
@@ -83,10 +77,10 @@ if [ $? -eq 0 ]; then
     sleep 0.5
     echo -e $yellow"Applying Execution Permissions to netTool..."
     sleep 0.5
-    chmod +x netTool >/dev/null 2>&1
-    chmod +x /usr/bin/netTool 2>&1
-    chmod +x update >/dev/null 2>&1
-    chmod +x install >/dev/null 2>&1
+    chmod a+x $netTool_path >/dev/null 2>&1
+    chmod a+x /usr/bin/netTool 2>&1
+    chmod a+x update >/dev/null 2>&1
+    chmod a+x install >/dev/null 2>&1
     sleep 0.5
     echo -e $blue"DONE"
     sleep 1
