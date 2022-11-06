@@ -49,7 +49,7 @@ do
     #Menu
     echo -e "               \e[1;31m -- NetTool -- \e[0m         "
     echo ""
-    echo -e "              \e[0;34mVersion : 2.1\e[0m         "
+    echo -e "              \e[0;34mVersion : 2.0\e[0m         "
     echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
     echo -e "              \e[0;34mEmail   : montasilinigamer@gmail.com\e[0m         "
     
