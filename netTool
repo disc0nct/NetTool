@@ -673,14 +673,14 @@ do
                         clear
                         cat ap_scan.txt
                         echo -e -n "$orange""Type Access-Point's Channel :  $nc"
-                        read dv_chan
+                        read ap_chan
                         echo "Searching For Clients For Selected Access Point..."
                         sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
                         echo -e "$blue""CTRL+C TO STOP Searching!$nc"
                         cat ap_scan.txt
                         echo -e -n "$yellow""How many target(s)? $nc"
                         read targets
-                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID -c $dv_chan $interface " & sleep 2
+                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID --channel $ap_chan $interface " & sleep 2
                         for (( i = 1; i < targets+1; i++ )); do
                             echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
                             read dv_mac
@@ -726,14 +726,14 @@ do
                                         clear
                                         cat ap_scan.txt
                                         echo -e -n "$orange""Type Access-Point's Channel :  $nc"
-                                        read dv_chan
+                                        read ap_chan
                                         echo "Searching For Clients For Selected Access Point..."
                                         sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
                                         echo -e "$blue""CTRL+C TO STOP Searching!$nc"
                                         cat ap_scan.txt
                                         echo -e -n "$yellow""How many target(s)? $nc"
                                         read targets
-                                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID -c $dv_chan $interface " & sleep 2
+                                        xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID --channel $ap_chan $interface " & sleep 2
                                         for (( i = 1; i < targets+1; i++ )); do
                                             echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
                                             read dv_mac
