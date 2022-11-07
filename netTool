@@ -182,7 +182,7 @@ do
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 2
 		            #echo -e "$orange""Hosts           MAC	                Vendor$nc"	
-                    netdiscover -i $interface -r $net_range -P > hosts.txt
+                    netdiscover -i $interface -P > hosts.txt
                     cat hosts.txt
                     echo -e -n "$yellow""Type your target machine : $nc"
                     read target
@@ -250,7 +250,7 @@ do
                     done & 
                     clear
                     trap 'kill $!' SIGTERM SIGKILL
-                    nmap -n -sn 192.168.1.0/24 -oG - | awk '/Up$/{print $2}' | sort -V > scan.txt
+                    nmap -n -sn $net_range -oG - | awk '/Up$/{print $2}' | sort -V > scan.txt
                     kill $!
                     sleep 0.2
                     clear
