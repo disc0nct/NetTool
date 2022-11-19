@@ -24,11 +24,14 @@ Just run it from the Terminal by typing : " `sudo netTool` ".
 Demo : https://youtu.be/yJ464wwXQE4
 
 # Version 
+**v2.1**
+- Fixed some minor bugs.
+
 **v2.0** 
 
  **Changelog:**
  - Added ability to kick clients from your network.
- - Added ability to kill connection for all clients except you with whitelisting one client.
+ - Added ability to kill connection for all clients except you with whitelisting some clients.
  
 **v1.0**
  - first release (nothing to mention).
