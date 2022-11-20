@@ -27,7 +27,6 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
-
 echo -e "$red""Staring""$nc"
 sleep 0.5
 clear
@@ -52,7 +51,6 @@ do
     echo -e "              \e[0;34mVersion : 2.1\e[0m         "
     echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
     echo -e "              \e[0;34mEmail   : montasilinigamer@gmail.com\e[0m         "
-    
     echo ""
 
     interface=$(route | grep '^default' | grep -o '[^ ]*$')
@@ -121,13 +119,11 @@ do
                     sleep 4
                     echo -e "$blue""Going back to Menu...$nc"
                     sleep 1
-
                 fi
-
                 ;;
+		
                 2)
-                    wget -q --spider https://www.google.com
-
+                wget -q --spider https://www.google.com
                 if [ $? -eq 0 ]; then
                     echo -en "$yellow""Type your network range $nc""$blue""(eg:192.168.1.0/24): $nc"
                     read range
