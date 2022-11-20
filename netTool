@@ -781,8 +781,17 @@ do
                 esac
                 ;;
         5)
-            #checking for internet
-            while true; do
+        ACTION='\033[1;90m'
+        FINISHED='\033[1;96m'
+        READY='\033[1;92m'
+        NOCOLOR='\033[0m' # No Color
+        ERROR='\033[0;31m'
+
+        netTool_path=$(find /home/${SUDOUSER} -name "NetTool" | grep .*/NetTool/netTool)
+        NetTool_Dir=$(find /home/${SUDOUSER} -name "NetTool" | grep .*/NetTool)
+        cd $NetTool_Dir
+        #checking for internet
+        while true; do
             echo -e "$yellow""Checking for internet connection$nc"
             sleep 0.1
             clear
@@ -795,70 +804,57 @@ do
             echo -e "$yellow""Checking for internet connection...$nc"
             sleep 0.1
             clear
-            done & 
-            trap 'kill $!' SIGTERM SIGKILL
-            sleep 2
-            wget -q --spider https://www.google.com
-            if [ $? -eq 0 ]; then
-                echo -e "$green""Connected to internet$nc [$green✓$nc]"
-                kill $!
-                sleep 3
-                clear
-                sleep 0.5
-            # Updating netTool
-                while true; 
-                do
-                echo -e $blue"Updating NetTool from Github"
-                sleep 0.1
-                clear
-                echo -e $blue"Updating NetTool from Github."
-                sleep 0.1
-                clear
-                echo -e $blue"Updating NetTool from Github.."
-                sleep 0.1
-                clear
-                echo -e $blue"Updating NetTool from Github..."
-                sleep 0.1
-                clear 
-                done &
-                trap 'kill $!' SIGTERM SIGKILL
-                sleep 1
-                netTool_path=$(find $HOME/ -name "netTool" | grep /NetTool/netTool)
-                NetTool_path=$(find $HOME/ -name "NetTool" | grep /NetTool)
-                cd >/dev/null 2>&1
-                cd $NetTool_path >/dev/null 2>&1
-                rm /usr/bin/netTool
-                git reset HEAD --hard >/dev/null 2>&1
-                git pull origin main >/dev/null 2>&1
-                cp $netTool_path /usr/bin
-                sleep 1
-                echo -e $green"Update success!" 
-                kill $!
-                sleep 0.5
-                echo -e $yellow"Applying Execution Permissions to netTool..."
-                sleep 0.5
-                chmod a+x $NetTool_path >/dev/null 2>&1
-                chmod a+x /usr/bin/netTool 2>&1
-                chmod a+x update >/dev/null 2>&1
-                chmod a+x install >/dev/null 2>&1
-                sleep 0.5
-                echo -e $blue"DONE"
-                sleep 1.5
-                echo -e $lightred"Please run 'netTool' again!"
+        done & 
+
+        trap 'kill $!' SIGTERM SIGKILL
+        sleep 2
+        wget -q --spider https://www.google.com
+        if [ $? -eq 0 ]; then
+            echo -e "$green""Connected to internet$nc [$green✓$nc]"
+            kill $!
+            sleep 3
+            clear
+            sleep 0.5
+            echo
+            #cd $NetTool_Dir
+            echo -e ${ACTION}Checking Git repo
+            echo -e =======================${NOCOLOR}
+            BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            if [ "$BRANCH" != "master" ]; then
+                echo -e ${ERROR}Not on master. Aborting. ${NOCOLOR}
+                echo
                 sleep 2
-                exit 
-                
-            else   
-                echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
-                echo -e "$yellow""Please make sure you are connected to internet!" "$nc"
-                kill $!
-                exit 1
+            else 
+                echo -e ${ACTION}Checking For Update...${NOCOLOR}
+                git fetch
+                HEADHASH=$(git rev-parse HEAD)
+                UPSTREAMHASH=$(git rev-parse master@{upstream})
+            if [ "$HEADHASH" != "$UPSTREAMHASH" ]; then
+                echo -e ${ACTION}New Update Available!.${NOCOLOR}
+                echo -e ${READY}Do you want to update?${NOCOLOR}
+                read input
+                echo -e ${ACTION}Updating now...${NOCOLOR}
+                sleep 1
+                rm netTool
+                wget https://raw.githubusercontent.com/disc0nct/NetTool/master/netTool
+                chmod a+x netTool
+                rm /usr/bin/netTool
+                mv netTool /usr/bin/
+                echo -e ${FINISHED}DONE!${NOCOLOR}
+            else
+                echo -e ${FINISHED}No Update Available!.${NOCOLOR}
             fi
-                    ;;
+        fi
+        else   
+            echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
+            echo -e "$yellow""Please make sure you are connected to internet!" "$nc"
+            kill $!
+            exit 1
+        fi
+        ;;
         e)  echo 'Cleaning Files...'
             rm aps_scan.txt connected_ap_bssid.txt connected_ap_essid.txt hosts.txt scan.txt >/dev/null 2>&1
             sleep 0.5
-
             echo -e "$lightred""Bye bye :)$nc"
             sleep 0.5
             clear
