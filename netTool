@@ -780,7 +780,6 @@ do
                 ;;
                 esac
                 ;;
-
         5)
             #checking for internet
             while true; do
