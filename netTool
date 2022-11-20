@@ -259,7 +259,7 @@ do
                     sed -i "1d" -- scan-output.txt </dev/null &>/dev/null
                     cat scan-output.txt
                     awk '{print $1}' scan-output.txt > scan.txt
-                    sed -i -e "/$gateway/d" -- scan.txt </dev/null &>/dev/null
+                    #sed -i -e "/$gateway/d" -- scan.txt </dev/null &>/dev/null
                     #grep -v "$ip" scan.txt > temp && mv temp scan.txt   </dev/null &>/dev/null
                     echo ""
                     echo -en "$orange""Do you want to whitelist some IPs? (y/n) $nc"
@@ -302,7 +302,7 @@ do
                             echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
                             read input
                             pkill arpspoof
-                            rm scan.txt scan-output.txt
+                            rm scan.txt scan-output.txt temp
                             echo -e "$blue""Going back to Menu...$nc"
                             sleep 1
                         else
@@ -310,7 +310,7 @@ do
                             echo ""
                             echo -e "$orange""Looks Like There Is No Target Selected!$nc"
                             sleep 2
-                            rm scan.txt scan-output.txt
+                            rm scan.txt scan-output.txt temp
                             echo -e "$blue""Going back to Menu...$nc"
                             sleep 1
                         fi
@@ -340,7 +340,7 @@ do
                         echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
                         read input
                         pkill arpspoof
-                        rm scan.txt scan-output.txt
+                        rm scan.txt scan-output.txt temp
                         echo -e "$blue""Going back to Menu...$nc"
                         sleep 1
                     fi
