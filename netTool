@@ -48,7 +48,7 @@ do
     #Menu
     echo -e "               \e[1;31m -- NetTool -- \e[0m         "
     echo ""
-    echo -e "              \e[0;34mVersion : 2.2\e[0m         "
+    echo -e "              \e[0;34mVersion : 2.1\e[0m         "
     echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
     echo -e "              \e[0;34mEmail   : montasilinigamer@gmail.com\e[0m         "
     echo ""
@@ -65,7 +65,7 @@ do
     echo -e "$orange""2)$nc"" - $green""Scan for hosts(Nmap scan)$nc"
     echo -e "$orange""3)$nc"" - $green""Kill internet connection$nc"
     echo -e "$orange""4)$nc"" - $green""Kick Devices OFF$nc"
-    echo -e "$orange""5)$nc"" - $orange""Update$nc"
+    #echo -e "$orange""5)$nc"" - $orange""Update$nc"
     echo -e "$lightred""e)$nc" - "$lightred""Exit$nc"
     echo ""
     echo -en "$yellow""Select your option : $nc"
