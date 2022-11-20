@@ -827,7 +827,7 @@ do
                 sleep 2
             else 
                 echo -e ${ACTION}Checking For Update...${NOCOLOR}
-                git fetch >/dev/null 2>&1
+                git fetch </dev/null &>/dev/null
                 HEADHASH=$(git rev-parse HEAD)
                 UPSTREAMHASH=$(git rev-parse master@{upstream})
             if [ "$HEADHASH" != "$UPSTREAMHASH" ]; then
@@ -837,10 +837,10 @@ do
                 echo -e ${ACTION}Updating now...${NOCOLOR}
                 sleep 1
                 rm netTool
-                wget https://raw.githubusercontent.com/disc0nct/NetTool/master/netTool
-                chmod a+x netTool
-                rm /usr/bin/netTool
-                cp netTool /usr/bin/
+                wget https://raw.githubusercontent.com/disc0nct/NetTool/master/netTool 2>&1 --progress=bar:force| grep '%'
+                chmod a+x netTool </dev/null &>/dev/null
+                rm /usr/bin/netTool </dev/null &>/dev/null
+                cp netTool /usr/bin/ </dev/null &>/dev/null
                 echo -e ${FINISHED}DONE!${NOCOLOR}
 		sleep 1
 		echo -e $lightred"Please run 'netTool' again!"
