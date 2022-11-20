@@ -841,6 +841,10 @@ do
                 rm /usr/bin/netTool
                 mv netTool /usr/bin/
                 echo -e ${FINISHED}DONE!${NOCOLOR}
+		sleep 1
+		echo -e $lightred"Please run 'netTool' again!"
+                sleep 2
+                exit 
             else
                 echo -e ${FINISHED}No Update Available!.${NOCOLOR}
             fi
