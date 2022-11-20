@@ -837,7 +837,7 @@ do
                 echo -e ${ACTION}Updating now...${NOCOLOR}
                 sleep 1
                 rm netTool
-                wget https://raw.githubusercontent.com/disc0nct/NetTool/master/netTool 2>&1 --progress=bar:force| grep '%'
+                wget https://raw.githubusercontent.com/disc0nct/NetTool/master/netTool -q --show-progress
                 chmod a+x netTool </dev/null &>/dev/null
                 rm /usr/bin/netTool </dev/null &>/dev/null
                 cp netTool /usr/bin/ </dev/null &>/dev/null
