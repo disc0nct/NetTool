@@ -792,6 +792,7 @@ do
         cd $NetTool_Dir
         #checking for internet
         while true; do
+            clear
             echo -e "$yellow""Checking for internet connection$nc"
             sleep 0.1
             clear
@@ -816,7 +817,7 @@ do
             clear
             sleep 0.5
             echo
-            #cd $NetTool_Dir
+            cd $NetTool_Dir
             echo -e ${ACTION}Checking Git repo
             echo -e =======================${NOCOLOR}
             BRANCH=$(git rev-parse --abbrev-ref HEAD)
@@ -826,7 +827,7 @@ do
                 sleep 2
             else 
                 echo -e ${ACTION}Checking For Update...${NOCOLOR}
-                git fetch
+                git fetch >/dev/null 2>&1
                 HEADHASH=$(git rev-parse HEAD)
                 UPSTREAMHASH=$(git rev-parse master@{upstream})
             if [ "$HEADHASH" != "$UPSTREAMHASH" ]; then
@@ -839,7 +840,7 @@ do
                 wget https://raw.githubusercontent.com/disc0nct/NetTool/master/netTool
                 chmod a+x netTool
                 rm /usr/bin/netTool
-                mv netTool /usr/bin/
+                cp netTool /usr/bin/
                 echo -e ${FINISHED}DONE!${NOCOLOR}
 		sleep 1
 		echo -e $lightred"Please run 'netTool' again!"
