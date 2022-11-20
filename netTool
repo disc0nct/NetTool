@@ -65,7 +65,7 @@ do
     echo -e "$orange""2)$nc"" - $green""Scan for hosts(Nmap scan)$nc"
     echo -e "$orange""3)$nc"" - $green""Kill internet connection$nc"
     echo -e "$orange""4)$nc"" - $green""Kick Devices OFF$nc"
-   #echo -e "$orange""5)$nc"" - $orange""Update$nc"
+    echo -e "$orange""5)$nc"" - $orange""Update$nc"
     echo -e "$lightred""e)$nc" - "$lightred""Exit$nc"
     echo ""
     echo -en "$yellow""Select your option : $nc"
