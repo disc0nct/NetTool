@@ -302,7 +302,7 @@ do
                             echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
                             read input
                             pkill arpspoof
-                            rm scan.txt scan-output.txt temp
+                            rm scan.txt scan-output.txt temp </dev/null &>/dev/null
                             echo -e "$blue""Going back to Menu...$nc"
                             sleep 1
                         else
@@ -310,7 +310,7 @@ do
                             echo ""
                             echo -e "$orange""Looks Like There Is No Target Selected!$nc"
                             sleep 2
-                            rm scan.txt scan-output.txt temp
+                            rm scan.txt scan-output.txt temp </dev/null &>/dev/null
                             echo -e "$blue""Going back to Menu...$nc"
                             sleep 1
                         fi
@@ -340,7 +340,7 @@ do
                         echo -en "$blue""PRESS [ RETURN ] TO CANCEL$nc"
                         read input
                         pkill arpspoof
-                        rm scan.txt scan-output.txt temp
+                        rm scan.txt scan-output.txt temp </dev/null &>/dev/null
                         echo -e "$blue""Going back to Menu...$nc"
                         sleep 1
                     fi
@@ -373,7 +373,7 @@ do
                         #echo -e "$orange""3-$nc""$green"" Kick All Except You (mdk4)$nc"
 			echo ""
                         echo -e "$orange""0-$nc""$orange"" Go back...$nc"
-                        echo ""
+                        echo "" 
                         echo -en "$yellow""Select your option : $nc"
                         read opt    
             case $opt in
