@@ -40,6 +40,30 @@ echo -e "$red""Staring...""$nc"
 clear 
 sleep 0.5
 #BEGIN-CHECKING FOR INTERNET CONNECTION
+#
+
+#INTERFACE SELECTION 
+active_interfaces=$(ip addr | awk '/state UP/ {print $2}' | sed 's/.$//')
+PS3="Select Interface To Work With : "
+createmenu () {
+    select interface in $active_interfaces; do # in "$@" is the default
+        if [ 1 -le "$REPLY" ] && [ "$REPLY" -le $(($#)) ]; then
+            break;
+        else
+            echo -e "$orange""Please make a vaild selection (1 .. $#).$nc"
+        fi
+    done
+}
+declare -a interface=();
+# Load Menu by Line of Returned Command
+mapfile -t interface < <(ip addr | awk '/state UP/ {print $2}' | sed 's/.$//');
+# Display Menu and Prompt for Input
+echo -e "$yellow""Active Interfaces (Please select one): $nc";
+createmenu "${interface[@]}"
+drive=($(echo "${interface}"));
+echo -e "$orange""$interface"$blue" Selected!$nc"
+sleep 1
+clear
 
 while true
 do
@@ -53,18 +77,20 @@ do
     echo -e "              \e[0;34mEmail   : montasilinigamer@gmail.com\e[0m         "
     echo ""
 
-    interface=$(route | grep '^default' | grep -o '[^ ]*$')
+    #interface=$(route | grep '^default' | grep -o '[^ ]*$')
     ip=$(ifconfig $interface | grep -w inet | cut -d" " -f10)
-    gateway=$(ip route show default | awk '/default/ {print $3}')
+    gateway=$(ip route show default | grep $interface | awk '{print $3}')
     net_range=$(ip a l $interface | awk '/:/{found=1} found && /inet/ && !count{match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\/[0-9]+/);val=substr($2,RSTART,RLENGTH);sub(/[0-9]+\//,"0/",$2);print substr($2,RSTART,RLENGTH);count=1}')
     echo -e ""$orange""Interface:$nc" $interface | "$orange""Gateway:$nc" $gateway"
-    echo "------------------------------------------------"
+    echo "-------------------------------------------------"
     echo -e ""$orange""IP:$nc" $ip | "$orange""Network Range:$nc" $net_range"
     echo""
-    echo -e "$orange""1)$nc"" - $green""Scan for hosts$nc"
-    echo -e "$orange""2)$nc"" - $green""Scan for hosts(Nmap scan)$nc"
-    echo -e "$orange""3)$nc"" - $green""Kill internet connection$nc"
-    echo -e "$orange""4)$nc"" - $green""Kick Devices OFF$nc"
+    echo -e "$green""1)$nc"" - $green""Scan for hosts$nc"
+    echo -e "$green""2)$nc"" - $green""Scan for hosts(Nmap scan)$nc"
+    echo -e "$green""3)$nc"" - $green""Kill internet connection$nc"
+    echo -e "$green""4)$nc"" - $green""Kick Devices OFF$nc"
+    echo -e "-------------------------------------------------"
+    echo -e "$orange""5)$nc"" - $orange""Change Interface$nc"
     #echo -e "$orange""5)$nc"" - $orange""Update$nc"
     echo -e "$lightred""e)$nc" - "$lightred""Exit$nc"
     echo ""
@@ -102,7 +128,7 @@ do
                 if [ $? -eq 0 ]; then
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 1
-                    nohup nmap -oN simplescan.txt -sP $range </dev/null &>/dev/null
+                    nohup nmap -e $interface -oN simplescan.txt -sP $range </dev/null &>/dev/null
                     sed '1d;$d' simplescan.txt
                     rm simplescan.txt
                     echo -e "\e[1;34mYour scan completed!\e[0m"
@@ -129,7 +155,7 @@ do
                     read range
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 1
-                    nohup nmap -oN advcan.txt -A $range </dev/null &>/dev/null
+                    nohup nmap -e $interface -oN advcan.txt -A $range </dev/null &>/dev/null
                     sed '1d;$d' advcan.txt
                     rm advcan.txt
                     echo -e "\e[1;34mYour scan completed!\e[0m"
@@ -246,7 +272,7 @@ do
                     done & 
                     clear
                     trap 'kill $!' SIGTERM SIGKILL
-                    sudo nmap -n -sn $net_range | awk 'f==2{print s; f=s=""}/^(Nmap scan|MAC Address)/{sub(/^.*(for|:..) /,"");f++;s=(s?s OFS :"")$0}END{if(f==2)print s}' | sort -V > scan-output.txt
+                    sudo nmap -e $interface -n -sn $net_range | awk 'f==2{print s; f=s=""}/^(Nmap scan|MAC Address)/{sub(/^.*(for|:..) /,"");f++;s=(s?s OFS :"")$0}END{if(f==2)print s}' | sort -V > scan-output.txt
                     kill $!
                     sleep 0.2
                     clear
@@ -781,6 +807,29 @@ do
                 esac
                 ;;
         5)
+        #INTERFACE SELECTION 
+        active_interfaces=$(ip addr | awk '/state UP/ {print $2}' | sed 's/.$//')
+        PS3="Select Interface To Work With : "
+        createmenu () {
+            select interface in $active_interfaces; do # in "$@" is the default
+                if [ 1 -le "$REPLY" ] && [ "$REPLY" -le $(($#)) ]; then
+                    break;
+                else
+                    echo -e "$orange""Please make a vaild selection (1 .. $#).$nc"
+                fi
+            done
+        }
+        declare -a interface=();
+        # Load Menu by Line of Returned Command
+        mapfile -t interface < <(ip addr | awk '/state UP/ {print $2}' | sed 's/.$//');
+        # Display Menu and Prompt for Input
+        echo -e "$yellow""Active Interfaces (Please select one): $nc";
+        createmenu "${interface[@]}"
+        drive=($(echo "${interface}"));
+        echo -e "$orange""$interface"$blue" Selected!$nc"
+        sleep 1
+        ;;
+        6)
         ACTION='\033[1;90m'
         FINISHED='\033[1;96m'
         READY='\033[1;92m'
