@@ -24,6 +24,9 @@ Just run it from the Terminal by typing : " `sudo netTool` ".
 Demo : https://youtu.be/yJ464wwXQE4
 
 # Version 
+**v2.2**
+- Fixed some minor bugs and variables.
+
 **v2.1**
 - Fixed some minor bugs.
 
