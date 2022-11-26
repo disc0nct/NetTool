@@ -383,14 +383,14 @@ do
                             echo "Searching For Access-Points..."
                             echo -e "$blue""CTRL+C TO STOP Searching!$nc"
                             sleep 1
-                            sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a 2>&1 | tee aps_scan.txt" &&
+                            sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a | tee aps_scan.txt" &&
                             cat aps_scan.txt
                             echo -en "$orange""Type Access-Point's MAC-Address :  $nc"
                             read ap_mac
                             echo -en "$orange""Type Access-Point's Channel :  $nc"
                             read ap_chan
                             echo "Searching For Clients For Selected Access Point..."
-                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                            sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface | tee ap_scan.txt" &&
                             echo -e "$blue""CTRL+C TO STOP Searching!$nc"
                             cat ap_scan.txt
                             echo -en "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
@@ -431,7 +431,7 @@ do
                                         echo "Searching For Access-Points..."
                                         echo -e "$blue""CTRL+C TO STOP Searching!$nc"
                                         sleep 1
-                                        sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a 2>&1 | tee aps_scan.txt" &&
+                                        sudo xterm -geometry 80x20-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && sudo wash -i $interface -a | tee aps_scan.txt" &&
                                         cat aps_scan.txt
                                         echo -en "$orange""Type Access-Point's MAC-Address :  $nc"
                                         read ap_mac
@@ -439,7 +439,7 @@ do
                                         read ap_chan
                                         echo "Searching For Clients For Selected Access Point..."
                                         echo -en "$blue""CTRL+C TO STOP Searching!$nc"
-                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface | tee ap_scan.txt" &&
                                         cat ap_scan.txt
                                         echo -en "$orange""Type Device's MAC-Address You Want To Kick :  $nc"
                                         read dv_mac
@@ -632,7 +632,7 @@ do
                                         echo -en "$orange""Type Access-Point's Channel :  $nc"
                                         read ap_chan
                                         echo "Searching For Clients For Selected Access Point..."
-                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $BSSID --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
+                                        sudo xterm -geometry 90x50-0+1  -e "echo 'CTRL+C TO STOP SEARCHING !' && airodump-ng --bssid $ap_mac --channel $ap_chan $interface 2>&1 | tee ap_scan.txt" &&
                                         echo -en "$blue""CTRL+C TO STOP Searching!$nc"
                                         cat ap_scan.txt
                                         echo -en "$yellow""How many target(s)? $nc"
