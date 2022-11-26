@@ -19,13 +19,15 @@ Just run it from the Terminal by typing : " `sudo netTool` ".
 
 # Preview 
 
-![GitHub Logo](https://imgur.com/EKLiPlV.png)
+![image](https://user-images.githubusercontent.com/17936240/204108671-ba4a114f-fe64-4006-bbe0-7e159122eb30.png)
+
 
 Demo : https://youtu.be/yJ464wwXQE4
 
 # Version 
 **v2.2**
-- Fixed some minor bugs and variables.
+- Added ability to select interface.
+- Fixed some minor bugs.
 
 **v2.1**
 - Fixed some minor bugs.
