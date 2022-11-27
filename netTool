@@ -44,7 +44,10 @@ sleep 0.5
 
 #INTERFACE SELECTION 
 active_interfaces=$(ip addr | awk '/state UP/ {print $2}' | sed 's/.$//')
-PS3="Select Interface To Work With : "
+active_interfaces_number=$(ip addr | awk '/state UP/ {print $2}' | sed 's/.$//' | wc -l)
+if [ $active_interfaces_number -ge 2  ] ; then
+
+PS3="> "
 createmenu () {
     select interface in $active_interfaces; do # in "$@" is the default
         if [ 1 -le "$REPLY" ] && [ "$REPLY" -le $(($#)) ]; then
@@ -59,12 +62,15 @@ declare -a interface=();
 mapfile -t interface < <(ip addr | awk '/state UP/ {print $2}' | sed 's/.$//');
 # Display Menu and Prompt for Input
 echo -e "$yellow""Active Interfaces (Please select one): $nc";
+echo ""
 createmenu "${interface[@]}"
 drive=($(echo "${interface}"));
 echo -e "$orange""$interface"$blue" Selected!$nc"
 sleep 1
 clear
-
+else 
+interface=$(route | grep '^default' | grep -o '[^ ]*$')
+fi
 while true
 do
     clear
@@ -72,12 +78,12 @@ do
     #Menu
     echo -e "               \e[1;31m -- NetTool -- \e[0m         "
     echo ""
-    echo -e "              \e[0;34mVersion : 2.1\e[0m         "
+    echo -e "              \e[0;34mVersion : 2.2\e[0m         "
     echo -e "              \e[0;34mCredits : Disc0nect\e[0m         "
     echo -e "              \e[0;34mEmail   : montasilinigamer@gmail.com\e[0m         "
     echo ""
 
-    #interface=$(route | grep '^default' | grep -o '[^ ]*$')
+    #default_interface=$(route | grep '^default' | grep -o '[^ ]*$')
     ip=$(ifconfig $interface | grep -w inet | cut -d" " -f10)
     gateway=$(ip route show default | grep $interface | awk '{print $3}')
     net_range=$(ip a l $interface | awk '/:/{found=1} found && /inet/ && !count{match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\/[0-9]+/);val=substr($2,RSTART,RLENGTH);sub(/[0-9]+\//,"0/",$2);print substr($2,RSTART,RLENGTH);count=1}')
