@@ -26,7 +26,7 @@ Demo : https://youtu.be/yJ464wwXQE4
 
 # Version 
 **v2.2**
-- Added ability to select interface.
+- Added ability to select/change interface.
 - Fixed some minor bugs.
 
 **v2.1**
