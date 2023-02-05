@@ -25,6 +25,9 @@ Just run it from the Terminal by typing : " `sudo netTool` ".
 Demo : https://youtu.be/yJ464wwXQE4
 
 # Version 
+**v2.5**
+- Added ability to update the script.
+
 **v2.2**
 - Added ability to select/change interface.
 - Fixed some minor bugs.
