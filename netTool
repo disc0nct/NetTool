@@ -862,7 +862,7 @@ if [ "$current_version" != "$latest_version" ]; then
   if [ "$answer" == "y" ]; then
     # Download the latest version
     curl -vs "$SCRIPT_URL" > "/tmp/$SCRIPT_NAME"
-    wget -q --show-progress https://raw.githubusercontent.com/disc0nct/NetTool/master/netTool -P /tmp/
+    wget -q --show-progress -nc https://raw.githubusercontent.com/disc0nct/NetTool/master/netTool -P /tmp/
     sleep 0.5
     sudo mv "/tmp/$SCRIPT_NAME" "$INSTALL_DIR/"
     sudo chmod a+x "$INSTALL_DIR/$SCRIPT_NAME"
