@@ -76,11 +76,11 @@ do
     clear
     #END_COMMENT
     #Menu
-    echo -e "               \e[1;31m -- NetTool -- \e[0m         "
+    echo -e "              \e[1;31m -- NetTool -- \e[0m         "
     echo ""
-    echo -e "             \e[0;34m Version : 2.2 \e[0m         "
-    echo -e "             \e[0;34m Credits : Disc0nect \e[0m         "
-    echo -e "             \e[0;34m Email   : montasilinigamer@gmail.com \e[0m         "
+    echo -e "            \e[0;34m Version : 2.5 \e[0m         "
+    echo -e "            \e[0;34m Credits : Disc0nect \e[0m         "
+    echo -e "            \e[0;34m Email   : montasilinigamer@gmail.com \e[0m         "
     echo ""
 
     #default_interface=$(route | grep '^default' | grep -o '[^ ]*$')
@@ -97,7 +97,7 @@ do
     echo -e "$green""4)$nc"" - $green""Kick Devices OFF$nc"
     echo -e "-------------------------------------------------"
     echo -e "$orange""5)$nc"" - $orange""Change Interface$nc"
-    #echo -e "$orange""5)$nc"" - $orange""Update$nc"
+    echo -e "$orange""6)$nc"" - $orange""Update$nc"
     echo -e "$lightred""e)$nc" - "$lightred""Exit$nc"
     echo ""
     echo -en "$yellow""Select your option : $nc"
@@ -836,6 +836,45 @@ do
         sleep 1
         ;;
         6)
+        #!/bin/bash
+
+SCRIPT_NAME="netTool"
+SCRIPT_URL="https://raw.githubusercontent.com/disc0nct/NetTool/master/$SCRIPT_NAME"
+INSTALL_DIR="/usr/bin"
+
+# Get the current version of the script
+current_version=$(grep "Version" $INSTALL_DIR/$SCRIPT_NAME  | grep -o '[0-9]\+\.[0-9]\+')
+
+# Get the latest version of the script from GitHub
+latest_version=$(curl -s "$SCRIPT_URL" | grep  "Version" | grep -o '[0-9]\+\.[0-9]\+')
+
+
+# Compare the versions
+if [ "$current_version" != "$latest_version" ]; then
+
+  # Ask if the user wants to install the latest version
+  read -p "A new version ($latest_version) of the script is available. Would you like to install it (y/n)? " answer
+
+  
+  # Install the latest version if the user says yes
+  if [ "$answer" == "y" ]; then
+    # Download the latest version
+    curl -vs "$SCRIPT_URL" > "/tmp/$SCRIPT_NAME"
+    sleep 0.5
+    sudo mv "/tmp/$SCRIPT_NAME" "$INSTALL_DIR/"
+    sudo chmod a+x "$INSTALL_DIR/$SCRIPT_NAME"
+    echo "The latest version ($latest_version) has been installed in $INSTALL_DIR."
+    sleep 1
+  else
+    echo "Exiting without installing the latest version (Version $latest_version)."
+    sleep 1
+  fi
+else
+  echo "Script is already up to date in GitHub (version $current_version)."
+  sleep 2
+fi      
+        : '
+        6)
         ACTION='\033[1;90m'
         FINISHED='\033[1;96m'
         READY='\033[1;92m'
@@ -913,6 +952,8 @@ do
             exit 1
         fi
         ;;
+    '
+    ;;
         e)  echo 'Cleaning Files...'
             rm aps_scan.txt connected_ap_bssid.txt connected_ap_essid.txt hosts.txt scan.txt >/dev/null 2>&1
             sleep 0.5
