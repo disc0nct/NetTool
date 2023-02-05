@@ -853,13 +853,16 @@ latest_version=$(curl -s "$SCRIPT_URL" | grep  "Version" | grep -o '[0-9]\+\.[0-
 if [ "$current_version" != "$latest_version" ]; then
 
   # Ask if the user wants to install the latest version
-  read -p "A new version ($latest_version) of the script is available. Would you like to install it (y/n)? " answer
-
+  echo -e "$orange""A new version ($latest_version) of the script is available!$nc" 
+  echo -e "$blue""Would you like to install it (y/n)? $nc"
+  # read -p "A new version ($latest_version) of the script is available. Would you like to install it (y/n)? " answer
+    read answer
   
   # Install the latest version if the user says yes
   if [ "$answer" == "y" ]; then
     # Download the latest version
     curl -vs "$SCRIPT_URL" > "/tmp/$SCRIPT_NAME"
+    wget -q --show-progress https://raw.githubusercontent.com/disc0nct/NetTool/master/netTool -P /tmp/
     sleep 0.5
     sudo mv "/tmp/$SCRIPT_NAME" "$INSTALL_DIR/"
     sudo chmod a+x "$INSTALL_DIR/$SCRIPT_NAME"
@@ -870,7 +873,7 @@ if [ "$current_version" != "$latest_version" ]; then
     sleep 1
   fi
 else
-  echo "Script is already up to date in GitHub (version $current_version)."
+  echo -e "$green""Script is already up to date in GitHub (version $current_version)!$nc"
   sleep 2
 fi      
         : '
