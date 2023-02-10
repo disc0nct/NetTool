@@ -78,8 +78,8 @@ do
     #Menu
     echo -e "              \e[1;31m -- NetTool -- \e[0m         "
     echo ""
-    echo -e "            \e[0;34m Version : 2.5 \e[0m         "
-    echo -e "            \e[0;34m Coded by : Disc0nct \e[0m         "
+    echo -e "            \e[0;34m Version : 2.6 \e[0m         "
+    echo -e "            \e[0;34m Coded by : @Disc0nct \e[0m         "
     echo -e "            \e[0;34m Email   : montasilinigamer@gmail.com \e[0m         "
     echo ""
 
