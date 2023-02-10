@@ -79,7 +79,7 @@ do
     echo -e "              \e[1;31m -- NetTool -- \e[0m         "
     echo ""
     echo -e "            \e[0;34m Version : 2.5 \e[0m         "
-    echo -e "            \e[0;34m Coded by : Disc0nct \e[0m         "
+    echo -e "            \e[0;34m Coded by : @Disc0nct \e[0m         "
     echo -e "            \e[0;34m Email   : montasilinigamer@gmail.com \e[0m         "
     echo ""
 
@@ -841,13 +841,19 @@ do
 SCRIPT_NAME="netTool"
 SCRIPT_URL="https://raw.githubusercontent.com/disc0nct/NetTool/master/$SCRIPT_NAME"
 INSTALL_DIR="/usr/bin"
-local_file_size=$(ls -lh $SCRIPT_NAME | awk '{print $5}')
+
+# Get the current size of the script
+local_file_size=$(ls -l "$INSTALL_DIR/$SCRIPT_NAME" | awk '{print $5}')
+
+# Get the size of the script from GitHub
 remote_file_size=$(curl -sI "$SCRIPT_URL" | grep Content-Length | awk '{print $2}')
 
 # Get the current version of the script
 current_version=$(grep "Version" $INSTALL_DIR/$SCRIPT_NAME  | grep -o '[0-9]\+\.[0-9]\+')
+
 # Get the latest version of the script from GitHub
 latest_version=$(curl -s "$SCRIPT_URL" | grep  "Version" | grep -o '[0-9]\+\.[0-9]\+')
+
 # Compare the versions
 if [ "$current_version" != "$latest_version" ] | [ "$local_file_size" != "$remote_file_size" ] ; then
 
