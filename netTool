@@ -907,7 +907,8 @@ do
                 echo -e "$orange""Exiting without installing the latest version "$blue"($latest_version)"$nc".$nc"
                 sleep 2
             fi
-        else
+        else	
+	    kill $!
             echo -e "$green""Script is already up to date in GitHub (version "$blue"$current_version"$nc")!$nc"
             sleep 2
         fi   
