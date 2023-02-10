@@ -78,8 +78,8 @@ do
     #Menu
     echo -e "              \e[1;31m -- NetTool -- \e[0m         "
     echo ""
-    echo -e "            \e[0;34m Version : 2.6 \e[0m         "
-    echo -e "            \e[0;34m Coded by : @Disc0nct \e[0m         "
+    echo -e "            \e[0;34m Version : 2.5 \e[0m         "
+    echo -e "            \e[0;34m Coded by : Disc0nct \e[0m         "
     echo -e "            \e[0;34m Email   : montasilinigamer@gmail.com \e[0m         "
     echo ""
 
@@ -836,50 +836,85 @@ do
         sleep 1
         ;;
         6)
-        #!/bin/bash
+        #checking for internet
+        while true; do
+            echo -en "$yellow""\033[2K\rChecking for internet connection$nc" 
+            sleep 0.1
+            echo -en "$yellow""\033[2K\rChecking for internet connection.$nc" 
+            sleep 0.1
+            echo -en "$yellow""\033[2K\rChecking for internet connection..$nc" 
+            sleep 0.1
+            echo -en "$yellow""\033[2K\rChecking for internet connection...$nc" 
+            sleep 0.1
+        done & 
 
-SCRIPT_NAME="netTool"
-SCRIPT_URL="https://raw.githubusercontent.com/disc0nct/NetTool/master/$SCRIPT_NAME"
-INSTALL_DIR="/usr/bin"
+        trap 'kill $!' SIGTERM SIGKILL
+        sleep 2
+        wget -q --spider https://www.google.com
+        echo ""
+        if [ $? -eq 0 ]; then
+            echo -e "$green""Connected to internet$nc [$green✓$nc]"
+            kill $!
+            sleep 1
+        while true; do 
+            echo -en "$yellow""\033[2K\rChecking for updates$nc" 
+            sleep 0.1
+            echo -en "$yellow""\033[2K\rChecking for updates.$nc" 
+            sleep 0.1 
+            echo -en "$yellow""\033[2K\rChecking for updates..$nc" 
+            sleep 0.1 
+            echo -en "$yellow""\033[2K\rChecking for updates...$nc" 
+            sleep 0.1 
+        done &
+        SCRIPT_NAME="netTool"
+        SCRIPT_URL="https://raw.githubusercontent.com/disc0nct/NetTool/master/$SCRIPT_NAME"
+        INSTALL_DIR="/usr/bin"
+        trap 'kill $!' SIGTERM SIGKILL
+        
+        # Get the current size of the script
+        local_file_size=$(ls -l "$INSTALL_DIR/$SCRIPT_NAME" | awk '{print $5}')
 
-# Get the current size of the script
-local_file_size=$(ls -l "$INSTALL_DIR/$SCRIPT_NAME" | awk '{print $5}')
+        # Get the size of the script from GitHub
+        remote_file_size=$(wget --spider -S $SCRIPT_URL 2>&1 | awk '/Content-Length/ {print $2}')
 
-# Get the size of the script from GitHub
-remote_file_size=$(curl -sI "$SCRIPT_URL" | grep content-length | awk '{print $2}')
+        # Get the current version of the script
+        current_version=$(grep "Version" "$INSTALL_DIR/$SCRIPT_NAME"  | grep -o '[0-9]\+\.[0-9]\+')
 
-# Get the current version of the script
-current_version=$(grep "Version" "$INSTALL_DIR/$SCRIPT_NAME"  | grep -o '[0-9]\+\.[0-9]\+')
+        # Get the latest version of the script from GitHub
+        latest_version=$(curl -s "$SCRIPT_URL" | grep  "Version" | grep -o '[0-9]\+\.[0-9]\+')
 
-# Get the latest version of the script from GitHub
-latest_version=$(curl -s "$SCRIPT_URL" | grep  "Version" | grep -o '[0-9]\+\.[0-9]\+')
-
-# Compare the versions
-if [ "$current_version" != "$latest_version" ] | [ "$local_file_size" != "$remote_file_size" ] ; then
-
-  # Ask if the user wants to install the latest version
-  echo -e "$orange""A new version ($latest_version) of the script is available!$nc" 
-  echo -e "$blue""Would you like to install it (y/n)? $nc"
-  # read -p "A new version ($latest_version) of the script is available. Would you like to install it (y/n)? " answer
-    read answer
-  
-  # Install the latest version if the user says yes
-  if [ "$answer" == "y" ]; then
-    # Download the latest version
-    wget -q --show-progress -nc $SCRIPT_URL -P /tmp/
-    sleep 0.5
-    sudo mv "/tmp/$SCRIPT_NAME" "$INSTALL_DIR/"
-    sudo chmod a+x "$INSTALL_DIR/$SCRIPT_NAME"
-    echo "The latest version ($latest_version) has been installed in $INSTALL_DIR."
-    sleep 1
-  else
-    echo "Exiting without installing the latest version (Version $latest_version)."
-    sleep 1
-  fi
-else
-  echo -e "$green""Script is already up to date in GitHub (version $current_version)!$nc"
-  sleep 2
-fi      
+        # Compare the versions
+        echo ""
+        if [ "$current_version" != "$latest_version" ] | [ "$local_file_size" != "$remote_file_size" ] ; then
+            # Ask if the user wants to install the latest version
+            echo -e "$orange""A new version ($latest_version) of the script is available!$nc" 
+            echo -e "$blue""Would you like to install it (y/n)? $nc"
+            kill $!
+            # read -p "A new version ($latest_version) of the script is available. Would you like to install it (y/n)? " answer
+            read answer
+            # Install the latest version if the user says yes
+            
+            if [ "$answer" == "y" ]; then
+                # Download the latest version
+                wget -q --show-progress -nc $SCRIPT_URL -P /tmp/
+                sleep 0.5
+                sudo mv "/tmp/$SCRIPT_NAME" "$INSTALL_DIR/"
+                sudo chmod a+x "$INSTALL_DIR/$SCRIPT_NAME"
+                echo "The latest version ($latest_version) has been installed in $INSTALL_DIR."
+                sleep 1
+            else
+                echo -e "$orange""Exiting without installing the latest version "$blue"($latest_version)"$nc".$nc"
+                sleep 2
+            fi
+        else
+            echo -e "$green""Script is already up to date in GitHub (version "$blue"$current_version"$nc")!$nc"
+            sleep 2
+        fi   
+        else   
+            echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
+            echo -e "$yellow""Please make sure you are connected to internet!" "$nc"
+            exit 1
+        fi   
         : '
         6)
         ACTION='\033[1;90m'
