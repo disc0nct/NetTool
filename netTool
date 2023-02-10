@@ -26,6 +26,7 @@ if [[ $EUID -ne 0 ]]; then
     echo -e "$red You don't have Root privilegies, execute the script as root.$nc"
     exit 1
 fi
+
 echo -e "$red""Staring""$nc"
 sleep 0.5
 clear
@@ -908,6 +909,7 @@ do
         else
             echo -e "$green""Script is already up to date in GitHub (version "$blue"$current_version"$nc")!$nc"
             sleep 2
+             kill $!
         fi   
         else   
             echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
