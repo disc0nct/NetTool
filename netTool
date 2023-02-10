@@ -886,10 +886,11 @@ do
         # Compare the versions
         echo ""
         if [ "$current_version" != "$latest_version" ] | [ "$local_file_size" != "$remote_file_size" ] ; then
+        kill $!
             # Ask if the user wants to install the latest version
             echo -e "$orange""A new version ($latest_version) of the script is available!$nc" 
             echo -e "$blue""Would you like to install it (y/n)? $nc"
-            kill $!
+            
             # read -p "A new version ($latest_version) of the script is available. Would you like to install it (y/n)? " answer
             read answer
             # Install the latest version if the user says yes
@@ -909,7 +910,6 @@ do
         else
             echo -e "$green""Script is already up to date in GitHub (version "$blue"$current_version"$nc")!$nc"
             sleep 2
-             kill $!
         fi   
         else   
             echo -e "$lightred""No internet connection$nc [$ligthred✗$nc]$nc"
