@@ -909,7 +909,7 @@ do
             fi
         else	
 	        kill $!
-            echo -e "$green""Script is already up to date in GitHub (version "$blue"$current_version"$nc")!$nc"
+            echo -e "$green""Script is already up to date in GitHub ("$blue"version $current_version"$nc")!$nc"
             sleep 2
         fi   
         else   
