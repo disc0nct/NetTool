@@ -79,7 +79,7 @@ do
     echo -e "              \e[1;31m -- NetTool -- \e[0m         "
     echo ""
     echo -e "            \e[0;34m Version : 2.5 \e[0m         "
-    echo -e "            \e[0;34m Coded by : Disc0nct \e[0m         "
+    echo -e "            \e[0;34m Coded by : @Disc0nct \e[0m         "
     echo -e "            \e[0;34m Email   : montasilinigamer@gmail.com \e[0m         "
     echo ""
 
@@ -898,6 +898,9 @@ do
                 sudo chmod a+x "$INSTALL_DIR/$SCRIPT_NAME"
                 echo "The latest version ($latest_version) has been installed in $INSTALL_DIR."
                 sleep 1
+		echo -e $lightred"Please run 'netTool' again!"
+                sleep 2
+                exit 
             else
                 echo -e "$orange""Exiting without installing the latest version "$blue"($latest_version)"$nc".$nc"
                 sleep 2
