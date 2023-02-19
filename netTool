@@ -79,7 +79,7 @@ do
     echo -e "              \e[1;31m -- NetTool -- \e[0m         "
     echo ""
     echo -e "            \e[0;34m Version : 2.5 \e[0m         "
-    echo -e "            \e[0;34m Coded by : @Disc0nct \e[0m         "
+    echo -e "            \e[0;34m Coded by : Disc0nct \e[0m         "
     echo -e "            \e[0;34m Email   : montasilinigamer@gmail.com \e[0m         "
     echo ""
 
@@ -125,16 +125,12 @@ do
             read opt2
             case $opt2 in
                 1)  
-                    echo -en "$yellow""Type your network range $nc""$blue""(eg:192.168.1.0/24): $nc"
-                    read range
-                    
-
-                    wget -q --spider https://www.google.com
+                wget -q --spider https://www.google.com
 
                 if [ $? -eq 0 ]; then
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 1
-                    nohup nmap -e $interface -oN simplescan.txt -sP $range </dev/null &>/dev/null
+                    nohup nmap -e $interface -oN simplescan.txt -sP $net_range </dev/null &>/dev/null
                     sed '1d;$d' simplescan.txt
                     rm simplescan.txt
                     echo -e "\e[1;34mYour scan completed!\e[0m"
@@ -157,11 +153,10 @@ do
                 2)
                 wget -q --spider https://www.google.com
                 if [ $? -eq 0 ]; then
-                    echo -en "$yellow""Type your network range $nc""$blue""(eg:192.168.1.0/24): $nc"
-                    read range
+                    
                     echo -e "\e[1;34mScanning...\e[0m"
                     sleep 1
-                    nohup nmap -e $interface -oN advcan.txt -A $range </dev/null &>/dev/null
+                    nohup nmap -e $interface -oN advcan.txt -A $net_range </dev/null &>/dev/null
                     sed '1d;$d' advcan.txt
                     rm advcan.txt
                     echo -e "\e[1;34mYour scan completed!\e[0m"
@@ -909,7 +904,7 @@ do
             fi
         else	
 	        kill $!
-            echo -e "$green""Script is already up to date in GitHub ("$blue"version $current_version"$nc")!$nc"
+            echo -e "$green""Script is already up to date in GitHub (version "$blue"$current_version"$nc")!$nc"
             sleep 2
         fi   
         else   
